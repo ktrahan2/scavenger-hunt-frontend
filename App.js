@@ -1,14 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import 'react-native-gesture-handler'
+import React, { Component } from 'react'
+import { StyleSheet, Text, View, Button } from 'react-native'
+import { NavigationContainer, StackActions } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import HomePage from "./HomePage"
+import LoggedIn from "./LoggedIn"
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>HomePage</Text>
-      <Button name="Sign In"></Button> 
-    </View>
-  );
+const Stack = createStackNavigator()
+export default class App extends Component {
+
+  // const handleLogin = () => {
+  //   console.log("pressed")
+  // }
+
+  // const handleSignup = () => {
+  //   console.log("pressed")
+  // }
+
+  render() {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Homepage"
+            component={HomePage}
+          />
+          <Stack.Screen
+            name="LoggedIn"
+            component={LoggedIn}
+          />  
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
