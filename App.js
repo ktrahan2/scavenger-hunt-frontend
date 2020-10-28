@@ -4,7 +4,8 @@ import { StyleSheet, Text, View, Button } from 'react-native'
 import { NavigationContainer, StackActions } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import HomePage from "./HomePage"
-import LoggedIn from "./LoggedIn"
+import Login from "./Login"
+import Signup from "./Signup"
 
 const Stack = createStackNavigator()
 export default class App extends Component {
@@ -26,8 +27,12 @@ export default class App extends Component {
             component={HomePage}
           />
           <Stack.Screen
-            name="LoggedIn"
-            component={LoggedIn}
+            name="Login"
+            component={Login}
+          />  
+          <Stack.Screen
+            name="Signup"
+            component={Signup}
           />  
         </Stack.Navigator>
       </NavigationContainer>

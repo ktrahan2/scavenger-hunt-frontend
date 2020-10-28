@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text } from 'react-native';
 
-export default class LoggedIn extends Component {
+export default class Login extends Component {
 
   render() {
     return (
     <Text>
-      HEY THERE
+      EY im a login form
     </Text>
     );
   }

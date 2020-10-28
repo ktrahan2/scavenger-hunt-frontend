@@ -6,13 +6,19 @@ export default class HomePage extends Component {
     render() {
       return (
         <View>
-            <Text>HEY THERE</Text>
             <Button
                 title="Login"
                 onPress={() =>
-                    this.props.navigation.navigate("LoggedIn")
+                    this.props.navigation.navigate("Login")
                 }
             />
+            <Button
+                title="Sign up"
+                onPress={() =>
+                    this.props.navigation.navigate("Signup")
+                }
+            />
+            <Text>HEY THERE</Text>
         </View>
       );
     }
