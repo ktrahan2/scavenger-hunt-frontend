@@ -1,28 +1,16 @@
+import { TabActions } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
-export default class HomePage extends Component {
-
-    render() {
+export default function HomePage({navigation}) {
+    
       return (
-        <View>
-            <Button
-                title="Login"
-                onPress={() =>
-                    this.props.navigation.navigate("Login")
-                }
-            />
-            <Button
-                title="Sign up"
-                onPress={() =>
-                    this.props.navigation.navigate("Signup")
-                }
-            />
-            <Text>HEY THERE</Text>
+        <View style={styles.container}>
+            <Text>Description of app</Text>
+            <Text>Example of scavenger hunt</Text>
         </View>
-      );
-    }
-  }
+      )
+}
   
 const styles = StyleSheet.create({
   container: {
