@@ -1,61 +1,98 @@
-import { TabActions } from '@react-navigation/native';
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { connect } from 'react-redux'
 import Login from "./Login"
 import Signup from "./Signup"
 import HomePage from "./HomePage"
+import Logout from "./Logout"
+import MyHunts from "./MyHunts"
+import GenerateHunt from "./GenerateHunt"
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { 
+    faSignOutAlt, 
+    faSignInAlt, 
+    faHome,
+    faUserPlus,
+    faPlus,
+    faList
+  } from '@fortawesome/free-solid-svg-icons'
 
 const Tab = createBottomTabNavigator()
-function TabContainer({navigation, isSignedIn}) {
+function TabContainer({ isSignedIn }) {
 
   return (
     <Tab.Navigator>
-    {isSignedIn === false ? (
+    {!localStorage.token ? (
       <>
         <Tab.Screen
             name="HomePage"
             component={HomePage}
-            onPress={() => navigation.navigate("HomePage")}
+            options={{
+              tabBarIcon: () => (
+                <FontAwesomeIcon icon={ faHome } />
+              )
+            }}
         /> 
         <Tab.Screen
             name="Login"
             component={Login}
-            onPress={() => navigation.navigate("Login")}
+            options={{
+              tabBarIcon: () => (
+                <FontAwesomeIcon icon={ faSignInAlt } />
+              )
+            }}
         /> 
         <Tab.Screen
             name="Signup"
             component={Signup}
-            onPress={() => navigation.navigate("Signup")}
+            options={{
+              tabBarIcon: () => (
+                <FontAwesomeIcon icon={ faUserPlus } />
+              )
+            }}
         /> 
-        </>
-        ) : (
-        <>
-          <Tab.Screen
-              name="My Hunts"
-              component={HomePage}
-              onPress={() => navigation.navigate("HomePage")}
-          />
-          <Tab.Screen
-              name="Generate Hunt"
-              component={Login}
-              onPress={() => navigation.navigate("Login")}
-          /> 
-          <Tab.Screen
+      </>
+      ) : (
+      <>
+        <Tab.Screen
+            name="My Hunts"
+            component={MyHunts}
+            options={{
+              tabBarIcon: () => (
+                <FontAwesomeIcon icon={ faList } />
+              )
+            }}
+        />
+        <Tab.Screen
+            name="Generate Hunt"
+            component={GenerateHunt}
+            options={{
+              tabBarIcon: () => (
+                <FontAwesomeIcon icon={ faPlus } />
+              )
+            }}
+        /> 
+        <Tab.Screen
           name="Logout"
-          component={Signup}
-          onPress={() => navigation.navigate("Signup")}
-          />
-        </>
-        )}
+          component={Logout}
+          options={{
+            //add a modal that ask are sure to log out
+            // tabBarButton: () => (Storage.removeItems("token"))
+            tabBarIcon: () => (
+              <FontAwesomeIcon icon={ faSignOutAlt } />
+            )
+          }}
+        />
+      </>
+      )}
     </Tab.Navigator>
   );
 }
 
 const mapStateToProps = (state) => {
   return {
-    isSignedIn: state.changeSignInStatus
+    Signin: state.changeSignInStatus
   }
 }
 
