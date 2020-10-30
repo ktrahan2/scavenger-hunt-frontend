@@ -75,7 +75,7 @@ function TabContainer({ isSignedIn }) {
         /> 
         <Tab.Screen
           name="Logout"
-          component={Logout}
+          component={Logout}  
           options={{
             //add a modal that ask are sure to log out
             // tabBarButton: () => (Storage.removeItems("token"))
@@ -83,6 +83,14 @@ function TabContainer({ isSignedIn }) {
               <FontAwesomeIcon icon={ faSignOutAlt } />
             )
           }}
+          listeners={({ navigation }) => ({
+            tabPress: event => {
+              event.preventDefault()
+              localStorage.removeItem("token")
+              navigation.navigate("On The Hunt")
+            }
+          })
+        }
         />
       </>
       )}
@@ -104,5 +112,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    
   },
 });

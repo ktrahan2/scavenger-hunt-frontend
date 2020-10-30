@@ -7,7 +7,6 @@ import { Provider } from 'react-redux'
 import { combineReducers, createStore } from 'redux'
 import TabContainer from "./TabContainer"
 
-
 const reducer = combineReducers({
   changeSignInStatus
 })
@@ -35,10 +34,10 @@ export default class App extends Component {
               name="On The Hunt"
               component={TabContainer}
               options={{
-                headerStyle: {height: 100, backgroundColor: "#000000"},
-                headerTitleStyle: { alignSelf: 'center' },
-                headerTitle: "On The Hunt",
-                headerLeft: <Image 
+                headerStyle: {height: 100, backgroundColor: "black"},
+                headerTitleStyle: { alignSelf: 'center', color: "white", fontSize: 28, fontFamily: 'Helvetica-Bold' },
+                headerTitle: <Text>On The Hunt</Text>,
+                headerLeft: () => <Image 
                   style={{ width: 100, height: 90 }}
                   source = { require('./logo.png') }
                 />
@@ -57,5 +56,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    
   },
 });
+
+
