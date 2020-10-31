@@ -19,11 +19,11 @@ import {
   } from '@fortawesome/free-solid-svg-icons'
 
 const Tab = createBottomTabNavigator()
-function TabContainer({ isSignedIn }) {
+function TabContainer({ Signin, isSignedIn }) {
 
   return (
     <Tab.Navigator>
-    {!localStorage.token ? (
+    {!localStorage.token && Signin === false ? (
       <>
         <Tab.Screen
             name="HomePage"
@@ -77,17 +77,16 @@ function TabContainer({ isSignedIn }) {
           name="Logout"
           component={Logout}  
           options={{
-            //add a modal that ask are sure to log out
-            // tabBarButton: () => (Storage.removeItems("token"))
             tabBarIcon: () => (
               <FontAwesomeIcon icon={ faSignOutAlt } />
             )
           }}
-          listeners={({ navigation }) => ({
+          listeners={ () => ({
             tabPress: event => {
               event.preventDefault()
               localStorage.removeItem("token")
-              navigation.navigate("On The Hunt")
+              localStorage.removeItem("id")
+              isSignedIn()
             }
           })
         }
@@ -104,7 +103,16 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(TabContainer);
+function mapDispatchToProps(dispatch) {
+  return {
+    isSignedIn: () => dispatch({
+      type: "CHANGESIGNIN",
+      payload: false
+    })
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TabContainer);
   
 const styles = StyleSheet.create({
   container: {
