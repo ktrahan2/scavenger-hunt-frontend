@@ -13,7 +13,7 @@ function Login({isSignedIn}) {
     initialValues={{ username: '', password: ''}}
     onSubmit={values => {
       console.log(values)
-      fetch('http://localhost:7000/login', {
+      fetch('https://on-the-hunt.herokuapp.com/login', {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

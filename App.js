@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler'
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, Button, Image} from 'react-native'
-import { NavigationContainer, StackActions } from '@react-navigation/native'
+import { StyleSheet, Text, Image} from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { Provider } from 'react-redux'
 import { combineReducers, createStore } from 'redux'
@@ -10,6 +10,12 @@ import TabContainer from "./TabContainer"
 const reducer = combineReducers({
   changeSignInStatus
 })
+
+const isSignedIn = () => {
+  let state = ""
+  localStorage.token ? state = true : state = false
+  return state
+}
 
 function changeSignInStatus(state=false, action) {
   switch(action.type) {
@@ -21,7 +27,7 @@ function changeSignInStatus(state=false, action) {
 }
 
 const Stack = createStackNavigator()
-const store = createStore(reducer)
+const store = createStore(reducer, {changeSignInStatus: isSignedIn()})
 export default class App extends Component {
 
   render() {
