@@ -1,65 +1,70 @@
-import { TabActions } from '@react-navigation/native';
-import React, { Component } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { Button, StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { connect } from 'react-redux'
 import { Formik } from 'formik'
+import {store} from "./App"
 
 
-function Login({isSignedIn}) {
+function Login({ isSignedIn }) {
 
   return (
-  <Formik
-    initialValues={{ username: '', password: ''}}
-    onSubmit={values => {
-      console.log(values)
-      fetch('https://on-the-hunt.herokuapp.com/login', {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          username: values.username,
-          password: values.password
+    <Formik
+      initialValues={{ username: '', password: ''}}
+      onSubmit={values => {
+        fetch('https://on-the-hunt.herokuapp.com/login', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            username: values.username,
+            password: values.password
+          })
+        }).then(response => response.json())
+        .then(data => {
+          console.log(data)
+          if (data === "Unathorized User Information") {
+            window.alert("Unathorized User Information. Please try again")
+            console.log(store.getState())
+          } else {
+            localStorage.setItem("userID", data.id)
+            localStorage.setItem("token", data.token)
+            isSignedIn()
+          }
         })
-      }).then(response => response.json())
-      .then(data => {
-        localStorage.setItem("userID", data.id)
-        localStorage.setItem("token", data.token)
-        isSignedIn()
-      })
-    }}
-  >
-    {({ handleChange, handleBlur, handleSubmit, values }) => (
-      <>
-        <View style={styles.container}>
-          <TextInput
-            name="username"
-            label="Username"
-            style={styles.input}
-            placeholder="Enter Username"
-            onChange={handleChange('username')}
-            onBlur={handleBlur('username')}
-            value={values.username}
-          />
-          <TextInput
-            name="password"
-            placeholder="Enter Password"
-            style={styles.input}
-            secureTextEntry={true}
-            onChange={handleChange('password')}
-            onBlur={handleBlur('password')}
-            value={values.password}
-          />
-          <Button
-            style={styles.button}
-            title="Login"
-            onPress={handleSubmit}
-          />
-        </View>
-      </>
-      )}
-  </Formik>
+      }}
+    >
+      {({ handleChange, handleBlur, handleSubmit, values }) => (
+        <>
+          <View style={styles.container}>
+            <TextInput
+              name="username"
+              label="Username"
+              style={styles.input}
+              placeholder="Enter Username"
+              onChange={handleChange('username')}
+              onBlur={handleBlur('username')}
+              value={values.username}
+            />
+            <TextInput
+              name="password"
+              placeholder="Enter Password"
+              style={styles.input}
+              secureTextEntry={true}
+              onChange={handleChange('password')}
+              onBlur={handleBlur('password')}
+              value={values.password}
+            />
+            <Button
+              style={styles.button}
+              title="Login"
+              onPress={handleSubmit}
+            />
+          </View>
+        </>
+        )}
+    </Formik>
   )
 }
   

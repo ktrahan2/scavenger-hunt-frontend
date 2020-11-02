@@ -8,13 +8,23 @@ import { combineReducers, createStore } from 'redux'
 import TabContainer from "./TabContainer"
 
 const reducer = combineReducers({
-  changeSignInStatus
+  changeSignInStatus,
+  setHuntListItems
 })
 
 const isSignedIn = () => {
   let state = ""
   localStorage.token ? state = true : state = false
   return state
+}
+
+function setHuntListItems(state=[], action) {
+  switch(action.type) {
+    case "ALLHUNTITEMS":
+      return action.payload
+    default: 
+      return state
+  }
 }
 
 function changeSignInStatus(state=false, action) {
@@ -27,7 +37,7 @@ function changeSignInStatus(state=false, action) {
 }
 
 const Stack = createStackNavigator()
-const store = createStore(reducer, {changeSignInStatus: isSignedIn()})
+export const store = createStore(reducer, {changeSignInStatus: isSignedIn()})
 export default class App extends Component {
 
   render() {

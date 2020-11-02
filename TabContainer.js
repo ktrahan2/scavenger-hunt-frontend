@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { connect } from 'react-redux'
@@ -19,7 +19,15 @@ import {
   } from '@fortawesome/free-solid-svg-icons'
 
 const Tab = createBottomTabNavigator()
-function TabContainer({ Signin, isSignedIn }) {
+function TabContainer({ Signin, isSignedIn, setHuntListItems }) {
+
+  useEffect( () => {
+    fetch('https://on-the-hunt.herokuapp.com/hunt-items')
+      .then(response => response.json())
+      .then(results => setHuntListItems([...results]))
+    },
+    [],
+  )
 
   return (
     <Tab.Navigator>
@@ -85,7 +93,7 @@ function TabContainer({ Signin, isSignedIn }) {
             tabPress: event => {
               event.preventDefault()
               localStorage.removeItem("token")
-              localStorage.removeItem("id")
+              localStorage.removeItem("userID")
               isSignedIn()
             }
           })
@@ -108,6 +116,10 @@ function mapDispatchToProps(dispatch) {
     isSignedIn: () => dispatch({
       type: "CHANGESIGNIN",
       payload: false
+    }),
+    setHuntListItems: (result) => dispatch({
+      type: "ALLHUNTITEMS",
+      payload: result
     })
   }
 }
