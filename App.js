@@ -9,7 +9,8 @@ import TabContainer from "./TabContainer"
 
 const reducer = combineReducers({
   changeSignInStatus,
-  setHuntListItems
+  setHuntListItems,
+  isItemClicked
 })
 
 const isSignedIn = () => {
@@ -32,6 +33,17 @@ function changeSignInStatus(state=false, action) {
     case "CHANGESIGNIN":
       return action.payload
     default: 
+      return state
+  }
+}
+
+function isItemClicked(state="", action) {
+  switch(action.type) {
+    case "CLICKED":
+      return action.payload
+    case "UNCLICKED":
+      return action.payload
+    default:
       return state
   }
 }

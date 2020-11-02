@@ -3,15 +3,19 @@ import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { connect } from 'react-redux'
 
-function HomePage({ allHuntItems }) {
+function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem }) {
 
-  const handleClick = () => {
-    console.log("clicked")
+  const handleClick = (event) => {
+    if (isItemClicked !== event.target.innerText) {
+      clickItem(event.target.innerText)
+    } else {
+      unClickItem()
+    }
   }
 
   const renderList = () => {
     if (allHuntItems.length > 0) {
-      let first = allHuntItems.shift()  
+      let first = allHuntItems[5]  
       let second = allHuntItems[6]
       return (
         <Formik
@@ -28,24 +32,36 @@ function HomePage({ allHuntItems }) {
                 <h1 id="checkbox-group">Example Hunt</h1>
                   <div role="group" aria-labelledby="checkbox-group">
                     <div>
-                      <label>
-                        <Field type="checkbox" name="checked" value={first.name} />
-                      </label>
-                      <span
-                        onClick={handleClick}
-                      >
-                        {first.name}
-                      </span>
-                    </div>
-                    <div>
-                      <label>
-                        <Field type="checkbox" name="checked" value={second.name} />
-                      </label>
+                      <div>
+                        <label>
+                          <Field type="checkbox" name="checked" value={first.name} />
+                        </label>
                         <span
                           onClick={handleClick}
-                        >
-                          {second.name}
+                          >
+                          {first.name}
                         </span>
+                      </div>
+                      <div>
+                        {isItemClicked === first.name ? 
+                        <img src={first.image} height="100" width="100"/> : null} 
+                      </div>
+                    </div>
+                      <div>
+                        <div>
+                          <label>
+                            <Field type="checkbox" name="checked" value={second.name} />
+                          </label>
+                          <span
+                            onClick={handleClick}
+                          >
+                            {second.name}
+                          </span>
+                        </div>
+                        <div>
+                          {isItemClicked === second.name ? 
+                          <img src={second.image} height="100" width="100"/> : null} 
+                        </div>
                     </div>
                     <button type="submit">Submit</button>
                   </div>
@@ -88,13 +104,30 @@ const styles = StyleSheet.create({
   example: {
     flex: 2,
     justifyContent: 'flex-start',
+  },
+  exampleLi: {
+    flex: 1,
   }
 });
 
 const mapStateToProps = (state) => {
   return {
-    allHuntItems: state.setHuntListItems
+    allHuntItems: state.setHuntListItems,
+    isItemClicked: state.isItemClicked
   }
 }
 
-export default connect(mapStateToProps)(HomePage);
+function mapDispatchToProps(dispatch) {
+  return {
+    clickItem: (target) => dispatch({
+      type: "CLICKED",
+      payload: target  
+    }),
+    unClickItem: () => dispatch({
+      type: "UNCLICKED",
+      payload: ""
+    })
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
