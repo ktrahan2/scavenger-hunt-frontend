@@ -43,6 +43,7 @@ function Login({ isSignedIn }) {
               onChangeText={handleChange('username')}
               onBlur={handleBlur('username')}
               value={values.username}
+              autoCapitalize="none"
             />
             <TextInput
               name="password"

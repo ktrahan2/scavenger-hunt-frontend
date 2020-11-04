@@ -1,17 +1,32 @@
 import { Formik } from 'formik';
 import React from 'react';
-import { StyleSheet, Text, View, ImageBackground, Button } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, Button, Image } from 'react-native';
 import { connect } from 'react-redux'
 import { CheckBox } from 'react-native-elements'
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { 
+  faCheckCircle,
+    faChevronCircleDown
+  } from '@fortawesome/free-solid-svg-icons'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem }) {
 
-  const handleClick = (event) => {
-    if (isItemClicked !== event.target.innerText) {
-      console.log("clicked")
-      clickItem(event.target.innerText)
+function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem, isChecked, check, uncheck }) {
+
+  const handleClick = ( item ) => {
+    if (isItemClicked !== item.name) {
+      clickItem(item.name)
     } else {
-      unClickItem()
+      unClickItem(item.name)
+    }
+  }
+
+  const handleCheck = ( item ) => {
+    if (isChecked.includes(item.name)) {
+      uncheck(item.name)
+    } else {
+      check(item.name)
+      console.log(isChecked)
     }
   }
 
@@ -19,72 +34,45 @@ function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem }) {
     if (allHuntItems.length > 0) {
       let first = allHuntItems[5]  
       let second = allHuntItems[6]
+      let itemArray = [first, second]
       return (
         <Formik
           initialValues={{
             toggle: false,
             checked: [],
           }}
-          onSubmit={values => {
-            console.log(values)
-          }}
         >
-          {({ values, handleSubmit }) => (
+          {({ values }) => (
             <View>
-                <Text>Example Hunt</Text>
-                  <View>
-                    <View>
-                      <View style={styles.container}>
-                        <CheckBox
-                          title={first.name}
-                          onPress={handleClick}
-
-                        />
-                        <Text
-                          onClick={handleClick}
-                          >
-                          {first.name}
-                        </Text>
-                      </View>
-                      <View>
-                        {/* {isItemClicked === first.name ? 
-                        <img 
-                          src={first.image} 
-                          height="100" 
-                          width="100"
-                        /> : null}  */}
-                      </View>
-                    </View>
-                    <View>
-                      <View>
-                        {/* <label>
-                          <Field type="checkbox" name="checked" value={second.name} />
-                        </label> */}
-                        <Text
-                          class="list-item-name"
-                          onClick={handleClick}
-                        >
-                          {second.name}
-                        </Text>
-                      </View>
-                      <View>
-                        {/* {isItemClicked === second.name ? 
-                        <img 
-                          class="list-image" 
-                          src={second.image} 
-                          height="100" 
-                          width="100"
-                        /> : null}  */}
-                      </View>
-                    </View>
-                    <View>
-                      <Button
-                        title="Save Hunt" 
-                        onPress={handleSubmit}
+                <Text style={styles.h2}>Example Hunt</Text>
+                {itemArray.map(item => {
+                  return (
+                    <View key={item.ID}>
+                      <CheckBox
+                        
+                        checked={isChecked.includes(item.name) ? true : false}
+                        onIconPress={handleCheck(item)}
+                        containerStyle={styles.checkbox}
                       />
+                      <Text
+                          style={styles.text}
+                          onPress={() => handleClick(item)}
+                          >
+                          {item.name} <FontAwesomeIcon icon={ faChevronCircleDown } />
+                      </Text>
+                      { isItemClicked === item.name ?
+                        <View style={styles.itemImage}> 
+                          <Image
+                            style={{height: 199, width: 199, borderRadius: 7}}
+                            source={{uri: item.image}}
+                          />
+                        </View>
+                        : null
+                      }  
                     </View>
-                  </View>
-              </View>
+                  )
+                 })}
+            </View>
           )}
         </Formik>
       )
@@ -128,13 +116,14 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     margin: 5,
     borderStyle: 'solid',
-    borderWidth: 1,
+    borderWidth: 3,
     borderRadius: 10,
-    borderColor: 'green',
+    borderColor: 'orange',
     color: "white"
   },
   example: {
     flex: 3,
+    justifyContent: "center",
     backgroundColor: 'rgba(165, 42, 42, 0.75)',
     alignItems: 'center',
     paddingBottom: 5,
@@ -143,38 +132,69 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     margin: 5,
     borderStyle: 'solid',
-    borderWidth: 1,
+    borderWidth: 3,
     borderRadius: 10,
-    borderColor: 'green',
+    borderColor: 'orange',
+  },
+  listitem: {
+    flex: 1,
+
   },
   text: {
     color: "rgba(255, 160, 0, 1)",
+    fontSize: 20,
   },
   image: {
     flex: 1,
     resizeMode: "cover",
     justifyContent: "center"
   },
+  h2: {
+    fontSize: 28,
+    
+    color: "rgba(255, 160, 0, 1)",
+  },
+  itemImage: {
+    borderStyle: 'solid',
+    borderWidth: 3,
+    borderRadius: 10,
+    borderColor: 'orange',
+    width: 205,
+    height: 205
+
+  },
+  checkbox: {
+    width: 10
+  }
 });
 
 const mapStateToProps = (state) => {
   return {
     allHuntItems: state.setHuntListItems,
-    isItemClicked: state.isItemClicked
+    isItemClicked: state.isItemClicked,
+    isChecked: state.isChecked
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    clickItem: (target) => dispatch({
+    clickItem: (item) => dispatch({
       type: "CLICKED",
-      payload: target  
+      payload: item  
     }),
     unClickItem: () => dispatch({
       type: "UNCLICKED",
       payload: ""
+    }),
+    check: (item) => ({
+      type: "CHECK",
+      payload: item
+    }),
+    uncheck: (item) => ({
+      type: "UNCHECK",
+      payload: item
     })
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage)

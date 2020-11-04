@@ -11,7 +11,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 const reducer = combineReducers({
   changeSignInStatus,
   setHuntListItems,
-  isItemClicked
+  isItemClicked,
+  isChecked
 })
 
 function setHuntListItems(state=[], action) {
@@ -43,6 +44,20 @@ function isItemClicked(state="", action) {
   }
 }
 
+function isChecked(state=[], action) {
+  switch(action.type) {
+    case "CHECK":
+      return {
+        ...state, isChecked: [action.payload, ...state.isChecked]
+      }
+    case "UNCHECK":
+        let newState = state.filter(el => el != action.payload)
+        return newState
+    default: 
+      return state
+  }
+}
+
 const Stack = createStackNavigator()
 export const store = createStore(reducer)
 export default class App extends Component {
@@ -57,8 +72,8 @@ export default class App extends Component {
               name="On The Hunt"
               component={TabContainer}
               options={{
-                headerStyle: {height: 100, backgroundColor: "rgba(255, 128, 0, 1)"},
-                headerTitleStyle: { alignSelf: 'center', color: "white", fontSize: 28, fontFamily: 'Helvetica-Bold' },
+                headerStyle: {height: 140, backgroundColor: 'rgba(165, 42, 42, 1)'},
+                headerTitleStyle: { alignSelf: 'center', color: "orange", fontSize: 28, fontFamily: 'Helvetica-Bold' },
                 headerTitle: <Text>On The Hunt</Text>,
                 headerLeft: () => <Image 
                   style={{ width: 100, height: 90 }}

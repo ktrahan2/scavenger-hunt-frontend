@@ -31,15 +31,24 @@ function TabContainer({ Signin, isSignedIn, setHuntListItems }) {
   )
 
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: "orange",
+        inactiveTintColor: "white",
+        style:{backgroundColor: 'rgba(165, 42, 42, 1)'}
+      }}
+    >
     {Signin === false ? (
       <>
         <Tab.Screen
             name="HomePage"
             component={HomePage}
             options={{
-              tabBarIcon: () => (
-                <FontAwesomeIcon icon={ faHome } />
+              tabBarIcon: ({focused}) => (
+                <FontAwesomeIcon 
+                  icon={ faHome } 
+                  color= {!focused ? 'white' : "orange"}
+                />
               )
             }}
         /> 
@@ -47,8 +56,11 @@ function TabContainer({ Signin, isSignedIn, setHuntListItems }) {
             name="Login"
             component={Login}
             options={{
-              tabBarIcon: () => (
-                <FontAwesomeIcon icon={ faSignInAlt } />
+              tabBarIcon: ({focused}) => (
+                <FontAwesomeIcon 
+                  color= {!focused ? 'white' : "orange"}
+                  icon={ faSignInAlt } 
+                />
               )
             }}
         /> 
@@ -56,8 +68,11 @@ function TabContainer({ Signin, isSignedIn, setHuntListItems }) {
             name="Signup"
             component={Signup}
             options={{
-              tabBarIcon: () => (
-                <FontAwesomeIcon icon={ faUserPlus } />
+              tabBarIcon: ({focused}) => (
+                <FontAwesomeIcon 
+                  icon={ faUserPlus } 
+                  color= {!focused ? 'white' : "orange"}
+                />
               )
             }}
         /> 
@@ -68,8 +83,11 @@ function TabContainer({ Signin, isSignedIn, setHuntListItems }) {
             name="Generate Hunt"
             component={GenerateHunt}
             options={{
-              tabBarIcon: () => (
-                <FontAwesomeIcon icon={ faPlus } />
+              tabBarIcon: ({focused}) => (
+                <FontAwesomeIcon 
+                  icon={ faPlus } 
+                  color= {!focused ? 'white' : "orange"}
+                />
               )
             }}
         /> 
@@ -77,8 +95,11 @@ function TabContainer({ Signin, isSignedIn, setHuntListItems }) {
             name="My Hunts"
             component={MyHunts}
             options={{
-              tabBarIcon: () => (
-                <FontAwesomeIcon icon={ faList } />
+              tabBarIcon: ({focused}) => (
+                <FontAwesomeIcon 
+                  icon={ faList } 
+                  color= {!focused ? 'white' : "orange"}
+                />
               )
             }}
         />
@@ -86,8 +107,11 @@ function TabContainer({ Signin, isSignedIn, setHuntListItems }) {
           name="Logout"
           component={Logout}  
           options={{
-            tabBarIcon: () => (
-              <FontAwesomeIcon icon={ faSignOutAlt } />
+            tabBarIcon: ({focused}) => (
+              <FontAwesomeIcon 
+                icon={ faSignOutAlt } 
+                color= {!focused ? 'white' : "orange"}
+              />
             )
           }}
           listeners={ () => ({
