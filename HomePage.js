@@ -1,6 +1,6 @@
 import { Formik, Form, Field } from 'formik';
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import { connect } from 'react-redux'
 
 function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem }) {
@@ -30,13 +30,14 @@ function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem }) {
           {({ values }) => (
             <Form>
                 <h1 id="checkbox-group">Example Hunt</h1>
-                  <div role="group" aria-labelledby="checkbox-group">
-                    <div>
+                  <div class="example-container" role="group" aria-labelledby="checkbox-group">
+                    <div class="list-item">
                       <div>
                         <label>
                           <Field type="checkbox" name="checked" value={first.name} />
                         </label>
                         <span
+                          class="list-item-name"
                           onClick={handleClick}
                           >
                           {first.name}
@@ -44,26 +45,39 @@ function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem }) {
                       </div>
                       <div>
                         {isItemClicked === first.name ? 
-                        <img src={first.image} height="100" width="100"/> : null} 
+                        <img 
+                          class="list-image" 
+                          src={first.image} 
+                          height="100" 
+                          width="100"
+                        /> : null} 
                       </div>
                     </div>
+                    <div class="list-item">
                       <div>
-                        <div>
-                          <label>
-                            <Field type="checkbox" name="checked" value={second.name} />
-                          </label>
-                          <span
-                            onClick={handleClick}
-                          >
-                            {second.name}
-                          </span>
-                        </div>
-                        <div>
-                          {isItemClicked === second.name ? 
-                          <img src={second.image} height="100" width="100"/> : null} 
-                        </div>
+                        <label>
+                          <Field type="checkbox" name="checked" value={second.name} />
+                        </label>
+                        <span
+                          class="list-item-name"
+                          onClick={handleClick}
+                        >
+                          {second.name}
+                        </span>
+                      </div>
+                      <div>
+                        {isItemClicked === second.name ? 
+                        <img 
+                          class="list-image" 
+                          src={second.image} 
+                          height="100" 
+                          width="100"
+                        /> : null} 
+                      </div>
                     </div>
-                    <button type="submit">Submit</button>
+                    <div class="button-container">
+                      <button class="button" type="submit">Save Hunt</button>
+                    </div>
                   </div>
               </Form>
           )}
@@ -72,42 +86,71 @@ function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem }) {
     }
   }
  
-    
-      return (
-        <View style={styles.container}>
-          <View style={styles.description}>
-            <Text>Welcome to On The Hunt. Below you can see an example of the scavenger hunts generated for you! If you click
-              on the name of the item it will show a picture. The picture is just a guide to finding the item and isn't an exact
-              copy. Enjoy your hunt!
-            </Text>
-          </View>
-          <View style={styles.example}>
-            <Text>{renderList()}</Text>
-          </View>
+  return (
+    <View style={styles.container}>
+      <ImageBackground
+        style={styles.image}
+        source={require("./blue-sky.jpg")}
+      >
+        <View style={styles.description}>
+          <Text style={styles.text}>Welcome to On The Hunt. Below you can see an example scavenger hunt! If you click
+            on the name of the item it will show a picture. The picture is just a guide to help find the item and isn't an exact
+            copy. Enjoy your hunt!
+          </Text>
         </View>
-      )
+        <View style={styles.example}>
+          <Text style={styles.text}>{renderList()}</Text>
+        </View>
+      </ImageBackground>
+    </View>
+  )
 }
   
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'rgb(0, 153, 0)',
     alignItems: 'center',
     justifyContent: 'center',
   },
   description: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(165, 42, 42, 0.75)',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingBottom: 5,
+    paddingTop: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+    margin: 5,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: 'green',
+    color: "white"
   },
   example: {
-    flex: 2,
-    justifyContent: 'flex-start',
+    flex: 3,
+    backgroundColor: 'rgba(165, 42, 42, 0.75)',
+    alignItems: 'center',
+    paddingBottom: 5,
+    paddingTop: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+    margin: 5,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: 'green',
   },
-  exampleLi: {
+  text: {
+    color: "rgba(255, 160, 0, 1)",
+  },
+  image: {
     flex: 1,
-  }
+    resizeMode: "cover",
+    justifyContent: "center"
+  },
 });
 
 const mapStateToProps = (state) => {

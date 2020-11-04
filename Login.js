@@ -3,8 +3,6 @@ import { Button, StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { connect } from 'react-redux'
 import { Formik } from 'formik'
-import {store} from "./App"
-
 
 function Login({ isSignedIn }) {
 
@@ -23,10 +21,8 @@ function Login({ isSignedIn }) {
           })
         }).then(response => response.json())
         .then(data => {
-          console.log(data)
           if (data === "Unathorized User Information") {
             window.alert("Unathorized User Information. Please try again")
-            console.log(store.getState())
           } else {
             localStorage.setItem("userID", data.id)
             localStorage.setItem("token", data.token)

@@ -62,7 +62,7 @@ export default class App extends Component {
               name="On The Hunt"
               component={TabContainer}
               options={{
-                headerStyle: {height: 100, backgroundColor: "black"},
+                headerStyle: {height: 100, backgroundColor: "rgba(255, 128, 0, 1)"},
                 headerTitleStyle: { alignSelf: 'center', color: "white", fontSize: 28, fontFamily: 'Helvetica-Bold' },
                 headerTitle: <Text>On The Hunt</Text>,
                 headerLeft: () => <Image 
