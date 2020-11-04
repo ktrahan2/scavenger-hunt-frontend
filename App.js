@@ -47,12 +47,11 @@ function isItemClicked(state="", action) {
 function isChecked(state=[], action) {
   switch(action.type) {
     case "CHECK":
-      return {
-        ...state, isChecked: [action.payload, ...state.isChecked]
-      }
+      return [...state, action.payload]
+      
     case "UNCHECK":
-        let newState = state.filter(el => el != action.payload)
-        return newState
+      const filteredIsChecked = state.filter(el => el != action.payload)
+      return filteredIsChecked
     default: 
       return state
   }
@@ -60,6 +59,8 @@ function isChecked(state=[], action) {
 
 const Stack = createStackNavigator()
 export const store = createStore(reducer)
+console.log(store.getState())
+
 export default class App extends Component {
 
   render() {

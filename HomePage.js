@@ -5,11 +5,9 @@ import { connect } from 'react-redux'
 import { CheckBox } from 'react-native-elements'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { 
-  faCheckCircle,
     faChevronCircleDown
   } from '@fortawesome/free-solid-svg-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 
 function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem, isChecked, check, uncheck }) {
 
@@ -21,12 +19,13 @@ function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem, isCheck
     }
   }
 
-  const handleCheck = ( item ) => {
+  const handleCheck = ( event, item ) => {
+    event.preventDefault()
+    console.log(item.name)
     if (isChecked.includes(item.name)) {
       uncheck(item.name)
     } else {
       check(item.name)
-      console.log(isChecked)
     }
   }
 
@@ -46,12 +45,12 @@ function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem, isCheck
             <View>
                 <Text style={styles.h2}>Example Hunt</Text>
                 {itemArray.map(item => {
+                        console.log(isChecked)
                   return (
                     <View key={item.ID}>
-                      <CheckBox
-                        
+                      <CheckBox 
                         checked={isChecked.includes(item.name) ? true : false}
-                        onIconPress={handleCheck(item)}
+                        onPress={(event) => handleCheck(event, item)}
                         containerStyle={styles.checkbox}
                       />
                       <Text
@@ -98,6 +97,37 @@ function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem, isCheck
     </View>
   )
 }
+
+const mapStateToProps = (state) => {
+  return {
+    allHuntItems: state.setHuntListItems,
+    isItemClicked: state.isItemClicked,
+    isChecked: state.isChecked
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    clickItem: (item) => dispatch({
+      type: "CLICKED",
+      payload: item  
+    }),
+    unClickItem: () => dispatch({
+      type: "UNCLICKED",
+      payload: ""
+    }),
+    check: (item) => dispatch({
+      type: "CHECK",
+      payload: item
+    }),
+    uncheck: (item) => dispatch({
+      type: "UNCHECK",
+      payload: item
+    })
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
   
 const styles = StyleSheet.create({
   container: {
@@ -161,40 +191,9 @@ const styles = StyleSheet.create({
     borderColor: 'orange',
     width: 205,
     height: 205
-
   },
   checkbox: {
     width: 10
   }
 });
 
-const mapStateToProps = (state) => {
-  return {
-    allHuntItems: state.setHuntListItems,
-    isItemClicked: state.isItemClicked,
-    isChecked: state.isChecked
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    clickItem: (item) => dispatch({
-      type: "CLICKED",
-      payload: item  
-    }),
-    unClickItem: () => dispatch({
-      type: "UNCLICKED",
-      payload: ""
-    }),
-    check: (item) => ({
-      type: "CHECK",
-      payload: item
-    }),
-    uncheck: (item) => ({
-      type: "UNCHECK",
-      payload: item
-    })
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
