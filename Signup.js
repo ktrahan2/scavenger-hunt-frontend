@@ -3,7 +3,7 @@ import { Button, StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { connect } from 'react-redux'
 import { Formik } from 'formik'
-
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 function Login({isSignedIn}) {
 
@@ -24,8 +24,7 @@ function Login({isSignedIn}) {
         })
       }).then(response => response.json())
       .then(data => {
-        localStorage.setItem("userID", data.id)
-        localStorage.setItem("token", data.token)
+        AsyncStorage.setItem("token", data.token)
         isSignedIn()
       })
     }}

@@ -6,18 +6,13 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { Provider } from 'react-redux'
 import { combineReducers, createStore } from 'redux'
 import TabContainer from "./TabContainer"
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const reducer = combineReducers({
   changeSignInStatus,
   setHuntListItems,
   isItemClicked
 })
-
-const isSignedIn = () => {
-  let state = ""
-  localStorage.token ? state = true : state = false
-  return state
-}
 
 function setHuntListItems(state=[], action) {
   switch(action.type) {
@@ -49,7 +44,7 @@ function isItemClicked(state="", action) {
 }
 
 const Stack = createStackNavigator()
-export const store = createStore(reducer, {changeSignInStatus: isSignedIn()})
+export const store = createStore(reducer)
 export default class App extends Component {
 
   render() {

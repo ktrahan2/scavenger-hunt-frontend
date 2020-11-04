@@ -17,6 +17,7 @@ import {
     faPlus,
     faList
   } from '@fortawesome/free-solid-svg-icons'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = createBottomTabNavigator()
 function TabContainer({ Signin, isSignedIn, setHuntListItems }) {
@@ -31,7 +32,7 @@ function TabContainer({ Signin, isSignedIn, setHuntListItems }) {
 
   return (
     <Tab.Navigator>
-    {!localStorage.token && Signin === false ? (
+    {Signin === false ? (
       <>
         <Tab.Screen
             name="HomePage"
@@ -64,15 +65,6 @@ function TabContainer({ Signin, isSignedIn, setHuntListItems }) {
       ) : (
       <>
         <Tab.Screen
-            name="My Hunts"
-            component={MyHunts}
-            options={{
-              tabBarIcon: () => (
-                <FontAwesomeIcon icon={ faList } />
-              )
-            }}
-        />
-        <Tab.Screen
             name="Generate Hunt"
             component={GenerateHunt}
             options={{
@@ -81,6 +73,15 @@ function TabContainer({ Signin, isSignedIn, setHuntListItems }) {
               )
             }}
         /> 
+        <Tab.Screen
+            name="My Hunts"
+            component={MyHunts}
+            options={{
+              tabBarIcon: () => (
+                <FontAwesomeIcon icon={ faList } />
+              )
+            }}
+        />
         <Tab.Screen
           name="Logout"
           component={Logout}  
@@ -92,8 +93,7 @@ function TabContainer({ Signin, isSignedIn, setHuntListItems }) {
           listeners={ () => ({
             tabPress: event => {
               event.preventDefault()
-              localStorage.removeItem("token")
-              localStorage.removeItem("userID")
+              AsyncStorage.removeItem("token")
               isSignedIn()
             }
           })

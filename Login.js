@@ -3,6 +3,8 @@ import { Button, StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { connect } from 'react-redux'
 import { Formik } from 'formik'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { asyncStorage } from 'reactotron-react-native';
 
 function Login({ isSignedIn }) {
 
@@ -22,10 +24,9 @@ function Login({ isSignedIn }) {
         }).then(response => response.json())
         .then(data => {
           if (data === "Unathorized User Information") {
-            window.alert("Unathorized User Information. Please try again")
+            window.alert('Unathorized User Information. Please try again.')
           } else {
-            localStorage.setItem("userID", data.id)
-            localStorage.setItem("token", data.token)
+            AsyncStorage.setItem('token', data.token)
             isSignedIn()
           }
         })
@@ -39,7 +40,7 @@ function Login({ isSignedIn }) {
               label="Username"
               style={styles.input}
               placeholder="Enter Username"
-              onChange={handleChange('username')}
+              onChangeText={handleChange('username')}
               onBlur={handleBlur('username')}
               value={values.username}
             />
@@ -48,7 +49,7 @@ function Login({ isSignedIn }) {
               placeholder="Enter Password"
               style={styles.input}
               secureTextEntry={true}
-              onChange={handleChange('password')}
+              onChangeText={handleChange('password')}
               onBlur={handleBlur('password')}
               value={values.password}
             />

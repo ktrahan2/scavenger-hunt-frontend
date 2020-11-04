@@ -1,12 +1,14 @@
-import { Formik, Form, Field } from 'formik';
+import { Formik } from 'formik';
 import React from 'react';
-import { StyleSheet, Text, View, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, Button } from 'react-native';
 import { connect } from 'react-redux'
+import { CheckBox } from 'react-native-elements'
 
 function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem }) {
 
   const handleClick = (event) => {
     if (isItemClicked !== event.target.innerText) {
+      console.log("clicked")
       clickItem(event.target.innerText)
     } else {
       unClickItem()
@@ -27,59 +29,62 @@ function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem }) {
             console.log(values)
           }}
         >
-          {({ values }) => (
-            <Form>
-                <h1 id="checkbox-group">Example Hunt</h1>
-                  <div class="example-container" role="group" aria-labelledby="checkbox-group">
-                    <div class="list-item">
-                      <div>
-                        <label>
-                          <Field type="checkbox" name="checked" value={first.name} />
-                        </label>
-                        <span
-                          class="list-item-name"
+          {({ values, handleSubmit }) => (
+            <View>
+                <Text>Example Hunt</Text>
+                  <View>
+                    <View>
+                      <View style={styles.container}>
+                        <CheckBox
+                          title={first.name}
+                          onPress={handleClick}
+
+                        />
+                        <Text
                           onClick={handleClick}
                           >
                           {first.name}
-                        </span>
-                      </div>
-                      <div>
-                        {isItemClicked === first.name ? 
+                        </Text>
+                      </View>
+                      <View>
+                        {/* {isItemClicked === first.name ? 
                         <img 
-                          class="list-image" 
                           src={first.image} 
                           height="100" 
                           width="100"
-                        /> : null} 
-                      </div>
-                    </div>
-                    <div class="list-item">
-                      <div>
-                        <label>
+                        /> : null}  */}
+                      </View>
+                    </View>
+                    <View>
+                      <View>
+                        {/* <label>
                           <Field type="checkbox" name="checked" value={second.name} />
-                        </label>
-                        <span
+                        </label> */}
+                        <Text
                           class="list-item-name"
                           onClick={handleClick}
                         >
                           {second.name}
-                        </span>
-                      </div>
-                      <div>
-                        {isItemClicked === second.name ? 
+                        </Text>
+                      </View>
+                      <View>
+                        {/* {isItemClicked === second.name ? 
                         <img 
                           class="list-image" 
                           src={second.image} 
                           height="100" 
                           width="100"
-                        /> : null} 
-                      </div>
-                    </div>
-                    <div class="button-container">
-                      <button class="button" type="submit">Save Hunt</button>
-                    </div>
-                  </div>
-              </Form>
+                        /> : null}  */}
+                      </View>
+                    </View>
+                    <View>
+                      <Button
+                        title="Save Hunt" 
+                        onPress={handleSubmit}
+                      />
+                    </View>
+                  </View>
+              </View>
           )}
         </Formik>
       )
@@ -109,7 +114,6 @@ function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgb(0, 153, 0)',
     alignItems: 'center',
     justifyContent: 'center',
   },

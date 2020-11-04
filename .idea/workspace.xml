@@ -23,10 +23,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0194427b-b036-414f-b2e3-6c9b519de509" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/on-the-hunt.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HomePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/HomePage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +43,8 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Nexus_6_API_30" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-11-04T15:41:58.880Z" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -50,6 +52,7 @@
   </component>
   <component name="RunManager">
     <configuration name="On the hunt" type="AndroidRunConfigurationType" factoryName="Android App">
+      <module name="on-the-hunt" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
       <option name="DEPLOY_AS_INSTANT" value="false" />
@@ -130,15 +133,20 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="501" y="84" key="#On_the_hunt" timestamp="1604504479126">
+      <screen x="0" y="23" width="1680" height="944" />
+    </state>
+    <state x="501" y="84" key="#On_the_hunt/1680.23.1920.1057/0.23.1680.944@0.23.1680.944" timestamp="1604504479126" />
     <state x="583" y="106" key="#Unnamed" timestamp="1604421415217">
       <screen x="0" y="23" width="1680" height="939" />
     </state>
     <state x="583" y="106" key="#Unnamed/0.23.1680.939@0.23.1680.939" timestamp="1604421415217" />
-    <state x="278" y="140" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604421442461">
-      <screen x="0" y="23" width="1680" height="939" />
+    <state x="278" y="141" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604504550699">
+      <screen x="0" y="23" width="1680" height="944" />
     </state>
     <state x="278" y="140" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.936@0.23.1680.936" timestamp="1604420495496" />
     <state x="278" y="140" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.939@0.23.1680.939" timestamp="1604421442461" />
+    <state x="278" y="141" key="#com.intellij.execution.impl.EditConfigurationsDialog/1680.23.1920.1057/0.23.1680.944@0.23.1680.944" timestamp="1604504550699" />
     <state x="286" y="147" width="1200" height="711" key="AVDManager" timestamp="1604423480093">
       <screen x="0" y="23" width="1680" height="935" />
     </state>
