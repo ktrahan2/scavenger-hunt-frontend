@@ -1,6 +1,6 @@
 import { Formik } from 'formik';
 import React from 'react';
-import { StyleSheet, Text, View, ImageBackground, Button, Image } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, Image } from 'react-native';
 import { connect } from 'react-redux'
 import { CheckBox } from 'react-native-elements'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
@@ -21,7 +21,6 @@ function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem, isCheck
 
   const handleCheck = ( event, item ) => {
     event.preventDefault()
-    console.log(item.name)
     if (isChecked.includes(item.name)) {
       uncheck(item.name)
     } else {
@@ -45,9 +44,8 @@ function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem, isCheck
             <View>
                 <Text style={styles.h2}>Example Hunt</Text>
                 {itemArray.map(item => {
-                        console.log(isChecked)
                   return (
-                    <View key={item.ID}>
+                    <View style={styles.listItemsContainer} key={item.ID}>
                       <CheckBox 
                         checked={isChecked.includes(item.name) ? true : false}
                         onPress={(event) => handleCheck(event, item)}
@@ -173,6 +171,7 @@ const styles = StyleSheet.create({
   text: {
     color: "rgba(255, 160, 0, 1)",
     fontSize: 20,
+    // padding: 5
   },
   image: {
     flex: 1,
@@ -181,8 +180,8 @@ const styles = StyleSheet.create({
   },
   h2: {
     fontSize: 28,
-    
     color: "rgba(255, 160, 0, 1)",
+    alignItems: "center"
   },
   itemImage: {
     borderStyle: 'solid',
@@ -194,6 +193,15 @@ const styles = StyleSheet.create({
   },
   checkbox: {
     width: 10
+  },
+  listItemsContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  listitem: {
+    padding: 5
   }
 });
 
