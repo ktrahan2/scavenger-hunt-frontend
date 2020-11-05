@@ -22,13 +22,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Tab = createBottomTabNavigator()
 function TabContainer({ Signin, isSignedIn, setHuntListItems }) {
 
-  useEffect( () => {
+  useEffect( () => fetchAllHuntItems(), [])
+
+  const fetchAllHuntItems = () => {
     fetch('https://on-the-hunt.herokuapp.com/hunt-items')
       .then(response => response.json())
       .then(results => setHuntListItems([...results]))
-    },
-    [],
-  )
+  }
 
   return (
     <Tab.Navigator

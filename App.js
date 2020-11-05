@@ -14,8 +14,18 @@ const reducer = combineReducers({
   isItemClicked,
   isChecked,
   themeSelected,
-  itemAmountSelected
+  itemAmountSelected,
+  createHuntList
 })
+
+function createHuntList(state=false, action) {
+  switch(action.type) {
+    case "CREATELIST":
+      return action.payload
+    default:
+      return state
+  }
+}
 
 function itemAmountSelected(state="", action) {
   switch(action.type) {

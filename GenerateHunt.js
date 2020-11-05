@@ -3,10 +3,22 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux'
 import DropDownPicker from 'react-native-dropdown-picker'
 
-function GenerateHunt({ themeSelected, updateThemeSelected, itemAmount, updateItemAmount, allHuntItems }) {
+function GenerateHunt({ 
+        themeSelected, 
+        updateThemeSelected, 
+        itemAmount, 
+        updateItemAmount,
+        isHuntList, 
+        createHuntList, 
+        allHuntItems 
+    }) {
 
-    const huntItems = () => {
-        console.log(allHuntItems)
+    const generateHuntList = () => {
+        console.log('hunt list created')
+    }
+
+    const handleCreateList = () => {
+        createHuntList()
     }
 
     return (
@@ -33,15 +45,18 @@ function GenerateHunt({ themeSelected, updateThemeSelected, itemAmount, updateIt
                     defaultValue={itemAmount}
                     containerStyle={{height: 60, width: "90%"}}
                     placeholder="Select item amount"
-                    onChangeItem={item =>  updateItemAmount(item.value)}
+                    onChangeItem={item => updateItemAmount(item.value)}
                 />
                 <Button
                     title="Get Random Hunt"
+                    onPress={handleCreateList}
                 />
             </View>
-            <View>
-                
-            </View>            
+            {isHuntList ? 
+                <View>
+                    {generateHuntList()}
+                </View>            
+            : null}
         </View>
     )
 }
@@ -51,7 +66,8 @@ const mapStateToProps = (state) => {
     return {
       allHuntItems: state.setHuntListItems,
       themeSelected: state.themeSelected,
-      itemAmount: state.itemAmountSelected
+      itemAmount: state.itemAmountSelected,
+      isHuntList: state.createHuntList
     }
   }
   
@@ -68,6 +84,10 @@ const mapStateToProps = (state) => {
       updateItemAmount: (number) => dispatch({
           type: "UPDATEITEMAMOUNT",
           payload: number
+      }),
+      createHuntList: () => dispatch({
+          type: "CREATELIST",
+          payload: true
       })
     }
   }
