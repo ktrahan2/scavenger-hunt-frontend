@@ -1,10 +1,9 @@
 import React from 'react';
-import { Button, StyleSheet, View } from 'react-native';
+import { Button, ImageBackground, StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { connect } from 'react-redux'
 import { Formik } from 'formik'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { asyncStorage } from 'reactotron-react-native';
 
 function Login({ isSignedIn }) {
 
@@ -33,8 +32,9 @@ function Login({ isSignedIn }) {
       }}
     >
       {({ handleChange, handleBlur, handleSubmit, values }) => (
-        <>
-          <View style={styles.container}>
+        <View style={styles.container}>
+          
+          <View style={styles.loginForm}>
             <TextInput
               name="username"
               label="Username"
@@ -44,6 +44,7 @@ function Login({ isSignedIn }) {
               onBlur={handleBlur('username')}
               value={values.username}
               autoCapitalize="none"
+              placeholderTextColor= "white"
             />
             <TextInput
               name="password"
@@ -53,14 +54,17 @@ function Login({ isSignedIn }) {
               onChangeText={handleChange('password')}
               onBlur={handleBlur('password')}
               value={values.password}
+              placeholderTextColor= "white"
+
             />
             <Button
               style={styles.button}
               title="Login"
               onPress={handleSubmit}
+              color= "white"
             />
           </View>
-        </>
+        </View>
         )}
     </Formik>
   )
@@ -69,23 +73,31 @@ function Login({ isSignedIn }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'rgb(255, 140, 0)',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  button: {
-    
+  loginForm: {
+    flex: 1,
+    justifyContent: "center",
+    backgroundColor: 'rgba(165, 42, 42, 0.75)',
   },
   input: {
     borderWidth: 1,
-    borderColor: "#777",
+    borderColor: "white",
     padding: 8,
     margin: 10,
     width: 200,
     borderRadius: 10,
     minHeight: 50,
-    minWidth: 200
+    minWidth: 200,
+    color: "orange"
   },
+  button: {
+    borderWidth: 1,
+    borderStyle: "solid",
+  },
+  
 });
 
 const mapStateToProps = (state) => {

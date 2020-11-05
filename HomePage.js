@@ -34,42 +34,39 @@ function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem, isCheck
       let second = allHuntItems[6]
       let itemArray = [first, second]
       return (
-        <Formik
-          initialValues={{
-            toggle: false,
-            checked: [],
-          }}
-        >
+        <Formik>
           {({ values }) => (
-            <View>
+            <View style={styles.container}>
                 <Text style={styles.h2}>Example Hunt</Text>
                 {itemArray.map(item => {
                   return (
                     <View style={styles.listItemsContainer} key={item.ID}>
-                      <CheckBox 
-                        checked={isChecked.includes(item.name) ? true : false}
-                        onPress={(event) => handleCheck(event, item)}
-                        containerStyle={styles.checkbox}
-                      />
-                      <Text
-                          style={styles.text}
-                          onPress={() => handleClick(item)}
-                          >
-                          {item.name} <FontAwesomeIcon icon={ faChevronCircleDown } />
-                      </Text>
-                      { isItemClicked === item.name ?
-                        <View style={styles.itemImage}> 
-                          <Image
-                            style={{height: 199, width: 199, borderRadius: 7}}
-                            source={{uri: item.image}}
-                          />
-                        </View>
-                        : null
-                      }  
-                    </View>
+                      <View style={styles.listItem}>
+                        <CheckBox 
+                          checked={isChecked.includes(item.name) ? true : false}
+                          onPress={(event) => handleCheck(event, item)}
+                          containerStyle={styles.checkbox}
+                        />
+                        <Text
+                            style={styles.text}
+                            onPress={() => handleClick(item)}
+                            >
+                            {item.name} <FontAwesomeIcon icon={ faChevronCircleDown } />
+                        </Text>
+                      <View>
+                        { isItemClicked === item.name ?
+                            <Image
+                              style={styles.itemImage}
+                              source={{uri: item.image}}
+                            />
+                          : null
+                        } 
+                      </View> 
+                      </View>
+                    </View>   
                   )
-                 })}
-            </View>
+                })}
+          </View>
           )}
         </Formik>
       )
@@ -89,7 +86,7 @@ function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem, isCheck
           </Text>
         </View>
         <View style={styles.example}>
-          <Text style={styles.text}>{renderList()}</Text>
+          <>{renderList()}</>
         </View>
       </ImageBackground>
     </View>
@@ -151,9 +148,7 @@ const styles = StyleSheet.create({
   },
   example: {
     flex: 3,
-    justifyContent: "center",
     backgroundColor: 'rgba(165, 42, 42, 0.75)',
-    alignItems: 'center',
     paddingBottom: 5,
     paddingTop: 5,
     paddingLeft: 10,
@@ -164,44 +159,41 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: 'orange',
   },
-  listitem: {
-    flex: 1,
-
-  },
-  text: {
-    color: "rgba(255, 160, 0, 1)",
-    fontSize: 20,
-    // padding: 5
-  },
   image: {
     flex: 1,
     resizeMode: "cover",
     justifyContent: "center"
   },
   h2: {
+    flex: 1,
     fontSize: 28,
     color: "rgba(255, 160, 0, 1)",
     alignItems: "center"
   },
-  itemImage: {
-    borderStyle: 'solid',
-    borderWidth: 3,
-    borderRadius: 10,
-    borderColor: 'orange',
-    width: 205,
-    height: 205
+  listItemsContainer: {
+    flex: 3,
+    flexDirection: 'row',
+    flexWrap: "wrap",
   },
   checkbox: {
     width: 10
   },
-  listItemsContainer: {
+  text: {
+    color: "rgba(255, 160, 0, 1)",
+    fontSize: 20,
+    justifyContent: "flex-start"
+  },
+  listItem: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: "center",
+    flexDirection: "row",
     alignItems: "center",
   },
-  listitem: {
-    padding: 5
-  }
+  itemImage: {
+    borderWidth: 3,
+    borderRadius: 10,
+    borderColor: 'orange',
+    width: 200,
+    height: 200,
+  },
 });
 
