@@ -6,28 +6,41 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { Provider } from 'react-redux'
 import { combineReducers, createStore } from 'redux'
 import TabContainer from "./TabContainer"
+import CreatedHunt from "./CreatedHunt"
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const reducer = combineReducers({
-  changeSignInStatus,
+  setSignInStatus,
   setHuntListItems,
   isItemClicked,
   isChecked,
-  themeSelected,
-  itemAmountSelected,
-  createHuntList
+  setThemeSelected,
+  setItemAmount,
+  renderHuntList,
+  setThemeArray
 })
 
-function createHuntList(state=false, action) {
+function setThemeArray(state=[], action) {
+  switch(action.type) {
+    case "CREATEARRAY":
+      return [...action.payload]
+    default:
+      return state
+  }
+}
+
+function renderHuntList(state=false, action) {
   switch(action.type) {
     case "CREATELIST":
+      return action.payload
+    case "DELETELIST":
       return action.payload
     default:
       return state
   }
 }
 
-function itemAmountSelected(state="", action) {
+function setItemAmount(state="", action) {
   switch(action.type) {
     case "UPDATEITEMAMOUNT":
       return action.payload
@@ -36,7 +49,7 @@ function itemAmountSelected(state="", action) {
   }
 }
 
-function themeSelected(state="", action) {
+function setThemeSelected(state="", action) {
   switch(action.type) {
     case "UPDATETHEME":
       return action.payload
@@ -54,7 +67,7 @@ function setHuntListItems(state=[], action) {
   }
 }
 
-function changeSignInStatus(state=false, action) {
+function setSignInStatus(state=false, action) {
   switch(action.type) {
     case "CHANGESIGNIN":
       return action.payload
@@ -102,6 +115,19 @@ export default class App extends Component {
             <Stack.Screen
               name="On The Hunt"
               component={TabContainer}
+              options={{
+                headerStyle: {height: 140, backgroundColor: 'rgba(165, 42, 42, 1)'},
+                headerTitleStyle: { alignSelf: 'center', color: "orange", fontSize: 28, fontFamily: 'Helvetica-Bold' },
+                headerTitle: <Text>On The Hunt</Text>,
+                headerLeft: () => <Image 
+                  style={{ width: 100, height: 90 }}
+                  source = { require('./logo.png') }
+                />
+              }}
+            />
+            <Stack.Screen
+              name="Generated Hunt"
+              component={CreatedHunt}
               options={{
                 headerStyle: {height: 140, backgroundColor: 'rgba(165, 42, 42, 1)'},
                 headerTitleStyle: { alignSelf: 'center', color: "orange", fontSize: 28, fontFamily: 'Helvetica-Bold' },

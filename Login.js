@@ -26,7 +26,7 @@ function Login({ isSignedIn }) {
             window.alert('Unathorized User Information. Please try again.')
           } else {
             AsyncStorage.setItem('token', data.token)
-            isSignedIn()
+            updateSignInStatus()
           }
         })
       }}
@@ -102,13 +102,13 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    isSignedIn: state.changeSignInStatus
+    isSignedIn: state.setSignInStatus
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    isSignedIn: () => dispatch({
+    updateSignInStatus: () => dispatch({
       type: "CHANGESIGNIN",
       payload: true
     })

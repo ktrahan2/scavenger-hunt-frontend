@@ -53,15 +53,15 @@ function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem, isCheck
                             >
                             {item.name} <FontAwesomeIcon icon={ faChevronCircleDown } />
                         </Text>
-                      <View>
-                        { isItemClicked === item.name ?
-                            <Image
-                              style={styles.itemImage}
-                              source={{uri: item.image}}
-                            />
-                          : null
-                        } 
-                      </View> 
+                        <View>
+                          { isItemClicked === item.name ?
+                              <Image
+                                style={styles.itemImage}
+                                source={{uri: item.image}}
+                              />
+                            : null
+                          } 
+                        </View> 
                       </View>
                   )
                 })}

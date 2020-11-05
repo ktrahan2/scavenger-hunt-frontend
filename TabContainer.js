@@ -20,7 +20,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = createBottomTabNavigator()
-function TabContainer({ Signin, isSignedIn, setHuntListItems }) {
+function TabContainer({ Signin, updateSignInStatus, setHuntListItems, navigation }) {
 
   useEffect( () => fetchAllHuntItems(), [])
 
@@ -82,6 +82,7 @@ function TabContainer({ Signin, isSignedIn, setHuntListItems }) {
         <Tab.Screen
             name="Generate Hunt"
             component={GenerateHunt}
+            navigation={navigation}
             options={{
               tabBarIcon: ({focused}) => (
                 <FontAwesomeIcon 
@@ -118,7 +119,7 @@ function TabContainer({ Signin, isSignedIn, setHuntListItems }) {
             tabPress: event => {
               event.preventDefault()
               AsyncStorage.removeItem("token")
-              isSignedIn()
+              updateSignInStatus()
             }
           })
         }
@@ -131,13 +132,13 @@ function TabContainer({ Signin, isSignedIn, setHuntListItems }) {
 
 const mapStateToProps = (state) => {
   return {
-    Signin: state.changeSignInStatus
+    isSignin: state.setSignInStatus
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    isSignedIn: () => dispatch({
+    updateSignInStatus: () => dispatch({
       type: "CHANGESIGNIN",
       payload: false
     }),
