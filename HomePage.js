@@ -9,7 +9,14 @@ import {
   } from '@fortawesome/free-solid-svg-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem, isChecked, check, uncheck }) {
+function HomePage({ 
+    allHuntItems, 
+    isItemClicked,
+    clickItem, 
+    unClickItem, 
+    isChecked, 
+    check, 
+    uncheck }) {
 
   const handleClick = ( item ) => {
     if (isItemClicked !== item.name) {
@@ -96,8 +103,8 @@ function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem, isCheck
 const mapStateToProps = (state) => {
   return {
     allHuntItems: state.setHuntListItems,
-    isItemClicked: state.isItemClicked,
-    isChecked: state.isChecked
+    isItemClicked: state.setItemClicked,
+    isChecked: state.setChecked
   }
 }
 

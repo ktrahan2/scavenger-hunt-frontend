@@ -20,7 +20,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = createBottomTabNavigator()
-function TabContainer({ Signin, updateSignInStatus, setHuntListItems, navigation }) {
+function TabContainer({ isSignin, updateSignInStatus, setHuntListItems, navigation }) {
 
   useEffect( () => fetchAllHuntItems(), [])
 
@@ -38,7 +38,7 @@ function TabContainer({ Signin, updateSignInStatus, setHuntListItems, navigation
         style:{backgroundColor: 'rgba(165, 42, 42, 1)'}
       }}
     >
-    {Signin === false ? (
+    {isSignin === false ? (
       <>
         <Tab.Screen
             name="HomePage"

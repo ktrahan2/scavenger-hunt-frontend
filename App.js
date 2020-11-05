@@ -12,11 +12,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 const reducer = combineReducers({
   setSignInStatus,
   setHuntListItems,
-  isItemClicked,
-  isChecked,
+  setItemClicked,
+  setChecked,
   setThemeSelected,
   setItemAmount,
-  renderHuntList,
   setThemeArray
 })
 
@@ -24,17 +23,6 @@ function setThemeArray(state=[], action) {
   switch(action.type) {
     case "CREATEARRAY":
       return [...action.payload]
-    default:
-      return state
-  }
-}
-
-function renderHuntList(state=false, action) {
-  switch(action.type) {
-    case "CREATELIST":
-      return action.payload
-    case "DELETELIST":
-      return action.payload
     default:
       return state
   }
@@ -76,7 +64,7 @@ function setSignInStatus(state=false, action) {
   }
 }
 
-function isItemClicked(state="", action) {
+function setItemClicked(state="", action) {
   switch(action.type) {
     case "CLICKED":
       return action.payload
@@ -87,11 +75,10 @@ function isItemClicked(state="", action) {
   }
 }
 
-function isChecked(state=[], action) {
+function setChecked(state=[], action) {
   switch(action.type) {
     case "CHECK":
       return [...state, action.payload]
-      
     case "UNCHECK":
       const filteredIsChecked = state.filter(el => el != action.payload)
       return filteredIsChecked

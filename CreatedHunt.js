@@ -9,13 +9,35 @@ import {
 
 
 function CreatedHunt({
-    currentThemeArray,
+    isThemeArray,
     isChecked,
+    isItemClicked,
+    clickItem,
+    unClickItem,
+    check,
+    uncheck
 
     }) {
+
+    const handleClick = ( item ) => {
+        if (isItemClicked !== item.name) {
+            clickItem(item.name)
+        } else {
+            unClickItem(item.name)
+        }
+    }
+        
+    const handleCheck = ( event, item ) => {
+        event.preventDefault()
+        if (isChecked.includes(item.name)) {
+            uncheck(item.name)
+        } else {
+            check(item.name)
+        }
+    }
     
     const generateHuntList = () => {
-        return currentThemeArray.map(item => {
+        return isThemeArray.map(item => {
             return (
                 <View style={styles.listItem} key={item.ID}>
                 <CheckBox
@@ -52,15 +74,31 @@ function CreatedHunt({
 
 const mapStateToProps = (state) => {
     return {
-      currentThemeArray: state.setThemeArray,
-      isChecked: state.isChecked,
-      isItemClicked: state.isItemClicked,
-
+      isThemeArray: state.setThemeArray,
+      isChecked: state.setChecked,
+      isItemClicked: state.setItemClicked,
     }
 }
   
 function mapDispatchToProps(dispatch) {
-    return {}
+    return {
+        clickItem: (item) => dispatch({
+            type: "CLICKED",
+            payload: item  
+        }),
+        unClickItem: () => dispatch({
+            type: "UNCLICKED",
+            payload: ""
+        }),
+        check: (item) => dispatch({
+            type: "CHECK",
+            payload: item
+        }),
+        uncheck: (item) => dispatch({
+            type: "UNCHECK",
+            payload: item
+        })      
+    }
   
 }
   

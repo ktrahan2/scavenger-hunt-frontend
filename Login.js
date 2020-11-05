@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { Formik } from 'formik'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-function Login({ isSignedIn }) {
+function Login({ setSignInStatus }) {
 
   return (
     <Formik
@@ -26,7 +26,7 @@ function Login({ isSignedIn }) {
             window.alert('Unathorized User Information. Please try again.')
           } else {
             AsyncStorage.setItem('token', data.token)
-            updateSignInStatus()
+            setSignInStatus()
           }
         })
       }}
@@ -108,7 +108,7 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateSignInStatus: () => dispatch({
+    setSignInStatus: () => dispatch({
       type: "CHANGESIGNIN",
       payload: true
     })

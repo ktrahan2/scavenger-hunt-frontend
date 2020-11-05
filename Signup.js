@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { Formik } from 'formik'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-function Login({isSignedIn}) {
+function Login({ setSignInStatus }) {
 
   return (
   <Formik
@@ -25,7 +25,7 @@ function Login({isSignedIn}) {
       }).then(response => response.json())
       .then(data => {
         AsyncStorage.setItem("token", data.token)
-        isSignedIn()
+        setSignInStatus()
       })
     }}
   >
@@ -42,7 +42,7 @@ function Login({isSignedIn}) {
               onBlur={handleBlur('username')}
               value={values.username}
               placeholderTextColor= "white"
-
+              autoCapitalize="none"
             />
             <TextInput
               name="password"
@@ -53,7 +53,7 @@ function Login({isSignedIn}) {
               onBlur={handleBlur('password')}
               value={values.password}
               placeholderTextColor= "white"
-
+              autoCapitalize="none"
             />
             <TextInput
               name="email"
@@ -63,7 +63,7 @@ function Login({isSignedIn}) {
               onBlur={handleBlur('email')}
               value={values.email}
               placeholderTextColor= "white"
-
+              autoCapitalize="none"
             />
             <Button
               style={styles.button}
@@ -113,13 +113,13 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    isSignedIn: state.changeSignInStatus
+    isSignedIn: state.setSignInStatus
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    isSignedIn: () => dispatch({
+    setSignInStatus: () => dispatch({
       type: "CHANGESIGNIN",
       payload: true
     })

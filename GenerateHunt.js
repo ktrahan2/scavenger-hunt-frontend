@@ -2,40 +2,31 @@ import React from 'react'
 import { Button, StyleSheet, Text, View, Image, TextInput } from 'react-native';
 import { connect } from 'react-redux'
 import DropDownPicker from 'react-native-dropdown-picker'
+import {store} from './App'
 
 function GenerateHunt({ 
-        themeSelected, 
-        updateThemeSelected, 
-        isItemAmount, 
-        updateItemAmount,
-        navigation,
-        isHuntList, 
-        renderHuntList, 
-        deleteHuntList,
-        allHuntItems,
-        isChecked,
-        isItemClicked,
-        clickItem,
-        unClickItem,
-        check,
-        uncheck,
-        setThemeArray 
-    }) {
+    navigation,
+    isThemeSelected, 
+    setThemeSelected, 
+    isItemAmount, 
+    setItemAmount,
+    allHuntItems,
+    setThemeArray 
+  }) {
 
     const handleCreateList = () => {
         createThemeArray()
         navigation.navigate('Generated Hunt')
-        //navigate to other screen
     }
 
     const createThemeArray = () => {
         let themeArray = []
         allHuntItems.map(item => {
-            item.theme === themeSelected ?
+            item.theme === isThemeSelected ?
             themeArray.push(item)
             : null
         })
-        themeArray = shuffleArray(themeArray).splice(0, itemAmount)
+        themeArray = shuffleArray(themeArray).splice(0, isItemAmount)
         setThemeArray(themeArray)
     }
     
@@ -51,27 +42,6 @@ function GenerateHunt({
             array[randomIndex] = temporaryValue
         }
         return array
-    }
-
-    const handleChange = () => {
-
-    }
-
-    const handleClick = ( item ) => {
-        if (isItemClicked !== item.name) {
-          clickItem(item.name)
-        } else {
-          unClickItem(item.name)
-        }
-      }
-    
-    const handleCheck = ( event, item ) => {
-        event.preventDefault()
-        if (isChecked.includes(item.name)) {
-            uncheck(item.name)
-        } else {
-            check(item.name)
-        }
     }
 
     return (
@@ -91,10 +61,10 @@ function GenerateHunt({
                         {label: "nature", value: "nature"},
                         {label: "christmas", value: "christmas"},
                     ]}
-                    defaultValue={themeSelected}
+                    defaultValue={isThemeSelected}
                     containerStyle={{height: 60, width: "90%"}}
                     placeholder="Select a theme"
-                    onChangeItem={item => updateThemeSelected(item.value)}
+                    onChangeItem={item => setThemeSelected(item.value)}
                     zIndex={5000}
                 />
                 <DropDownPicker
@@ -107,14 +77,15 @@ function GenerateHunt({
                     defaultValue={isItemAmount}
                     containerStyle={{height: 60, width: "90%"}}
                     placeholder="Select item amount"
-                    onChangeItem={item => updateItemAmount(item.value)}
+                    onChangeItem={item => setItemAmount(item.value)}
                     zIndex={4000}
                 />
                 <Button
                     title="Get Random Hunt"
                     onPress={handleCreateList}
                 />
-            </View>           
+            </View>  
+            {console.log(store.getState())}         
         </View>
     )
 }
@@ -122,10 +93,9 @@ function GenerateHunt({
 const mapStateToProps = (state) => {
     return {
       allHuntItems: state.setHuntListItems,
+      isItemAmount: state.setItemAmount,
       isThemeSelected: state.setThemeSelected,
-      isItemAmount: state.setisItemAmount,
-      isHuntList: state.renderHuntList,
-      currentThemeArray: state.themeArray
+      currentThemeArray: state.setThemeArray
     }
   }
   
@@ -135,37 +105,13 @@ const mapStateToProps = (state) => {
         type: "ALLHUNTITEMS",
         payload: result
       }),
-      updateThemeSelected: (theme) => dispatch({
+      setThemeSelected: (theme) => dispatch({
           type: "UPDATETHEME",
           payload: theme
       }),
-      updateItemAmount: (number) => dispatch({
+      setItemAmount: (number) => dispatch({
           type: "UPDATEITEMAMOUNT",
           payload: number
-      }),
-      renderHuntList: () => dispatch({
-          type: "CREATELIST",
-          payload: true
-      }),
-      deleteHuntList: () => dispatch({
-          type: "DELETELIST",
-          payload: false
-      }),
-      clickItem: (item) => dispatch({
-        type: "CLICKED",
-        payload: item  
-      }),
-      unClickItem: () => dispatch({
-        type: "UNCLICKED",
-        payload: ""
-      }),
-      check: (item) => dispatch({
-        type: "CHECK",
-        payload: item
-      }),
-      uncheck: (item) => dispatch({
-        type: "UNCHECK",
-        payload: item
       }),
       setThemeArray: (array) => dispatch({
         type: "CREATEARRAY",
