@@ -12,8 +12,28 @@ const reducer = combineReducers({
   changeSignInStatus,
   setHuntListItems,
   isItemClicked,
-  isChecked
+  isChecked,
+  themeSelected,
+  itemAmountSelected
 })
+
+function itemAmountSelected(state="", action) {
+  switch(action.type) {
+    case "UPDATEITEMAMOUNT":
+      return action.payload
+    default: 
+      return state
+  }
+}
+
+function themeSelected(state="", action) {
+  switch(action.type) {
+    case "UPDATETHEME":
+      return action.payload
+    default:
+      return state
+  }
+}
 
 function setHuntListItems(state=[], action) {
   switch(action.type) {

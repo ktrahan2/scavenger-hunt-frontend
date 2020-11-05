@@ -73,7 +73,7 @@ function Login({ isSignedIn }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgb(255, 140, 0)',
+    backgroundColor: 'rgba(255, 140, 0, .75)',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     minHeight: 50,
     minWidth: 200,
-    color: "orange"
+    color: "white"
   },
   button: {
     borderWidth: 1,

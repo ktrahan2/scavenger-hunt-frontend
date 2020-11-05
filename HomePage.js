@@ -38,16 +38,16 @@ function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem, isCheck
           {({ values }) => (
             <View style={styles.container}>
                 <Text style={styles.h2}>Example Hunt</Text>
+                <View style={styles.listItemsContainer}>
                 {itemArray.map(item => {
                   return (
-                    <View style={styles.listItemsContainer} key={item.ID}>
-                      <View style={styles.listItem}>
-                        <CheckBox 
+                      <View style={styles.listItem} key={item.ID}>
+                        <CheckBox
                           checked={isChecked.includes(item.name) ? true : false}
                           onPress={(event) => handleCheck(event, item)}
                           containerStyle={styles.checkbox}
                         />
-                        <Text
+                        <Text 
                             style={styles.text}
                             onPress={() => handleClick(item)}
                             >
@@ -63,9 +63,9 @@ function HomePage({ allHuntItems, isItemClicked, clickItem, unClickItem, isCheck
                         } 
                       </View> 
                       </View>
-                    </View>   
                   )
                 })}
+                </View>   
           </View>
           )}
         </Formik>
@@ -172,7 +172,6 @@ const styles = StyleSheet.create({
   },
   listItemsContainer: {
     flex: 3,
-    flexDirection: 'row',
     flexWrap: "wrap",
   },
   checkbox: {
@@ -184,9 +183,9 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start"
   },
   listItem: {
-    flex: 1,
     flexDirection: "row",
     alignItems: "center",
+    
   },
   itemImage: {
     borderWidth: 3,
