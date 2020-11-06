@@ -40,45 +40,35 @@ function HomePage({
       let first = allHuntItems[5]  
       let second = allHuntItems[6]
       let itemArray = [first, second]
-      return (
-        <Formik>
-          {({ values }) => (
-            <View style={styles.container}>
-                <Text style={styles.h2}>Example Hunt</Text>
-                <View style={styles.listItemsContainer}>
-                {itemArray.map(item => {
-                  return (
-                      <View style={styles.listItem} key={item.ID}>
-                        <CheckBox
-                          checked={isChecked.includes(item.name) ? true : false}
-                          onPress={(event) => handleCheck(event, item)}
-                          containerStyle={styles.checkbox}
-                          uncheckedColor="'rgba(51, 156, 255, 1)'"
-                        />
-                        <Text 
-                            style={styles.text}
-                            onPress={() => handleClick(item)}
-                            >
-                            {item.name} <FontAwesomeIcon icon={ faChevronCircleDown } />
-                        </Text>
-                        <View>
-                          { isItemClicked === item.name ?
-                              <Image
-                                style={styles.itemImage}
-                                source={{uri: item.image}}
-                              />
-                            : null
-                          } 
-                        </View> 
-                      </View>
-                  )
-                })}
-                </View>   
+    return (
+      itemArray.map(item => {
+        return (
+          <View style={styles.listItem} key={item.ID}>
+            <CheckBox
+              checked={isChecked.includes(item.name) ? true : false}
+              onPress={(event) => handleCheck(event, item)}
+              containerStyle={styles.checkbox}
+              uncheckedColor= 'rgba(51, 156, 255, 1)'
+            />
+            <Text 
+                style={styles.text}
+                onPress={() => handleClick(item)}
+                >
+                {item.name} <FontAwesomeIcon icon={ faChevronCircleDown } />
+            </Text>
+            <View>
+              { isItemClicked === item.name ?
+                  <Image
+                    style={styles.itemImage}
+                    source={{uri: item.image}}
+                  />
+                : null
+              } 
+            </View> 
           </View>
-          )}
-        </Formik>
-      )
-    }
+        )
+      })
+    )}
   }
  
   return (
@@ -94,6 +84,7 @@ function HomePage({
           </Text>
         </View>
         <View style={styles.example}>
+          <Text style={styles.h2}>Example Hunt</Text>
           <>{renderList()}</>
         </View>
       </ImageBackground>
@@ -159,6 +150,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     margin: 5,
     borderRadius: 10,
+    alignItems: "center",
   },
   image: {
     flex: 1,
@@ -166,22 +158,17 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   h2: {
-    flex: 1,
+    padding: 20,
     fontSize: 28,
     color: "rgba(255,120,63, 1)",
     alignItems: "center"
   },
-  listItemsContainer: {
-    flex: 3,
-    flexWrap: "wrap",
-  },
   checkbox: {
-    width: 10
+    width: 5
   },
   text: {
     color: "rgba(255,120,63, 1)",
     fontSize: 20,
-    justifyContent: "flex-start",
     padding: 2
   },
   listItem: {

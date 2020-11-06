@@ -56,7 +56,7 @@ function GenerateHunt({
                     name="list title"
                     label="Hunt List Title"
                     style={styles.input}
-                    onChangeText={text => setHuntTitle(text)}
+                    onChangeText={ (text) => setHuntTitle(text)}
                     autoCapitalize="none"
                     placeholder="Enter Title"
                     placeholderTextColor= "black"
@@ -131,7 +131,7 @@ function mapDispatchToProps(dispatch) {
       payload: array
     }),
     setHuntTitle: (name) => dispatch({
-      type: "SETNAME",
+      type: "SETTITLE",
       payload: name
     }) 
   }
