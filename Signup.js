@@ -1,37 +1,36 @@
 import React from 'react';
-import { Button, StyleSheet, View } from 'react-native';
+import { Button, StyleSheet, View, ImageBackground } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { connect } from 'react-redux'
 import { Formik } from 'formik'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-function Login({ setSignInStatus }) {
+function Signup({ setSignInStatus }) {
 
-  return (
-  <Formik
-    initialValues={{ username: '', password: '', email: ''}}
-    onSubmit={values => {
-      console.log(values)
-      fetch('https://on-the-hunt.herokuapp.com/create-user', {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          username: values.username,
-          password: values.password,
-          email: values.email
-        })
-      }).then(response => response.json())
-      .then(data => {
-        AsyncStorage.setItem("token", data.token)
-        setSignInStatus()
-      })
-    }}
-  >
-    {({ handleChange, handleBlur, handleSubmit, values }) => (
-      <>
-        <View style={styles.container}>
+  const renderSignupForm = () => {
+    return (
+      <Formik
+        initialValues={{ username: '', password: '', email: ''}}
+        onSubmit={values => {
+          console.log(values)
+          fetch('https://on-the-hunt.herokuapp.com/create-user', {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              username: values.username,
+              password: values.password,
+              email: values.email
+            })
+          }).then(response => response.json())
+          .then(data => {
+            AsyncStorage.setItem("token", data.token)
+            setSignInStatus()
+          })
+        }}
+      >
+        {({ handleChange, handleBlur, handleSubmit, values }) => (
           <View style={styles.form}>
             <TextInput
               name="username"
@@ -41,7 +40,7 @@ function Login({ setSignInStatus }) {
               onChange={handleChange('username')}
               onBlur={handleBlur('username')}
               value={values.username}
-              placeholderTextColor= "white"
+              placeholderTextColor= "black"
               autoCapitalize="none"
             />
             <TextInput
@@ -52,7 +51,7 @@ function Login({ setSignInStatus }) {
               onChange={handleChange('password')}
               onBlur={handleBlur('password')}
               value={values.password}
-              placeholderTextColor= "white"
+              placeholderTextColor= "black"
               autoCapitalize="none"
             />
             <TextInput
@@ -62,52 +61,68 @@ function Login({ setSignInStatus }) {
               onChange={handleChange('email')}
               onBlur={handleBlur('email')}
               value={values.email}
-              placeholderTextColor= "white"
+              placeholderTextColor= "black"
               autoCapitalize="none"
             />
             <Button
               style={styles.button}
               title="Signup"
               onPress={handleSubmit}
-              color= "white"
-
+              color= "black"
+              accessibilityLabe="click to signup"
             />
           </View>
-        </View>
-      </>
-      )}
-  </Formik>
+        )}
+      </Formik>
+    )
+  }
+
+  return (
+    <ImageBackground
+      style={styles.image}
+      source={require("./blue-sky.jpg")}
+    >
+      <View style={styles.container}>
+        {renderSignupForm()}
+      </View>
+    </ImageBackground>
   )
 }
   
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgba(255, 140, 0, .75)',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  button: {
-    borderWidth: 1,
-    borderStyle: "solid",
-
-  },
   form: {
-    flex: 1,
     justifyContent: "center",
-    backgroundColor: 'rgba(165, 42, 42, 0.75)',
-
+    backgroundColor: 'rgba(230, 243, 255, .65)',
+    borderRadius: 10,
+    height: 300,
+    width: 300,
+    alignItems: "center"
   },
   input: {
     borderWidth: 1,
-    borderColor: "white",
+    borderColor: 'rgba(230, 243, 255, .75)',
     padding: 8,
     margin: 10,
     width: 200,
     borderRadius: 10,
-    minHeight: 50,
+    minHeight: 60,
     minWidth: 200,
-    color: "orange"
+    color: "black",
+    fontSize: 20,
+  },
+  button: {
+    borderWidth: 1,
+    borderStyle: "solid",
+  },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center"
   },
 });
 
@@ -126,4 +141,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

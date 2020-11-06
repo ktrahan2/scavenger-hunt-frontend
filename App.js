@@ -16,10 +16,20 @@ const reducer = combineReducers({
   setChecked,
   setThemeSelected,
   setItemAmount,
-  setThemeArray
+  setThemeArray,
+  setHuntTitle
 })
 
-function setThemeArray(state=[], action) {
+function setHuntTitle( state="", action ) {
+  switch(action.type) {
+    case "SETTITLE":
+      return action.payload
+    default: 
+      return state
+  }
+}
+
+function setThemeArray( state=[], action ) {
   switch(action.type) {
     case "CREATEARRAY":
       return [...action.payload]
@@ -37,7 +47,7 @@ function setItemAmount(state="", action) {
   }
 }
 
-function setThemeSelected(state="", action) {
+function setThemeSelected( state="", action ) {
   switch(action.type) {
     case "UPDATETHEME":
       return action.payload
@@ -64,7 +74,7 @@ function setSignInStatus(state=false, action) {
   }
 }
 
-function setItemClicked(state="", action) {
+function setItemClicked( state="", action ) {
   switch(action.type) {
     case "CLICKED":
       return action.payload
@@ -75,7 +85,7 @@ function setItemClicked(state="", action) {
   }
 }
 
-function setChecked(state=[], action) {
+function setChecked( state=[], action)  {
   switch(action.type) {
     case "CHECK":
       return [...state, action.payload]
@@ -89,7 +99,6 @@ function setChecked(state=[], action) {
 
 const Stack = createStackNavigator()
 export const store = createStore(reducer)
-console.log(store.getState())
 
 export default class App extends Component {
 
@@ -101,10 +110,10 @@ export default class App extends Component {
           <Stack.Navigator>
             <Stack.Screen
               name="On The Hunt"
-              component={TabContainer}
+              component={ TabContainer }
               options={{
-                headerStyle: {height: 140, backgroundColor: 'rgba(165, 42, 42, 1)'},
-                headerTitleStyle: { alignSelf: 'center', color: "orange", fontSize: 28, fontFamily: 'Helvetica-Bold' },
+                headerStyle: { height: 140, backgroundColor: 'rgba(220, 243, 255, .8)' },
+                headerTitleStyle: { alignSelf: 'center', color: "rgba(255,120,63, 1)", fontSize: 28, fontFamily: 'Helvetica-Bold' },
                 headerTitle: <Text>On The Hunt</Text>,
                 headerLeft: () => <Image 
                   style={{ width: 100, height: 90 }}
@@ -114,10 +123,10 @@ export default class App extends Component {
             />
             <Stack.Screen
               name="Generated Hunt"
-              component={CreatedHunt}
+              component={ CreatedHunt }
               options={{
-                headerStyle: {height: 140, backgroundColor: 'rgba(165, 42, 42, 1)'},
-                headerTitleStyle: { alignSelf: 'center', color: "orange", fontSize: 28, fontFamily: 'Helvetica-Bold' },
+                headerStyle: { height: 140, backgroundColor: 'rgba(220, 243, 255, .8)' },
+                headerTitleStyle: { alignSelf: 'center', color: "rgba(255,120,63, 1)", fontSize: 28, fontFamily: 'Helvetica-Bold' },
                 headerTitle: <Text>On The Hunt</Text>,
                 headerLeft: () => <Image 
                   style={{ width: 100, height: 90 }}

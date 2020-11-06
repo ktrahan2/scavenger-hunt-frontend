@@ -53,6 +53,7 @@ function HomePage({
                           checked={isChecked.includes(item.name) ? true : false}
                           onPress={(event) => handleCheck(event, item)}
                           containerStyle={styles.checkbox}
+                          uncheckedColor="'rgba(51, 156, 255, 1)'"
                         />
                         <Text 
                             style={styles.text}
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
   },
   description: {
     flex: 1,
-    backgroundColor: 'rgba(165, 42, 42, 0.75)',
+    backgroundColor: 'rgba(230, 243, 255, .75)',
     alignItems: 'center',
     justifyContent: 'center',
     paddingBottom: 5,
@@ -147,24 +148,17 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     margin: 5,
-    borderStyle: 'solid',
-    borderWidth: 3,
     borderRadius: 10,
-    borderColor: 'orange',
-    color: "white"
   },
   example: {
     flex: 3,
-    backgroundColor: 'rgba(165, 42, 42, 0.75)',
+    backgroundColor: 'rgba(230, 243, 255, .75)',
     paddingBottom: 5,
     paddingTop: 5,
     paddingLeft: 10,
     paddingRight: 10,
     margin: 5,
-    borderStyle: 'solid',
-    borderWidth: 3,
     borderRadius: 10,
-    borderColor: 'orange',
   },
   image: {
     flex: 1,
@@ -174,7 +168,7 @@ const styles = StyleSheet.create({
   h2: {
     flex: 1,
     fontSize: 28,
-    color: "rgba(255, 160, 0, 1)",
+    color: "rgba(255,120,63, 1)",
     alignItems: "center"
   },
   listItemsContainer: {
@@ -185,19 +179,19 @@ const styles = StyleSheet.create({
     width: 10
   },
   text: {
-    color: "rgba(255, 160, 0, 1)",
+    color: "rgba(255,120,63, 1)",
     fontSize: 20,
-    justifyContent: "flex-start"
+    justifyContent: "flex-start",
+    padding: 2
   },
   listItem: {
     flexDirection: "row",
     alignItems: "center",
-    
   },
   itemImage: {
     borderWidth: 3,
     borderRadius: 10,
-    borderColor: 'orange',
+    borderColor: "rgba(255,120,63, 1)",
     width: 200,
     height: 200,
   },

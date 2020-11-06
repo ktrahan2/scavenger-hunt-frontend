@@ -11,6 +11,7 @@ function CreatedHunt({
     isItemClicked,
     clickItem,
     unClickItem,
+    navigation
     }) {
 
     const handleClick = ( item ) => {
@@ -49,6 +50,17 @@ function CreatedHunt({
     return (
         <>
         {generateHuntList()}
+        <View>
+            <Button
+                title="Save List"
+                //onPress to save list to backend as well
+                onPress={() => navigation.navigate('My Hunts')}
+            />
+            <Button
+                title="Get a new list"
+                onPress={() => navigation.navigate('On The Hunt')}
+            />
+        </View>
         </>
     )
 }

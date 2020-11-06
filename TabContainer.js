@@ -33,45 +33,45 @@ function TabContainer({ isSignin, updateSignInStatus, setHuntListItems, navigati
   return (
     <Tab.Navigator
       tabBarOptions={{
-        activeTintColor: "orange",
-        inactiveTintColor: "white",
-        style:{backgroundColor: 'rgba(165, 42, 42, 1)'}
+        activeTintColor: "blue",
+        inactiveTintColor: "rgba(255,120,63, 1)",
+        style:{ backgroundColor: 'rgba(220, 243, 255, .8)' }
       }}
     >
     {isSignin === false ? (
       <>
         <Tab.Screen
             name="HomePage"
-            component={HomePage}
+            component={ HomePage }
             options={{
-              tabBarIcon: ({focused}) => (
+              tabBarIcon: ({ focused }) => (
                 <FontAwesomeIcon 
                   icon={ faHome } 
-                  color= {!focused ? 'white' : "orange"}
+                  color= { !focused ? "rgba(255,120,63, 1)" : 'blue' }
                 />
               )
             }}
         /> 
         <Tab.Screen
             name="Login"
-            component={Login}
+            component={ Login }
             options={{
-              tabBarIcon: ({focused}) => (
+              tabBarIcon: ({ focused }) => (
                 <FontAwesomeIcon 
-                  color= {!focused ? 'white' : "orange"}
-                  icon={ faSignInAlt } 
+                color= { !focused ? "rgba(255,120,63, 1)" : 'blue' }
+                icon={ faSignInAlt } 
                 />
               )
             }}
         /> 
         <Tab.Screen
             name="Signup"
-            component={Signup}
+            component={ Signup }
             options={{
-              tabBarIcon: ({focused}) => (
+              tabBarIcon: ({ focused }) => (
                 <FontAwesomeIcon 
                   icon={ faUserPlus } 
-                  color= {!focused ? 'white' : "orange"}
+                  color= { !focused ? "rgba(255,120,63, 1)" : 'blue' }
                 />
               )
             }}
@@ -81,38 +81,38 @@ function TabContainer({ isSignin, updateSignInStatus, setHuntListItems, navigati
       <>
         <Tab.Screen
             name="Generate Hunt"
-            component={GenerateHunt}
-            navigation={navigation}
+            component={ GenerateHunt }
+            navigation={ navigation }
             options={{
-              tabBarIcon: ({focused}) => (
+              tabBarIcon: ({ focused }) => (
                 <FontAwesomeIcon 
                   icon={ faPlus } 
-                  color= {!focused ? 'white' : "orange"}
+                  color= { !focused ? "rgba(255,120,63, 1)" : 'blue' }
                 />
               )
             }}
         /> 
         <Tab.Screen
             name="My Hunts"
-            component={MyHunts}
+            component={ MyHunts } 
             options={{
-              tabBarIcon: ({focused}) => (
+              tabBarIcon: ({ focused }) => (
                 <FontAwesomeIcon 
                   icon={ faList } 
-                  color= {!focused ? 'white' : "orange"}
+                  color= { !focused ? "rgba(255,120,63, 1)" : 'blue' }
                 />
               )
             }}
         />
         <Tab.Screen
           name="Logout"
-          component={Logout}  
+          component={ Logout }  
           options={{
-            tabBarIcon: ({focused}) => (
+            tabBarIcon: ({ focused }) => (
               <FontAwesomeIcon 
                 icon={ faSignOutAlt } 
-                color= {!focused ? 'white' : "orange"}
-              />
+                color= { !focused ? "rgba(255,120,63, 1)" : 'blue' }
+                />
             )
           }}
           listeners={ () => ({
