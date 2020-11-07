@@ -6,8 +6,8 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { Provider } from 'react-redux'
 import { combineReducers, createStore } from 'redux'
 import TabContainer from "./TabContainer"
-import CreatedHunt from "./CreatedHunt"
-import CreateList from "./CreateList"
+import CreatedHunt from "./ViewHunt"
+import CreateList from "./CreateListOptions"
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const reducer = combineReducers({

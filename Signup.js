@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, StyleSheet, View, ImageBackground } from 'react-native';
+import { StyleSheet, View, ImageBackground, Text, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { connect } from 'react-redux'
 import { Formik } from 'formik'
@@ -25,7 +25,7 @@ function Signup({ setSignInStatus }) {
             })
           }).then(response => response.json())
           .then(data => {
-            AsyncStorage.setItem("token", data.token)
+            AsyncStorage.setItem('data', JSON.stringify([{"token": data.token, "id": data.id}]))
             setSignInStatus()
           })
         }}
@@ -40,7 +40,7 @@ function Signup({ setSignInStatus }) {
               onChange={handleChange('username')}
               onBlur={handleBlur('username')}
               value={values.username}
-              placeholderTextColor= "black"
+              placeholderTextColor= "rgba( 61, 85, 35, 1)"
               autoCapitalize="none"
             />
             <TextInput
@@ -51,7 +51,7 @@ function Signup({ setSignInStatus }) {
               onChange={handleChange('password')}
               onBlur={handleBlur('password')}
               value={values.password}
-              placeholderTextColor= "black"
+              placeholderTextColor= "rgba( 61, 85, 35, 1)"
               autoCapitalize="none"
             />
             <TextInput
@@ -61,16 +61,15 @@ function Signup({ setSignInStatus }) {
               onChange={handleChange('email')}
               onBlur={handleBlur('email')}
               value={values.email}
-              placeholderTextColor= "black"
+              placeholderTextColor= "rgba( 61, 85, 35, 1)"
               autoCapitalize="none"
             />
-            <Button
-              style={styles.button}
-              title="Signup"
-              onPress={handleSubmit}
-              color= "black"
-              accessibilityLabe="click to signup"
-            />
+            <TouchableOpacity
+                style={styles.button}
+                onPress={handleSubmit}
+              >
+                <Text style={styles.text}>Signup</Text>
+              </TouchableOpacity>
           </View>
         )}
       </Formik>
@@ -99,7 +98,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: 'rgba(230, 243, 255, .65)',
     borderRadius: 10,
-    height: 300,
+    height: 320,
     width: 300,
     alignItems: "center"
   },
@@ -112,18 +111,31 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     minHeight: 60,
     minWidth: 200,
-    color: "black",
+    color: "rgba( 61, 85, 35, 1)",
     fontSize: 20,
+    backgroundColor: 'rgba(230, 243, 255, .85)',
   },
   button: {
     borderWidth: 1,
+    borderColor: 'rgba(230, 243, 255, .75)',
     borderStyle: "solid",
+    borderRadius: 10,
+    width: 100,
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",  
+    backgroundColor: 'rgba(230, 243, 255, .85)',
+    marginTop: 15,
   },
   image: {
     flex: 1,
     resizeMode: "cover",
     justifyContent: "center"
   },
+  text: {
+    color: "rgba( 61, 85, 35, 1)",
+    fontSize: 16,
+  }
 });
 
 const mapStateToProps = (state) => {

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, ImageBackground, StyleSheet, View } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import { Button, ImageBackground, StyleSheet, View, Text } from 'react-native';
+import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { connect } from 'react-redux'
 import { Formik } from 'formik'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -43,7 +43,7 @@ function Login({ setSignInStatus }) {
                 onBlur={handleBlur('username')}
                 value={values.username}
                 autoCapitalize="none"
-                placeholderTextColor= "black"
+                placeholderTextColor= "rgba( 61, 85, 35, 1)"
               />
               <TextInput
                 name="password"
@@ -53,15 +53,14 @@ function Login({ setSignInStatus }) {
                 onChangeText={handleChange('password')}
                 onBlur={handleBlur('password')}
                 value={values.password}
-                placeholderTextColor= "black"
+                placeholderTextColor= "rgba( 61, 85, 35, 1)"
               />
-              <Button
+              <TouchableOpacity
                 style={styles.button}
-                title="Login"
                 onPress={handleSubmit}
-                color= "black"
-                accessibilityLabel="Click to login"
-              />
+              >
+                <Text style={styles.text}>Login</Text>
+              </TouchableOpacity>
             </View>
           )}
       </Formik>
@@ -103,18 +102,31 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     minHeight: 60,
     minWidth: 200,
-    color: "black",
+    color: "rgba( 61, 85, 35, 1)",
     fontSize: 20,
+    backgroundColor: 'rgba(230, 243, 255, .85)',
   },
   button: {
     borderWidth: 1,
-    borderStyle: "solid",    
+    borderColor: 'rgba(230, 243, 255, .75)',
+    borderStyle: "solid",
+    borderRadius: 10,
+    width: 100,
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",  
+    backgroundColor: 'rgba(230, 243, 255, .85)',
+    marginTop: 15,
   },
   image: {
     flex: 1,
     resizeMode: "cover",
     justifyContent: "center"
   },
+  text: {
+    color: "rgba( 61, 85, 35, 1)",
+    fontSize: 16,
+  }
   
 });
 

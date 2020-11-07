@@ -85,6 +85,7 @@ function HomePage({
         </View>
         <View style={styles.example}>
           <Text style={styles.h2}>Example Hunt</Text>
+          <View style={styles.borderLine}></View>
           <>{renderList()}</>
         </View>
       </ImageBackground>
@@ -160,14 +161,14 @@ const styles = StyleSheet.create({
   h2: {
     padding: 20,
     fontSize: 28,
-    color: "rgba(255,120,63, 1)",
+    color: "rgba( 61, 85, 35, 1)",
     alignItems: "center"
   },
   checkbox: {
     width: 5
   },
   text: {
-    color: "rgba(255,120,63, 1)",
+    color: "rgba( 61, 85, 35, 1)",
     fontSize: 20,
     padding: 2
   },
@@ -182,5 +183,14 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
   },
+  borderLine: {
+    width: "100%", 
+    borderBottomWidth: 2, 
+    borderBottomColor: "rgba(0, 0, 0, .3)",
+    marginTop: -20,
+    marginBottom: 15, 
+    borderStyle: "solid"
+  }
+
 });
 

@@ -7,7 +7,7 @@ import Signup from "./Signup"
 import HomePage from "./HomePage"
 import Logout from "./Logout"
 import MyHunts from "./MyHunts"
-import GenerateHunt from "./GenerateHunt"
+import GenerateHunt from "./GenerateList"
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { 
     faSignOutAlt, 

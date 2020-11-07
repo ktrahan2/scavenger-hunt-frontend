@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import { Button, StyleSheet, View, ImageBackground, TextInput, Text } from 'react-native';
+import { TouchableOpacity, StyleSheet, View, ImageBackground, TextInput, Text } from 'react-native';
 import { connect } from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -44,6 +44,7 @@ function GenerateHunt({
         <View style={styles.screenContainer}>
             <View style={styles.form}>
                 <Text style={styles.h2}>First Select a Title</Text>
+                <View style={styles.borderLine}></View>
                 <TextInput
                     name="list title"
                     label="Hunt List Title"
@@ -51,14 +52,14 @@ function GenerateHunt({
                     onChangeText={ (text) => setHuntTitle(text)}
                     autoCapitalize="none"
                     placeholder="Enter Title"
-                    placeholderTextColor= "black"
+                    placeholderTextColor= "rgba( 61, 85, 35, 1)"
                 />
-                <Button
-                    title="Create Hunt List"
-                    onPress={handleCreateList}
-                    color= "black"
-                    accessibilityLabel="Click to generate a hunt list"
-                />
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={handleCreateList}
+                >
+                  <Text style={styles.buttonText}>Create Hunt List</Text>
+                </TouchableOpacity>
             </View>  
         </View>
       </ImageBackground>
@@ -93,13 +94,6 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
-    dropDown: {
-      justifyContent: "center",
-      alignContent: "center",
-      margin: 10,
-      backgroundColor: 'rgba(230, 243, 255, .1)',
-      borderColor: 'rgba(230, 243, 255, .75)',
-    },
     input: {
       borderWidth: 1,
       borderColor: 'rgba(230, 243, 255, .75)',
@@ -109,8 +103,9 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       minHeight: 50,
       minWidth: "85%",
-      color: "black",
-      fontSize: 20
+      color: "rgba( 61, 85, 35, 1)",
+      fontSize: 20,
+      backgroundColor: 'rgba(230, 243, 255, .85)',
     },
     form: {
       justifyContent: "center",
@@ -128,7 +123,38 @@ const styles = StyleSheet.create({
     h2: {
       padding: 20,
       fontSize: 28,
-      color: "rgba(255,120,63, 1)",
+      color: "rgba( 61, 85, 35, 1)",
       alignItems: "center"
   },
+  borderLine: {
+    width: "95%", 
+    borderBottomWidth: 2, 
+    borderBottomColor: "rgba(0, 0, 0, .3)",
+    marginTop: -20,
+    marginBottom: 15, 
+    borderStyle: "solid"
+  },
+  text: {
+    color: "rgba( 61, 85, 35, 1)",
+    fontSize: 20,
+    padding: 2
+  },
+  button: {
+    borderWidth: 1,
+    borderColor: 'rgba(230, 243, 255, .75)',
+    borderStyle: "solid",
+    borderRadius: 10,
+    width: "75%",
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",  
+    backgroundColor: 'rgba(230, 243, 255, .85)',
+    marginTop: 15,
+  },
+  buttonText: {
+    color: "rgba( 61, 85, 35, 1)",
+    fontSize: 16,
+  }
+
+
 })

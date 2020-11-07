@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button, StyleSheet, Text, View, Image, ImageBackground, ScrollView } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View, Image, ImageBackground, ScrollView } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { 
     faChevronCircleDown
@@ -48,7 +48,7 @@ function CreatedHunt({
     }
 
     const handleSaveList = () => {
-        //fetch to local host huntlists
+        //fetch to local host User Lists and Selected Items
         console.log('one day ill save')
         navigation.navigate('My Hunts')
     }
@@ -65,18 +65,21 @@ function CreatedHunt({
                 justifyContent= 'flex-start'
             >
                 <Text style={styles.h2}>{isHuntTitle}</Text>
+                <View style={styles.borderLine}></View>
                 {generateHuntList()}
                 <View style={styles.buttonContainer}>
-                    <Button
-                        title="Save List"
+                    <TouchableOpacity
+                        style={styles.button}
                         onPress={handleSaveList}
-                        color= "black"
-                    />
-                    <Button
-                        title="Get a new list"
+                    >
+                        <Text style={styles.buttonText}>Save List</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.button}
                         onPress={() => navigation.navigate('On The Hunt')}
-                        color= "black"
-                    />
+                    >
+                        <Text style={styles.buttonText}>Get New List</Text>
+                    </TouchableOpacity>
                 </View>
             </ScrollView>
         </View>
@@ -114,7 +117,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        
     },
     list: {
         backgroundColor: 'rgba(230, 243, 255, .75)',
@@ -144,7 +146,39 @@ const styles = StyleSheet.create({
     h2: {
         padding: 20,
         fontSize: 28,
-        color: "rgba(255,120,63, 1)",
-        alignItems: "center"
+        color: "rgba( 61, 85, 35, 1)", 
+        alignSelf: "center"
     },
+    borderLine: { 
+        borderBottomWidth: 2, 
+        borderBottomColor: "rgba(0, 0, 0, .3)",
+        marginTop: -20,
+        marginBottom: 15, 
+        borderStyle: "solid"
+    },
+    text: {
+        color: "rgba( 61, 85, 35, 1)",
+        fontSize: 20,
+        padding: 2
+    },
+    button: {
+        borderWidth: 1,
+        borderColor: 'rgba(230, 243, 255, .75)',
+        borderStyle: "solid",
+        borderRadius: 10,
+        height: 40,
+        justifyContent: "center",
+        alignItems: "center",  
+        backgroundColor: 'rgba(200, 230, 240, 1)',
+        marginTop: 5,
+        marginLeft: 10,
+        marginRight: 10,
+        padding: 5
+      },
+      buttonText: {
+        color: "rgba( 61, 85, 35, 1)",
+        fontSize: 16,
+      },
+    
+
 })
