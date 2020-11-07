@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react'
-import { Button, StyleSheet, View, ImageBackground, TextInput } from 'react-native';
+import { Button, StyleSheet, View, ImageBackground, TextInput, Text } from 'react-native';
 import { connect } from 'react-redux'
-import { store } from './App'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 function GenerateHunt({ 
@@ -44,6 +43,7 @@ function GenerateHunt({
       >
         <View style={styles.screenContainer}>
             <View style={styles.form}>
+                <Text style={styles.h2}>First Select a Title</Text>
                 <TextInput
                     name="list title"
                     label="Hunt List Title"
@@ -54,7 +54,7 @@ function GenerateHunt({
                     placeholderTextColor= "black"
                 />
                 <Button
-                    title="Get Random Hunt"
+                    title="Create Hunt List"
                     onPress={handleCreateList}
                     color= "black"
                     accessibilityLabel="Click to generate a hunt list"
@@ -125,4 +125,10 @@ const styles = StyleSheet.create({
       resizeMode: "cover",
       justifyContent: "center"
     },
+    h2: {
+      padding: 20,
+      fontSize: 28,
+      color: "rgba(255,120,63, 1)",
+      alignItems: "center"
+  },
 })
