@@ -1,48 +1,40 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Button, StyleSheet, View, ImageBackground, TextInput } from 'react-native';
 import { connect } from 'react-redux'
-import DropDownPicker from 'react-native-dropdown-picker'
 import { store } from './App'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 function GenerateHunt({ 
+    setHuntTitle,
+    isHuntListTitle,
     navigation,
-    isThemeSelected, 
-    setThemeSelected, 
-    isItemAmount, 
-    setItemAmount,
-    allHuntItems,
-    setThemeArray,
-    setHuntTitle 
+    setUserId,
+    isUserId 
   }) {
 
-    const handleCreateList = () => {
-        createThemeArray()
-        navigation.navigate('Generated Hunt')
-    }
-
-    const createThemeArray = () => {
-        let themeArray = []
-        allHuntItems.map(item => {
-            item.theme === isThemeSelected ?
-            themeArray.push(item)
-            : null
+    useEffect(() => {
+        AsyncStorage.getItem("data")
+        .then(data => JSON.parse(data))
+        .then(result => {
+          setUserId(result[0].id) 
         })
-        themeArray = shuffleArray(themeArray).splice(0, isItemAmount)
-        setThemeArray(themeArray)
-    }
-    
-    const shuffleArray = (array) => {
-        var currentIndex = array.length, temporaryValue, randomIndex
+      },
+      []
+    )
 
-        while ( 0 !== currentIndex) {
-            randomIndex = Math.floor(Math.random() * currentIndex)
-            currentIndex -= 1
-
-            temporaryValue = array[currentIndex]
-            array[currentIndex] = array[randomIndex]
-            array[randomIndex] = temporaryValue
-        }
-        return array
+    const handleCreateList = () => {
+      fetch('http://localhost:7000/create-hunt-list', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          Title: isHuntListTitle,
+          OwnerID: isUserId
+        })
+      }).then(response => response.json())
+          .then(console.log) 
+      navigation.navigate("Create List")
     }
 
     return (
@@ -61,35 +53,6 @@ function GenerateHunt({
                     placeholder="Enter Title"
                     placeholderTextColor= "black"
                 />
-                <DropDownPicker
-                    style={styles.dropDown}
-                    items={[
-                        {label: "nature", value: "nature"},
-                        {label: "christmas", value: "christmas"},
-                    ]}
-                    defaultValue={isThemeSelected}
-                    containerStyle={{height: 60, width: "90%"}}
-                    placeholder="Select a theme"
-                    labelStyle={{color: "black", fontSize: 20,  }}
-                    onChangeItem={item => setThemeSelected(item.value)}
-                    zIndex={5000}
-                    dropDownStyle={{backgroundColor: 'rgba(230, 243, 255, 1)'}}
-                />
-                <DropDownPicker
-                    style={styles.dropDown}
-                    items={[
-                        {label: "5", value: "5"},
-                        {label: "10", value: "10"},
-                        {label: "15", value: "15"}
-                    ]}
-                    defaultValue={isItemAmount}
-                    containerStyle={{height: 60, width: "90%"}}
-                    placeholder="Item amount"
-                    labelStyle={{color: "black", fontSize: 20 }}
-                    onChangeItem={item => setItemAmount(item.value)}
-                    zIndex={4000}
-                    dropDownStyle={{backgroundColor: 'rgba(230, 243, 255, 1)'}}
-                />
                 <Button
                     title="Get Random Hunt"
                     onPress={handleCreateList}
@@ -97,7 +60,6 @@ function GenerateHunt({
                     accessibilityLabel="Click to generate a hunt list"
                 />
             </View>  
-            {console.log(store.getState())}         
         </View>
       </ImageBackground>
     )
@@ -105,35 +67,21 @@ function GenerateHunt({
 
 const mapStateToProps = (state) => {
     return {
-      allHuntItems: state.setHuntListItems,
-      isItemAmount: state.setItemAmount,
-      isThemeSelected: state.setThemeSelected,
-      currentThemeArray: state.setThemeArray
+      isHuntListTitle: state.setHuntTitle,
+      isUserId: state.setUserId
     }
   }
   
 function mapDispatchToProps(dispatch) {
   return {
-    setHuntListItems: (result) => dispatch({
-      type: "ALLHUNTITEMS",
-      payload: result
-    }),
-    setThemeSelected: (theme) => dispatch({
-        type: "UPDATETHEME",
-        payload: theme
-    }),
-    setItemAmount: (number) => dispatch({
-        type: "UPDATEITEMAMOUNT",
-        payload: number
-    }),
-    setThemeArray: (array) => dispatch({
-      type: "CREATEARRAY",
-      payload: array
-    }),
     setHuntTitle: (name) => dispatch({
       type: "SETTITLE",
       payload: name
-    }) 
+    }), 
+    setUserId: (id) => dispatch({
+      type: "SETID",
+      payload: id
+    })
   }
 }
   

@@ -26,7 +26,7 @@ function Login({ setSignInStatus }) {
             if (data === "Unathorized User Information") {
               window.alert('Unathorized User Information. Please try again.')
             } else {
-              AsyncStorage.setItem('token', data.token)
+              AsyncStorage.setItem('data', JSON.stringify([{"token": data.token, "id": data.id}]))
               setSignInStatus()
             }
           })

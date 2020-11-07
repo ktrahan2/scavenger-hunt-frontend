@@ -7,6 +7,7 @@ import { Provider } from 'react-redux'
 import { combineReducers, createStore } from 'redux'
 import TabContainer from "./TabContainer"
 import CreatedHunt from "./CreatedHunt"
+import CreateList from "./CreateList"
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const reducer = combineReducers({
@@ -17,8 +18,18 @@ const reducer = combineReducers({
   setThemeSelected,
   setItemAmount,
   setThemeArray,
-  setHuntTitle
+  setHuntTitle,
+  setUserId
 })
+
+function setUserId(state=0, action) {
+  switch(action.type) {
+    case "SETID":
+      return action.payload
+    default:
+      return state 
+  }
+}
 
 function setHuntTitle( state="", action ) {
   switch(action.type) {
@@ -111,6 +122,19 @@ export default class App extends Component {
             <Stack.Screen
               name="On The Hunt"
               component={ TabContainer }
+              options={{
+                headerStyle: { height: 140, backgroundColor: 'rgba(220, 243, 255, .8)' },
+                headerTitleStyle: { alignSelf: 'center', color: "rgba(255,120,63, 1)", fontSize: 28, fontFamily: 'Helvetica-Bold' },
+                headerTitle: <Text>On The Hunt</Text>,
+                headerLeft: () => <Image 
+                  style={{ width: 100, height: 90 }}
+                  source = { require('./logo.png') }
+                />
+              }}
+            />
+            <Stack.Screen
+              name="Create List"
+              component={ CreateList }
               options={{
                 headerStyle: { height: 140, backgroundColor: 'rgba(220, 243, 255, .8)' },
                 headerTitleStyle: { alignSelf: 'center', color: "rgba(255,120,63, 1)", fontSize: 28, fontFamily: 'Helvetica-Bold' },

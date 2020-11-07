@@ -119,7 +119,8 @@ const styles = StyleSheet.create({
     list: {
         backgroundColor: 'rgba(230, 243, 255, .75)',
         borderRadius: 10,
-        width: "95%",
+        width: "85%",
+        margin: 15,
     },
     listItem: {
         padding: 5,
