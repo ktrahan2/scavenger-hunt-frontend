@@ -37,7 +37,6 @@ function CreatedHunt({
     )
     
     const generateHuntList = () => {
-        console.log(store.getState())
         return isThemeArray.map(item => {
             return (
                 <View style={styles.listItem} key={item.ID}>

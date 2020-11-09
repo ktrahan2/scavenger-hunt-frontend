@@ -34,7 +34,6 @@ function GenerateHunt({
         })
       }).then(response => response.json())
           .then(id => setHuntListId(id))
-          
       navigation.navigate("Create List")
     }
 
