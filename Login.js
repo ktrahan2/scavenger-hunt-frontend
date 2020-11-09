@@ -29,8 +29,6 @@ function Login({ setSignInStatus }) {
               AsyncStorage.setItem('data', JSON.stringify([{"token": data.token, "id": data.id}]))
               setSignInStatus()
             }
-          }).catch(error => {
-            console.log(error)
           }) 
         }}
       >

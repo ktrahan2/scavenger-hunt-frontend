@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { TouchableOpacity, StyleSheet, Text, View, Image, ImageBackground, ScrollView } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
@@ -15,7 +15,9 @@ function CreatedHunt({
     navigation,
     isHuntTitle,
     isHuntListId,
-    isUserId
+    isUserId,
+    setItemId,
+    isItemIds
     }) {
 
     const handleClick = ( item ) => {
@@ -25,8 +27,17 @@ function CreatedHunt({
             unClickItem(item.name)
         }
     }
+
+    useEffect( () => {
+        isThemeArray.map(item => {
+            setItemId(item.ID)
+        })
+    },
+    []
+    )
     
     const generateHuntList = () => {
+        console.log(store.getState())
         return isThemeArray.map(item => {
             return (
                 <View style={styles.listItem} key={item.ID}>
@@ -50,21 +61,30 @@ function CreatedHunt({
         })
     }
 
-    const handleSaveList = () => {
-        //fetch to local host User Lists and Selected Items
-        console.log(store.getState())
-        // fetch("https://https://on-the-hunt.herokuapp.com/create-user-lists", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify({
-        //         HuntListID: isHuntListId,
-        //         UserID: isUserId
-
-        //     })
-        // })
-        // navigation.navigate('My Hunts')
+    const handleSaveList = () => {    
+        console.log(isHuntListId)
+        console.log(isUserId)
+        fetch("https://on-the-hunt.herokuapp.com/create-user-list", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                HuntListID: isHuntListId,
+                UserID: isUserId
+            })
+        }).then(response => response.json())
+            .then(fetch("https://on-the-hunt.herokuapp.com/create-selected-item", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    HuntListID: isHuntListId,
+                    HuntItemIDs: isItemIds
+                })
+            }))
+        navigation.navigate('My Hunts')
     }
 
     return (
@@ -108,7 +128,8 @@ const mapStateToProps = (state) => {
       isItemClicked: state.setItemClicked,
       isHuntTitle: state.setHuntTitle,
       isHuntListId: state.setHuntListId,
-      isUserId: state.setUserId
+      isUserId: state.setUserId,
+      isItemIds: state.setItemId
     }
 }
   
@@ -122,6 +143,10 @@ function mapDispatchToProps(dispatch) {
             type: "UNCLICKED",
             payload: ""
         }),     
+        setItemId: (id) => dispatch({
+            type: "SETITEMID",
+            payload: id
+        })
     }
   
 }
@@ -191,10 +216,10 @@ const styles = StyleSheet.create({
         marginRight: 10,
         padding: 5
       },
-      buttonText: {
-        color: "rgba( 61, 85, 35, 1)",
-        fontSize: 16,
-      },
+    buttonText: {
+    color: "rgba( 61, 85, 35, 1)",
+    fontSize: 16,
+    },
     
 
 })

@@ -17,8 +17,6 @@ function GenerateHunt({
         .then(data => JSON.parse(data))
         .then(result => {
           setUserId(result[0].id) 
-        }).catch(error => {
-          console.log(error)
         }) 
       },
       []
@@ -84,7 +82,7 @@ function mapDispatchToProps(dispatch) {
       payload: name
     }), 
     setUserId: (id) => dispatch({
-      type: "SETID",
+      type: "SETUSERID",
       payload: id
     }),
     setHuntListId: (id) => dispatch({
