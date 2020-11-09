@@ -8,7 +8,8 @@ function GenerateHunt({
     isHuntListTitle,
     navigation,
     setUserId,
-    isUserId 
+    isUserId,
+    setHuntListId 
   }) {
 
     useEffect(() => {
@@ -16,13 +17,15 @@ function GenerateHunt({
         .then(data => JSON.parse(data))
         .then(result => {
           setUserId(result[0].id) 
-        })
+        }).catch(error => {
+          console.log(error)
+        }) 
       },
       []
     )
 
     const handleCreateList = () => {
-      fetch('http://localhost:7000/create-hunt-list', {
+      fetch("https://on-the-hunt.herokuapp.com/create-hunt-list", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -32,7 +35,8 @@ function GenerateHunt({
           OwnerID: isUserId
         })
       }).then(response => response.json())
-          .then(console.log) 
+          .then(id => setHuntListId(id))
+          
       navigation.navigate("Create List")
     }
 
@@ -80,6 +84,10 @@ function mapDispatchToProps(dispatch) {
       payload: name
     }), 
     setUserId: (id) => dispatch({
+      type: "SETID",
+      payload: id
+    }),
+    setHuntListId: (id) => dispatch({
       type: "SETID",
       payload: id
     })

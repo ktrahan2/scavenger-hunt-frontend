@@ -28,6 +28,9 @@ function TabContainer({ isSignin, updateSignInStatus, setHuntListItems, navigati
     fetch('https://on-the-hunt.herokuapp.com/hunt-items')
       .then(response => response.json())
       .then(results => setHuntListItems([...results]))
+      .catch(error => {
+        console.log(error)
+      }) 
   }
 
   return (

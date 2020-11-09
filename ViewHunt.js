@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { 
     faChevronCircleDown
   } from '@fortawesome/free-solid-svg-icons'
+import {store} from "./App"
 
 function CreatedHunt({
     isThemeArray,
@@ -12,7 +13,9 @@ function CreatedHunt({
     clickItem,
     unClickItem,
     navigation,
-    isHuntTitle
+    isHuntTitle,
+    isHuntListId,
+    isUserId
     }) {
 
     const handleClick = ( item ) => {
@@ -49,8 +52,19 @@ function CreatedHunt({
 
     const handleSaveList = () => {
         //fetch to local host User Lists and Selected Items
-        console.log('one day ill save')
-        navigation.navigate('My Hunts')
+        console.log(store.getState())
+        // fetch("https://https://on-the-hunt.herokuapp.com/create-user-lists", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify({
+        //         HuntListID: isHuntListId,
+        //         UserID: isUserId
+
+        //     })
+        // })
+        // navigation.navigate('My Hunts')
     }
 
     return (
@@ -92,7 +106,9 @@ const mapStateToProps = (state) => {
       isThemeArray: state.setThemeArray,
       isChecked: state.setChecked,
       isItemClicked: state.setItemClicked,
-      isHuntTitle: state.setHuntTitle
+      isHuntTitle: state.setHuntTitle,
+      isHuntListId: state.setHuntListId,
+      isUserId: state.setUserId
     }
 }
   

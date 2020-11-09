@@ -19,8 +19,18 @@ const reducer = combineReducers({
   setItemAmount,
   setThemeArray,
   setHuntTitle,
-  setUserId
+  setUserId,
+  setHuntListId
 })
+
+function setHuntListId(state=0, action) {
+  switch(action.type) {
+    case "SETID":
+      return action.payload
+    default: 
+      return state
+  }
+}
 
 function setUserId(state=0, action) {
   switch(action.type) {
