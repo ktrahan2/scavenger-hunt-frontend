@@ -2,9 +2,9 @@ import React, { useEffect } from 'react'
 import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { connect } from 'react-redux'
+import { store } from "./App"
 
 function MyHunts({
-        isHuntListTitles,
         setHuntListId,
         navigation,
         isUser
@@ -16,11 +16,9 @@ function MyHunts({
     }
 
     const renderHuntListTitles = () => {
-        console.log(isUser)
         if (isUser.ID != 0) {
         return (
             isUser.HuntLists.map((list, index) => { 
-                console.log(list)
                 return (
                     <TouchableOpacity 
                         style={styles.button}
@@ -56,8 +54,6 @@ function MyHunts({
 
 const mapStateToProps = (state) => {
     return {
-        isUserId: state.setUserId,
-        isHuntListTitles: state.setHuntListTitles,
         isUser: state.setUser
     }
 }
@@ -121,7 +117,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         height: "100%",
         width: 300,
-        alignItems: "center" 
+        alignItems: "center",
+        margin: 15 
       },
       text: {
         color: "rgba( 61, 85, 35, 1)",

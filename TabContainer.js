@@ -18,7 +18,6 @@ import {
     faList
   } from '@fortawesome/free-solid-svg-icons'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { store } from "./App"
 
 const Tab = createBottomTabNavigator()
 function TabContainer({ 
@@ -26,20 +25,14 @@ function TabContainer({
     updateSignInStatus, 
     setHuntListItems, 
     navigation,
-    isUserId, 
-    setUser,
-    isUser
   }) {
 
-  useEffect( () => fetchAllInfo(), [isSignin])
+  useEffect( () => fetchAllInfo(), [])
 
   const fetchAllInfo = () => {
     fetch('https://on-the-hunt.herokuapp.com/hunt-items')
       .then(response => response.json())
       .then(results => setHuntListItems([...results]))
-      .then(fetch(`https://on-the-hunt.herokuapp.com/user/${isUserId}`)
-          .then(response => response.json())
-          .then(user => setUser(user)))
   }
 
   return (

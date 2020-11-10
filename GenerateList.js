@@ -9,14 +9,16 @@ function GenerateHunt({
     navigation,
     setUserId,
     isUserId,
-    setHuntListId 
+    setHuntListId,
+    setUser 
   }) {
 
     useEffect(() => {
         AsyncStorage.getItem("data")
         .then(data => JSON.parse(data))
         .then(result => {
-          setUserId(result[0].id) 
+          setUserId(result[0].user.ID) 
+          setUser(result[0].user)
         }) 
       },
       []
@@ -87,6 +89,10 @@ function mapDispatchToProps(dispatch) {
     setHuntListId: (id) => dispatch({
       type: "SETID",
       payload: id
+    }),
+    setUser: (user) => dispatch({
+      type: "SETUSER",
+      payload: user
     })
   }
 }

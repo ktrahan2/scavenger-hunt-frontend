@@ -131,6 +131,8 @@ function setChecked( state=[], action)  {
   switch(action.type) {
     case "CHECK":
       return [...state, action.payload]
+    case "CHECKGROUP":
+      return action.payload
     case "UNCHECK":
       const filteredIsChecked = state.filter(el => el != action.payload)
       return filteredIsChecked

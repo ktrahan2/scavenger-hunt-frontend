@@ -5,50 +5,86 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { 
     faChevronCircleDown
   } from '@fortawesome/free-solid-svg-icons'
+import { CheckBox } from 'react-native-elements'
+
 
 function UserHunt({
+        navigation,
         isItemClicked,
         clickItem,
         unClickItem,
-        navigation,
         isHuntTitle,
+        setHuntTitle,
         isHuntListId,
         isUserId,
-        setItemId,
-        isItemIds,
+        isChecked,
+        setChecked,
+        setUnChecked,
+        setCheckedGroup,
+        isUser
     }) {
 
     useEffect( () => {
         fetch(`https://on-the-hunt.herokuapp.com//user-lists/${isUserId}/${isHuntListId}`)
             .then(response => response.json())
-            .then(console.log)
+            .then(data => {
+                    setCheckedGroup([...data[0].CheckedItem])
+            })
         },
         []
     )
 
+    const handleClick = ( item ) => {
+        if (isItemClicked !== item.name) {
+            clickItem(item.name)
+        } else {
+            unClickItem(item.name)
+        }
+    }
+
+    const handleCheck = ( event, item ) => {
+        event.preventDefault()
+        if (isChecked.includes(item.name)) {
+          setUnChecked(item.name)
+        } else {
+          setChecked(item.name)
+        }
+    }
+
     const generateHuntList = () => {
-        console.log(findHuntList())
+        return isUser.HuntLists.map(list => {
+            if (list.ID === isHuntListId) {
+                setHuntTitle(list.title)
+                return list.HuntItems.map(item => {
+                    return (                    
+                        <View style={styles.listItem} key={item.ID}>
+                            <CheckBox
+                                checked={isChecked.includes(item.name) ? true : false}
+                                onPress={(event) => handleCheck(event, item)}
+                                containerStyle={styles.checkbox}
+                                uncheckedColor= 'rgba(51, 156, 255, 1)'
+                            />
+                            <Text 
+                                style={styles.text}
+                                onPress={() => handleClick(item)}
+                                >
+                                {item.name} <FontAwesomeIcon icon={ faChevronCircleDown } />
+                            </Text>
+                            <View>
+                                { isItemClicked === item.name ?
+                                    <Image
+                                    style={styles.itemImage}
+                                    source={{uri: item.image}}
+                                    />
+                                    : null
+                                } 
+                            </View> 
+                        </View>
+                    )
+                })
+            }
+        })
             
-            // return (
-            //     <View style={styles.listItem} key={item.ID}>
-            //         <Text 
-            //             style={styles.text}
-            //             onPress={() => handleClick(item)}
-            //             >
-            //             {item.name} <FontAwesomeIcon icon={ faChevronCircleDown } />
-            //         </Text>
-            //         <View>
-            //             { isItemClicked === item.name ?
-            //                 <Image
-            //                 style={styles.itemImage}
-            //                 source={{uri: item.image}}
-            //                 />
-            //                 : null
-            //             } 
-            //         </View> 
-            //     </View>
-            // )
-        // })
     }
 
     const handleUpdateList = () => {
@@ -68,19 +104,19 @@ function UserHunt({
                 >
                     <Text style={styles.h2}>{isHuntTitle}</Text>
                     <View style={styles.borderLine}></View>                    
-                    {/* {generateHuntList()} */}
+                    {generateHuntList()}
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
                             style={styles.button}
                             onPress={handleUpdateList}
                         >
-                            <Text style={styles.buttonText}>Save List</Text>
+                            <Text style={styles.buttonText}>Update List</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.button}
                             onPress={() => navigation.navigate('On The Hunt')}
                         >
-                            <Text style={styles.buttonText}>Get New List</Text>
+                            <Text style={styles.buttonText}>Return</Text>
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
@@ -98,7 +134,8 @@ const mapStateToProps = (state) => {
       isHuntListId: state.setHuntListId,
       isUserId: state.setUserId,
       isItemIds: state.setItemId,
-      isHuntListTitles: state.setHuntListTitles
+      isHuntListTitles: state.setHuntListTitles,
+      isUser: state.setUser
     }
 }
   
@@ -115,6 +152,22 @@ function mapDispatchToProps(dispatch) {
         setItemId: (id) => dispatch({
             type: "SETITEMID",
             payload: id
+        }),
+        setChecked: (name) => dispatch({
+            type: "CHECK",
+            payload: name
+        }),
+        setUnChecked: (name) => dispatch({
+            type: "UNCHECK",
+            payload: name
+        }),
+        setCheckedGroup: (array) => dispatch({
+            type: "CHECKGROUP",
+            payload: array
+        }),
+        setHuntTitle: (title) => dispatch({
+            type: "SETTITLE",
+            payload: title
         })
     }
 }
@@ -135,6 +188,8 @@ const styles = StyleSheet.create({
     },
     listItem: {
         padding: 5,
+        flexDirection: "row",
+        alignItems: "center",
     },
     itemImage: {
         borderWidth: 3,
@@ -188,4 +243,7 @@ const styles = StyleSheet.create({
         color: "rgba( 61, 85, 35, 1)",
         fontSize: 16,
     },
+    checkbox: {
+        width: 5
+      },
 })

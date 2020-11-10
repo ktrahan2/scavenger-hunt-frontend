@@ -16,7 +16,8 @@ function HomePage({
     unClickItem, 
     isChecked, 
     check, 
-    uncheck }) {
+    uncheck 
+  }) {
 
   const handleClick = ( item ) => {
     if (isItemClicked !== item.name) {
