@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { ImageBackground, StyleSheet, Text, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { connect } from 'react-redux'
 import { store } from "./App"
 
@@ -39,14 +39,19 @@ function MyHunts({
             source={require("./blue-sky.jpg")}
         >
             <View style={styles.screenContainer}>
-                <View style={styles.form}>
+                <ScrollView 
+                    style={styles.form}
+                    justifyContent= "flex-start"
+                    alignItems= "center"
+
+                >
                     <Text style={styles.h2}>Your Hunts</Text>
                     <Text style={styles.text}>
                         Select a list to get started!
                     </Text>
                     <View style={styles.borderLine}></View>
                     {renderHuntListTitles()}
-                </View>
+                </ScrollView>
             </View>
         </ImageBackground>
     )
@@ -87,7 +92,6 @@ const styles = StyleSheet.create({
         alignSelf: "center"
     },
     borderLine: { 
-        width: "75%",
         borderBottomWidth: 2, 
         borderBottomColor: "rgba(0, 0, 0, .3)",
         marginTop: -30,
@@ -99,7 +103,6 @@ const styles = StyleSheet.create({
         borderColor: 'rgba(230, 243, 255, .75)',
         borderStyle: "solid",
         borderRadius: 10,
-        width: "75%",
         height: 40,
         justifyContent: "center",
         alignItems: "center",  
@@ -112,12 +115,10 @@ const styles = StyleSheet.create({
         fontSize: 16,
       },
       form: {
-        justifyContent: "flex-start",
         backgroundColor: 'rgba(230, 243, 255, .75)',
         borderRadius: 10,
         height: "100%",
-        width: 300,
-        alignItems: "center",
+        width: "75%",
         margin: 15 
       },
       text: {

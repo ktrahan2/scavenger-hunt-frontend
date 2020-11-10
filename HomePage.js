@@ -73,11 +73,11 @@ function HomePage({
   }
  
   return (
-    <View style={styles.container}>
-      <ImageBackground
+    <ImageBackground
         style={styles.image}
         source={require("./blue-sky.jpg")}
       >
+            <View style={styles.container}>
         <View style={styles.description}>
           <Text style={styles.text}>Welcome to On The Hunt. Below you can see an example scavenger hunt! If you click
             on the name of the item it will show a picture. The picture is just a guide to help find the item and isn't an exact
@@ -89,8 +89,8 @@ function HomePage({
           <View style={styles.borderLine}></View>
           <>{renderList()}</>
         </View>
-      </ImageBackground>
     </View>
+      </ImageBackground>
   )
 }
 
@@ -153,6 +153,7 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 10,
     alignItems: "center",
+    width: "85%",
   },
   image: {
     flex: 1,
@@ -176,6 +177,9 @@ const styles = StyleSheet.create({
   listItem: {
     flexDirection: "row",
     alignItems: "center",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    width: "85%"
   },
   itemImage: {
     borderWidth: 3,

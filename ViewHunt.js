@@ -14,10 +14,12 @@ function CreatedHunt({
     unClickItem,
     navigation,
     isHuntTitle,
+    setHuntTitle,
     isHuntListId,
     isUserId,
     setItemId,
-    isItemIds
+    isItemIds,
+    setUser
     }) {
 
     const handleClick = ( item ) => {
@@ -61,8 +63,6 @@ function CreatedHunt({
     }
 
     const handleSaveList = () => {    
-        console.log(isHuntListId)
-        console.log(isUserId)
         fetch("https://on-the-hunt.herokuapp.com/create-user-list", {
             method: "POST",
             headers: {
@@ -82,8 +82,16 @@ function CreatedHunt({
                     HuntListID: isHuntListId,
                     HuntItemIDs: isItemIds
                 })
-            }))
+            })).then(fetch(`https://on-the-hunt.herokuapp.com/user/${isUserId}`)
+                .then(response => response.json())
+                .then(user => setUser(user)))
+                .then(resetState())
         navigation.navigate('My Hunts')
+    }
+
+    const resetState = () => {
+        return setHuntTitle()
+
     }
 
     return (
@@ -145,6 +153,14 @@ function mapDispatchToProps(dispatch) {
         setItemId: (id) => dispatch({
             type: "SETITEMID",
             payload: id
+        }),
+        setUser: (user) => dispatch({
+            type: "SETUSER",
+            payload: user
+        }),
+        setHuntTitle: () => dispatch({
+            type: "SETTITLE",
+            payload: ""
         })
     }
   

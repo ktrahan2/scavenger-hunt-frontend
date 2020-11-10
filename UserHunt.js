@@ -21,14 +21,17 @@ function UserHunt({
         setChecked,
         setUnChecked,
         setCheckedGroup,
-        isUser
+        isUser,
+        isUserListId,
+        setUserListId
     }) {
 
     useEffect( () => {
-        fetch(`https://on-the-hunt.herokuapp.com//user-lists/${isUserId}/${isHuntListId}`)
+        fetch(`https://on-the-hunt.herokuapp.com/user-lists/${isUserId}/${isHuntListId}`)
             .then(response => response.json())
             .then(data => {
                     setCheckedGroup([...data[0].CheckedItem])
+                    setUserListId(data.ID)
             })
         },
         []
@@ -88,7 +91,15 @@ function UserHunt({
     }
 
     const handleUpdateList = () => {
-        //pass isChecked to a fetch to user-lists
+        fetch(`https://on-the-hunt.herokuapp.com/update-user-list/${isUserListId}`, {
+            method: "PUT",
+            header: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                CheckedItem: isChecked
+            })
+        }).then(navigation.navigate("My Hunts"))
     }
     
     return (
@@ -114,9 +125,9 @@ function UserHunt({
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.button}
-                            onPress={() => navigation.navigate('On The Hunt')}
+                            onPress={() => navigation.navigate('My Hunts')}
                         >
-                            <Text style={styles.buttonText}>Return</Text>
+                            <Text style={styles.buttonText}>Back</Text>
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
@@ -135,7 +146,8 @@ const mapStateToProps = (state) => {
       isUserId: state.setUserId,
       isItemIds: state.setItemId,
       isHuntListTitles: state.setHuntListTitles,
-      isUser: state.setUser
+      isUser: state.setUser,
+      isUserListId: state.setUserListId
     }
 }
   
@@ -168,6 +180,10 @@ function mapDispatchToProps(dispatch) {
         setHuntTitle: (title) => dispatch({
             type: "SETTITLE",
             payload: title
+        }),
+        setUserListId: (id) => dispatch({
+            type: "SETUSERLISTID",
+            payload: id
         })
     }
 }
@@ -187,11 +203,11 @@ const styles = StyleSheet.create({
         margin: 15,
     },
     listItem: {
-        padding: 5,
         flexDirection: "row",
         flexWrap: "wrap",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "flex-start",
+        width: "85%"
     },
     itemImage: {
         borderWidth: 3,
