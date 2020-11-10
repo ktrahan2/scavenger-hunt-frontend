@@ -88,7 +88,7 @@ function UserHunt({
     }
 
     const handleUpdateList = () => {
-
+        //pass isChecked to a fetch to user-lists
     }
     
     return (
@@ -189,7 +189,9 @@ const styles = StyleSheet.create({
     listItem: {
         padding: 5,
         flexDirection: "row",
+        flexWrap: "wrap",
         alignItems: "center",
+        justifyContent: "center"
     },
     itemImage: {
         borderWidth: 3,
@@ -205,7 +207,8 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         flexDirection: "row",
-        padding: 20
+        padding: 20,
+        justifyContent: "center",
     },
     h2: {
         padding: 20,
@@ -218,7 +221,7 @@ const styles = StyleSheet.create({
         borderBottomColor: "rgba(0, 0, 0, .3)",
         marginTop: -20,
         marginBottom: 15, 
-        borderStyle: "solid"
+        borderStyle: "solid",
     },
     text: {
         color: "rgba( 61, 85, 35, 1)",
