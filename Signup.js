@@ -4,6 +4,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import { connect } from 'react-redux'
 import { Formik } from 'formik'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import MyTouchableOpacity from './MyTouchableOpacity'
 
 function Signup({ setSignInStatus }) {
 
@@ -67,12 +68,10 @@ function Signup({ setSignInStatus }) {
               placeholderTextColor= "rgba( 61, 85, 35, 1)"
               autoCapitalize="none"
             />
-            <TouchableOpacity
-                style={styles.button}
-                onPress={handleSubmit}
-              >
-                <Text style={styles.text}>Signup</Text>
-              </TouchableOpacity>
+            <MyTouchableOpacity 
+              buttonText={"Signup"}
+              handlePress={handleSubmit}
+            />
           </View>
         )}
       </Formik>
@@ -117,18 +116,6 @@ const styles = StyleSheet.create({
     color: "rgba( 61, 85, 35, 1)",
     fontSize: 20,
     backgroundColor: 'rgba(230, 243, 255, .85)',
-  },
-  button: {
-    borderWidth: 1,
-    borderColor: 'rgba(230, 243, 255, .75)',
-    borderStyle: "solid",
-    borderRadius: 10,
-    width: 100,
-    height: 40,
-    justifyContent: "center",
-    alignItems: "center",  
-    backgroundColor: 'rgba(230, 243, 255, .85)',
-    marginTop: 15,
   },
   image: {
     flex: 1,

@@ -53,7 +53,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(myCheckBox)
 const styles = StyleSheet.create({
 
     checkbox: {
-        width: 5
+        width: 5,
     },
 
 })

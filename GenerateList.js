@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react'
-import { TouchableOpacity, StyleSheet, View, ImageBackground, TextInput, Text } from 'react-native';
+import { StyleSheet, View, ImageBackground, TextInput, Text } from 'react-native';
 import { connect } from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import MyTouchableOpacity from './MyTouchableOpacity'
 
 function GenerateHunt({ 
     setHuntTitle,
@@ -58,12 +59,10 @@ function GenerateHunt({
                     placeholder="Enter Title"
                     placeholderTextColor= "rgba( 61, 85, 35, 1)"
                 />
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={handleCreateList}
-                >
-                  <Text style={styles.buttonText}>Create Hunt List</Text>
-                </TouchableOpacity>
+                <MyTouchableOpacity 
+                  buttonText={"Create Hunt"}
+                  handlePress={handleCreateList}
+                />
             </View>  
         </View>
       </ImageBackground>
@@ -151,23 +150,5 @@ const styles = StyleSheet.create({
     color: "rgba( 61, 85, 35, 1)",
     fontSize: 20,
     padding: 2
-  },
-  button: {
-    borderWidth: 1,
-    borderColor: 'rgba(230, 243, 255, .75)',
-    borderStyle: "solid",
-    borderRadius: 10,
-    width: "75%",
-    height: 40,
-    justifyContent: "center",
-    alignItems: "center",  
-    backgroundColor: 'rgba(230, 243, 255, .85)',
-    marginTop: 15,
-  },
-  buttonText: {
-    color: "rgba( 61, 85, 35, 1)",
-    fontSize: 16,
   }
-
-
 })

@@ -2,6 +2,8 @@ import React from 'react'
 import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { connect } from 'react-redux'
+import MyTouchableOpacity from './MyTouchableOpacity'
+
 
 function MyHunts({
         setHuntListId,
@@ -30,13 +32,10 @@ function MyHunts({
         return (
             isUser.HuntLists.map((list, index) => { 
                 return (
-                    <TouchableOpacity 
-                        style={styles.button}
-                        key={index}
-                        onPress={ () => handlePress(list.ID)}
-                    >
-                        <Text style={styles.buttonText}>{list.title}</Text>
-                    </TouchableOpacity>
+                    <MyTouchableOpacity 
+                        buttonText={list.title}
+                        handlePress={() => handlePress(list.ID)}
+                    />
                 )
             })
         )
@@ -53,7 +52,6 @@ function MyHunts({
                     style={styles.form}
                     justifyContent= "flex-start"
                     alignItems= "center"
-
                 >
                     <Text style={styles.h2}>Your Hunts</Text>
                     <Text style={styles.text}>
@@ -117,31 +115,15 @@ const styles = StyleSheet.create({
         marginBottom: 35, 
         borderStyle: "solid"
     },
-    button: {
-        borderWidth: 1,
-        borderColor: 'rgba(230, 243, 255, .75)',
-        borderStyle: "solid",
-        borderRadius: 10,
-        height: 40,
-        justifyContent: "center",
-        alignItems: "center",  
-        backgroundColor: 'rgba(230, 243, 255, .85)',
-        marginTop: 15,
-        padding: 10,
-      },
-      buttonText: {
-        color: "rgba( 61, 85, 35, 1)",
-        fontSize: 16,
-      },
-      form: {
+    form: {
         backgroundColor: 'rgba(230, 243, 255, .75)',
         borderRadius: 10,
         height: "100%",
         width: "75%",
         margin: 15 
-      },
-      text: {
+    },
+    text: {
         color: "rgba( 61, 85, 35, 1)",
         fontSize: 18,
-      }
+    }
 })

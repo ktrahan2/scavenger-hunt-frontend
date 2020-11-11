@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Alert, TouchableOpacity, StyleSheet, Text, View, Image, ImageBackground, ScrollView } from 'react-native';
+import { Alert, StyleSheet, Text, View, Image, ImageBackground, ScrollView } from 'react-native';
 import RenderList from './CreateList/RenderList'
+import MyTouchableOpacity from './MyTouchableOpacity'
 
 function UserHunt({
         navigation,
@@ -13,7 +14,7 @@ function UserHunt({
         isUserListId,
     }) {
 
-    const generateHuntList = () => {
+    const renderList = () => {
         return isUser.HuntLists.map(list => {
             if (list.ID === isHuntListId) {
                 setHuntTitle(list.title)
@@ -71,27 +72,21 @@ function UserHunt({
                 >
                     <Text style={styles.h2}>{isHuntTitle}</Text>
                     <View style={styles.borderLine}></View>                    
-                    {generateHuntList()}
+                    {renderList()}
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity
-                            style={styles.button}
-                            onPress={handleUpdateList}
-                        >
-                            <Text style={styles.buttonText}>Update List</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.button}
-                            onPress={triggerDelete}
-                        >
-                            <Text style={styles.buttonText}>Delete Hunt</Text>
-                        </TouchableOpacity>
+                        <MyTouchableOpacity 
+                            buttonText={"Update List"}
+                            handlePress={handleUpdateList}
+                        />
+                        <MyTouchableOpacity 
+                            buttonText={"Delete Hunt"}
+                            handlePress={triggerDelete}
+                        />
                     </View>
-                        <TouchableOpacity
-                            style={styles.button}
-                            onPress={() => navigation.navigate('My Hunts')}
-                        >
-                            <Text style={styles.buttonText}>Upgrade me back button</Text>
-                        </TouchableOpacity>
+                    <MyTouchableOpacity 
+                        buttonText={"Back"}
+                        handlePress={() => navigation.navigate('My Hunts')}
+                    />                          
                 </ScrollView>
             </View>
         </ImageBackground>

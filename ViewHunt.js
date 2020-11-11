@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { TouchableOpacity, StyleSheet, Text, View, Image, ImageBackground, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, ScrollView } from 'react-native';
 import RenderList from './CreateList/RenderList'
+import MyTouchableOpacity from './MyTouchableOpacity'
 
 function CreatedHunt({
     isThemeArray,
@@ -24,7 +25,7 @@ function CreatedHunt({
         []
     )
     
-    const generateHuntList = () => {
+    const renderList = () => {
         return <RenderList array={isThemeArray}/>
     }
 
@@ -60,31 +61,26 @@ function CreatedHunt({
             style={styles.image}
             source={require("./blue-sky.jpg")}
         >
-        <View style={styles.screenContainer}>
-            <ScrollView 
-                style={styles.list}
-                alignItems= 'center'
-                padding= "15"
-            >
-                <Text style={styles.h2}>{isHuntTitle}</Text>
-                <View style={styles.borderLine}></View>
-                {generateHuntList()}
-                <View style={styles.buttonContainer}>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={handleSaveList}
-                    >
-                        <Text style={styles.buttonText}>Save List</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => navigation.navigate('On The Hunt')}
-                    >
-                        <Text style={styles.buttonText}>Get New List</Text>
-                    </TouchableOpacity>
-                </View>
-            </ScrollView>
-        </View>
+            <View style={styles.screenContainer}>
+                <ScrollView 
+                    style={styles.list}
+                    alignItems= 'center'
+                >
+                    <Text style={styles.h2}>{isHuntTitle}</Text>
+                    <View style={styles.borderLine}></View>
+                    {renderList()}
+                    <View style={styles.buttonContainer}>
+                        <MyTouchableOpacity 
+                            buttonText={"Save List"} 
+                            handlePress={handleSaveList}
+                        />
+                        <MyTouchableOpacity
+                            buttonText={"Get New List"}
+                            handlePress={() => navigation.navigate('On The Hunt')}
+                        />
+                    </View>
+                </ScrollView>
+            </View>
         </ImageBackground>
     )
 }
@@ -144,8 +140,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         width: "85%",
         margin: 15,
-        paddingRight: 10
-
+        paddingRight: 18
     },
     image: {
         flex: 1,
@@ -170,22 +165,5 @@ const styles = StyleSheet.create({
         marginBottom: 15, 
         borderStyle: "solid"
     },
-    button: {
-        borderWidth: 1,
-        borderColor: 'rgba(230, 243, 255, .75)',
-        borderStyle: "solid",
-        borderRadius: 10,
-        height: 40,
-        justifyContent: "center",
-        alignItems: "center",  
-        backgroundColor: 'rgba(200, 230, 240, 1)',
-        marginTop: 5,
-        marginLeft: 10,
-        marginRight: 10,
-        padding: 5
-      },
-    buttonText: {
-        color: "rgba( 61, 85, 35, 1)",
-        fontSize: 16,
-    }
+    
 })
