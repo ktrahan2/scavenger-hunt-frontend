@@ -1,18 +1,18 @@
 import React from 'react';
-import { Button, ImageBackground, StyleSheet, View, Text } from 'react-native';
+import { ImageBackground, StyleSheet, View, Text } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { connect } from 'react-redux'
 import { Formik } from 'formik'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-function Login({ setSignInStatus }) {
+function Login({ setSignInStatus, navigation }) {
 
   const renderLoginForm = () => {
     return (
       <Formik
         initialValues={{ username: '', password: ''}}
         onSubmit={values => {
-          fetch('https://on-the-hunt.herokuapp.com/login', {
+          fetch('http://localhost:7000/login', {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
@@ -26,8 +26,10 @@ function Login({ setSignInStatus }) {
             if (data === "Unathorized User Information") {
               window.alert('Unathorized User Information. Please try again.')
             } else {
+              console.log("data", data)
               AsyncStorage.setItem('data', JSON.stringify([{"token": data.token, "user": data.user}]))
               setSignInStatus()
+              navigation.navigate("My Hunts")
             }
           
           }) 

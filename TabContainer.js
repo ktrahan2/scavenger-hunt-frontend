@@ -30,7 +30,7 @@ function TabContainer({
   useEffect( () => fetchAllInfo(), [])
 
   const fetchAllInfo = () => {
-    fetch('https://on-the-hunt.herokuapp.com/hunt-items')
+    fetch('http://localhost:7000/hunt-items')
       .then(response => response.json())
       .then(results => setHuntListItems([...results]))
   }

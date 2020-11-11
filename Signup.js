@@ -12,8 +12,8 @@ function Signup({ setSignInStatus }) {
       <Formik
         initialValues={{ username: '', password: '', email: ''}}
         onSubmit={values => {
-          console.log(values)
-          fetch('https://on-the-hunt.herokuapp.com/create-user', {
+          console.log("values", values)
+          fetch('http://localhost:7000/create-user', {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
@@ -37,7 +37,7 @@ function Signup({ setSignInStatus }) {
               label="Username"
               style={styles.input}
               placeholder="Enter Username"
-              onChange={handleChange('username')}
+              onChangeText={handleChange('username')}
               onBlur={handleBlur('username')}
               value={values.username}
               placeholderTextColor= "rgba( 61, 85, 35, 1)"
@@ -48,7 +48,7 @@ function Signup({ setSignInStatus }) {
               placeholder="Enter Password"
               style={styles.input}
               secureTextEntry={true}
-              onChange={handleChange('password')}
+              onChangeText={handleChange('password')}
               onBlur={handleBlur('password')}
               value={values.password}
               placeholderTextColor= "rgba( 61, 85, 35, 1)"
@@ -58,7 +58,7 @@ function Signup({ setSignInStatus }) {
               name="email"
               placeholder="Enter email"
               style={styles.input}
-              onChange={handleChange('email')}
+              onChangeText={handleChange('email')}
               onBlur={handleBlur('email')}
               value={values.email}
               placeholderTextColor= "rgba( 61, 85, 35, 1)"

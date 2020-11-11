@@ -7,16 +7,30 @@ import { store } from "./App"
 function MyHunts({
         setHuntListId,
         navigation,
-        isUser
+        isUser,
+        isUserId,
+        setCheckedGroup,
+        setUserListId,
+
     }) {
 
     const handlePress = (id) => {
+        console.log(id)
+        console.log(isUserId)
+        fetch(`http://localhost:7000/user-lists/${isUserId}/${id}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log("data", data)
+                    setUserListId(data[0].ID)
+                    setCheckedGroup([...data[0].CheckedItem])
+            })
         setHuntListId(id)
         navigation.navigate("User Hunt")
     }
 
     const renderHuntListTitles = () => {
-        if (isUser.ID != 0) {
+        console.log(isUser)
+        if (isUser.ID != 0 && isUser.HuntLists != null) {
         return (
             isUser.HuntLists.map((list, index) => { 
                 return (
@@ -47,7 +61,7 @@ function MyHunts({
                 >
                     <Text style={styles.h2}>Your Hunts</Text>
                     <Text style={styles.text}>
-                        Select a list to get started!
+                        Select or create a list to get started!
                     </Text>
                     <View style={styles.borderLine}></View>
                     {renderHuntListTitles()}
@@ -59,7 +73,8 @@ function MyHunts({
 
 const mapStateToProps = (state) => {
     return {
-        isUser: state.setUser
+        isUser: state.setUser,
+        isUserId: state.setUserId
     }
 }
 
@@ -68,7 +83,15 @@ function mapDispatchToProps(dispatch) {
         setHuntListId: (id) => dispatch({
             type: "SETID",
             payload: id
-        })
+        }),
+        setUserListId: (id) => dispatch({
+            type: "SETUSERLISTID",
+            payload: id
+        }),
+        setCheckedGroup: (array) => dispatch({
+            type: "CHECKGROUP",
+            payload: array
+        }),
     }
 }
 

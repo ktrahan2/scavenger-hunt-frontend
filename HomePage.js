@@ -79,7 +79,7 @@ function HomePage({
       >
             <View style={styles.container}>
         <View style={styles.description}>
-          <Text style={styles.text}>Welcome to On The Hunt. Below you can see an example scavenger hunt! If you click
+          <Text style={styles.textDescription}>Welcome to On The Hunt. Below you can see an example scavenger hunt! If you click
             on the name of the item it will show a picture. The picture is just a guide to help find the item and isn't an exact
             copy. Enjoy your hunt!
           </Text>
@@ -171,6 +171,11 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "rgba( 61, 85, 35, 1)",
+    fontSize: 20,
+    padding: 2
+  },
+  textDescription: {
+    color: "rgba( 61, 95, 35, 1)",
     fontSize: 20,
     padding: 2
   },

@@ -10,6 +10,7 @@ import ViewHunt from "./ViewHunt"
 import CreateList from "./CreateListOptions"
 import UserHunt from "./UserHunt"
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { LogBox } from 'react-native'
 
 const reducer = combineReducers({
   setSignInStatus,
@@ -157,7 +158,7 @@ export const store = createStore(reducer)
 export default class App extends Component {
 
   render() {
-  
+    LogBox.ignoreAllLogs();
     return (
       <Provider store={store}>
         <NavigationContainer>

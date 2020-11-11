@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { TouchableOpacity, StyleSheet, Text, View, Image, ImageBackground, ScrollView } from 'react-native';
+import { Alert, TouchableOpacity, StyleSheet, Text, View, Image, ImageBackground, ScrollView } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { 
     faChevronCircleDown
@@ -20,22 +20,9 @@ function UserHunt({
         isChecked,
         setChecked,
         setUnChecked,
-        setCheckedGroup,
         isUser,
         isUserListId,
-        setUserListId
     }) {
-
-    useEffect( () => {
-        fetch(`https://on-the-hunt.herokuapp.com/user-lists/${isUserId}/${isHuntListId}`)
-            .then(response => response.json())
-            .then(data => {
-                    setCheckedGroup([...data[0].CheckedItem])
-                    setUserListId(data.ID)
-            })
-        },
-        []
-    )
 
     const handleClick = ( item ) => {
         if (isItemClicked !== item.name) {
@@ -55,9 +42,13 @@ function UserHunt({
     }
 
     const generateHuntList = () => {
+        console.log("user", isUser)
+        console.log("user list id", isUserListId)
+        console.log("hunt list id", isHuntListId)
         return isUser.HuntLists.map(list => {
             if (list.ID === isHuntListId) {
                 setHuntTitle(list.title)
+                console.log("current list", list)
                 return list.HuntItems.map(item => {
                     return (                    
                         <View style={styles.listItem} key={item.ID}>
@@ -91,7 +82,7 @@ function UserHunt({
     }
 
     const handleUpdateList = () => {
-        fetch(`https://on-the-hunt.herokuapp.com/update-user-list/${isUserListId}`, {
+        fetch(`http://localhost:7000/update-user-list/${isUserListId}`, {
             method: "PUT",
             header: {
                 "Content-Type": "application/json"
@@ -101,6 +92,31 @@ function UserHunt({
             })
         }).then(navigation.navigate("My Hunts"))
     }
+
+    const triggerDelete = () => {
+        Alert.alert(
+            "Are you sure you want to delete?",
+            "",
+            [
+                {
+                    text: "Yes",
+                    onPress:(handleDeleteList)
+                },
+                {
+                    text: "No",
+                    onPress: () => console.log("not doing anything")
+                }
+            ],
+            { cancelable: false }
+        )
+    }
+
+    const handleDeleteList = () => {
+        fetch(`http://localhost:7000/delete-user-list/${isUserListId}`, {
+            method: "DELETE"
+        }).then(response => response.json())
+            .then(navigation.navigate("My Hunts"))
+}
     
     return (
         <ImageBackground
@@ -125,11 +141,17 @@ function UserHunt({
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.button}
-                            onPress={() => navigation.navigate('My Hunts')}
+                            onPress={triggerDelete}
                         >
-                            <Text style={styles.buttonText}>Back</Text>
+                            <Text style={styles.buttonText}>Delete Hunt</Text>
                         </TouchableOpacity>
                     </View>
+                    <TouchableOpacity
+                            style={styles.button}
+                            onPress={() => navigation.navigate('My Hunts')}
+                        >
+                            <Text style={styles.buttonText}>Upgrade me back button</Text>
+                        </TouchableOpacity>
                 </ScrollView>
             </View>
         </ImageBackground>
@@ -147,7 +169,7 @@ const mapStateToProps = (state) => {
       isItemIds: state.setItemId,
       isHuntListTitles: state.setHuntListTitles,
       isUser: state.setUser,
-      isUserListId: state.setUserListId
+      isUserListId: state.setUserListId,
     }
 }
   
@@ -173,18 +195,12 @@ function mapDispatchToProps(dispatch) {
             type: "UNCHECK",
             payload: name
         }),
-        setCheckedGroup: (array) => dispatch({
-            type: "CHECKGROUP",
-            payload: array
-        }),
+        
         setHuntTitle: (title) => dispatch({
             type: "SETTITLE",
             payload: title
         }),
-        setUserListId: (id) => dispatch({
-            type: "SETUSERLISTID",
-            payload: id
-        })
+        
     }
 }
 

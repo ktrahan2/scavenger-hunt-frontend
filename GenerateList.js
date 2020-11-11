@@ -10,7 +10,8 @@ function GenerateHunt({
     setUserId,
     isUserId,
     setHuntListId,
-    setUser 
+    setUser,
+    isSignin 
   }) {
 
     useEffect(() => {
@@ -21,11 +22,11 @@ function GenerateHunt({
           setUser(result[0].user)
         }) 
       },
-      []
+      [isSignin]
     )
 
     const handleCreateList = () => {
-      fetch("https://on-the-hunt.herokuapp.com/create-hunt-list", {
+      fetch("http://localhost:7000/create-hunt-list", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -72,7 +73,8 @@ function GenerateHunt({
 const mapStateToProps = (state) => {
     return {
       isHuntListTitle: state.setHuntTitle,
-      isUserId: state.setUserId
+      isUserId: state.setUserId,
+      isSignin: state.setSignInStatus
     }
   }
   

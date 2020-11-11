@@ -14,7 +14,6 @@ function CreatedHunt({
     unClickItem,
     navigation,
     isHuntTitle,
-    setHuntTitle,
     isHuntListId,
     isUserId,
     setItemId,
@@ -63,7 +62,7 @@ function CreatedHunt({
     }
 
     const handleSaveList = () => {    
-        fetch("https://on-the-hunt.herokuapp.com/create-user-list", {
+        fetch("http://localhost:7000/create-user-list", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -73,7 +72,7 @@ function CreatedHunt({
                 UserID: isUserId
             })
         }).then(response => response.json())
-            .then(fetch("https://on-the-hunt.herokuapp.com/create-selected-item", {
+            .then(fetch("http://localhost:7000/create-selected-item", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -82,16 +81,10 @@ function CreatedHunt({
                     HuntListID: isHuntListId,
                     HuntItemIDs: isItemIds
                 })
-            })).then(fetch(`https://on-the-hunt.herokuapp.com/user/${isUserId}`)
+            })).then(fetch(`http://localhost:7000/user/${isUserId}`)
                 .then(response => response.json())
                 .then(user => setUser(user)))
-                .then(resetState())
         navigation.navigate('My Hunts')
-    }
-
-    const resetState = () => {
-        return setHuntTitle()
-
     }
 
     return (
