@@ -12,7 +12,6 @@ function Signup({ setSignInStatus }) {
       <Formik
         initialValues={{ username: '', password: '', email: ''}}
         onSubmit={values => {
-          console.log("values", values)
           fetch('http://localhost:7000/create-user', {
             method: "POST",
             headers: {

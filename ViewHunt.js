@@ -1,16 +1,10 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { TouchableOpacity, StyleSheet, Text, View, Image, ImageBackground, ScrollView } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { 
-    faChevronCircleDown
-  } from '@fortawesome/free-solid-svg-icons'
+import RenderList from './CreateList/RenderList'
 
 function CreatedHunt({
     isThemeArray,
-    isItemClicked,
-    clickItem,
-    unClickItem,
     navigation,
     isHuntTitle,
     isHuntListId,
@@ -22,44 +16,16 @@ function CreatedHunt({
     setLoadingImage
     }) {
 
-    const handleClick = ( item ) => {
-        if (isItemClicked !== item.name) {
-            clickItem(item.name)
-        } else {
-            unClickItem(item.name)
-        }
-    }
-
     useEffect( () => {
         isThemeArray.map(item => {
             setItemId(item.ID)
         })
-    },
-    []
+        },
+        []
     )
     
     const generateHuntList = () => {
-        return isThemeArray.map(item => {
-            return (
-                <View style={styles.listItem} key={item.ID}>
-                    <Text 
-                        style={styles.text}
-                        onPress={() => handleClick(item)}
-                        >
-                        {item.name} <FontAwesomeIcon icon={ faChevronCircleDown } />
-                    </Text>
-                    <View>
-                        { isItemClicked === item.name ?
-                            <Image
-                            style={styles.itemImage}
-                            source={{uri: item.image}}
-                            />
-                            : null
-                        } 
-                    </View> 
-                </View>
-            )
-        })
+        return <RenderList array={isThemeArray}/>
     }
 
     const handleSaveList = () => {    
@@ -98,7 +64,7 @@ function CreatedHunt({
             <ScrollView 
                 style={styles.list}
                 alignItems= 'center'
-                justifyContent= 'flex-start'
+                padding= "15"
             >
                 <Text style={styles.h2}>{isHuntTitle}</Text>
                 <View style={styles.borderLine}></View>
@@ -136,15 +102,7 @@ const mapStateToProps = (state) => {
 }
   
 function mapDispatchToProps(dispatch) {
-    return {
-        clickItem: (item) => dispatch({
-            type: "CLICKED",
-            payload: item  
-        }),
-        unClickItem: () => dispatch({
-            type: "UNCLICKED",
-            payload: ""
-        }),     
+    return {   
         setItemId: (id) => dispatch({
             type: "SETITEMID",
             payload: id
@@ -186,16 +144,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         width: "85%",
         margin: 15,
-    },
-    listItem: {
-        padding: 5,
-    },
-    itemImage: {
-        borderWidth: 3,
-        borderRadius: 10,
-        borderColor: 'orange',
-        width: 200,
-        height: 200,
+        paddingRight: 10
+
     },
     image: {
         flex: 1,
@@ -204,7 +154,8 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         flexDirection: "row",
-        padding: 20
+        padding: 20,
+        justifyContent: "center",
     },
     h2: {
         padding: 20,
@@ -218,11 +169,6 @@ const styles = StyleSheet.create({
         marginTop: -20,
         marginBottom: 15, 
         borderStyle: "solid"
-    },
-    text: {
-        color: "rgba( 61, 85, 35, 1)",
-        fontSize: 20,
-        padding: 2
     },
     button: {
         borderWidth: 1,
@@ -239,9 +185,7 @@ const styles = StyleSheet.create({
         padding: 5
       },
     buttonText: {
-    color: "rgba( 61, 85, 35, 1)",
-    fontSize: 16,
-    },
-    
-
+        color: "rgba( 61, 85, 35, 1)",
+        fontSize: 16,
+    }
 })

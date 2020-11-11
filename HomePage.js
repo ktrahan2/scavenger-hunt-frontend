@@ -1,83 +1,27 @@
-import { Formik } from 'formik';
 import React from 'react';
 import { StyleSheet, Text, View, ImageBackground, Image } from 'react-native';
 import { connect } from 'react-redux'
-import { CheckBox } from 'react-native-elements'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { 
-    faChevronCircleDown
-  } from '@fortawesome/free-solid-svg-icons'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import RenderList from './CreateList/RenderList'
 
 function HomePage({ 
-    allHuntItems, 
-    isItemClicked,
-    clickItem, 
-    unClickItem, 
-    isChecked, 
-    check, 
-    uncheck 
+    allHuntItems
   }) {
-
-  const handleClick = ( item ) => {
-    if (isItemClicked !== item.name) {
-      clickItem(item.name)
-    } else {
-      unClickItem(item.name)
-    }
-  }
-
-  const handleCheck = ( event, item ) => {
-    event.preventDefault()
-    if (isChecked.includes(item.name)) {
-      uncheck(item.name)
-    } else {
-      check(item.name)
-    }
-  }
 
   const renderList = () => {
     if (allHuntItems.length > 0) {
       let first = allHuntItems[5]  
       let second = allHuntItems[6]
       let itemArray = [first, second]
-    return (
-      itemArray.map(item => {
-        return (
-          <View style={styles.listItem} key={item.ID}>
-            <CheckBox
-              checked={isChecked.includes(item.name) ? true : false}
-              onPress={(event) => handleCheck(event, item)}
-              containerStyle={styles.checkbox}
-              uncheckedColor= 'rgba(51, 156, 255, 1)'
-            />
-            <Text 
-                style={styles.text}
-                onPress={() => handleClick(item)}
-                >
-                {item.name} <FontAwesomeIcon icon={ faChevronCircleDown } />
-            </Text>
-            <View>
-              { isItemClicked === item.name ?
-                  <Image
-                    style={styles.itemImage}
-                    source={{uri: item.image}}
-                  />
-                : null
-              } 
-            </View> 
-          </View>
-        )
-      })
-    )}
+      return <RenderList array={itemArray}/>
+    }
   }
  
   return (
     <ImageBackground
-        style={styles.image}
-        source={require("./blue-sky.jpg")}
-      >
-            <View style={styles.container}>
+      style={styles.image}
+      source={require("./blue-sky.jpg")}
+    >
+      <View style={styles.container}>
         <View style={styles.description}>
           <Text style={styles.textDescription}>Welcome to On The Hunt. Below you can see an example scavenger hunt! If you click
             on the name of the item it will show a picture. The picture is just a guide to help find the item and isn't an exact
@@ -89,41 +33,18 @@ function HomePage({
           <View style={styles.borderLine}></View>
           <>{renderList()}</>
         </View>
-    </View>
-      </ImageBackground>
+      </View>
+    </ImageBackground>
   )
 }
 
 const mapStateToProps = (state) => {
   return {
     allHuntItems: state.setHuntListItems,
-    isItemClicked: state.setItemClicked,
-    isChecked: state.setChecked
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    clickItem: (item) => dispatch({
-      type: "CLICKED",
-      payload: item  
-    }),
-    unClickItem: () => dispatch({
-      type: "UNCLICKED",
-      payload: ""
-    }),
-    check: (item) => dispatch({
-      type: "CHECK",
-      payload: item
-    }),
-    uncheck: (item) => dispatch({
-      type: "UNCHECK",
-      payload: item
-    })
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
+export default connect(mapStateToProps)(HomePage)
   
 const styles = StyleSheet.create({
   container: {
@@ -166,32 +87,10 @@ const styles = StyleSheet.create({
     color: "rgba( 61, 85, 35, 1)",
     alignItems: "center"
   },
-  checkbox: {
-    width: 5
-  },
-  text: {
-    color: "rgba( 61, 85, 35, 1)",
-    fontSize: 20,
-    padding: 2
-  },
   textDescription: {
     color: "rgba( 61, 95, 35, 1)",
     fontSize: 20,
     padding: 2
-  },
-  listItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    width: "85%"
-  },
-  itemImage: {
-    borderWidth: 3,
-    borderRadius: 10,
-    borderColor: "rgba(255,120,63, 1)",
-    width: 200,
-    height: 200,
   },
   borderLine: {
     width: "100%", 
