@@ -26,6 +26,10 @@ function Signup({ setSignInStatus }) {
           }).then(response => response.json())
           .then(data => {
             AsyncStorage.setItem('data', JSON.stringify([{"token": data.token, "user": data.user}]))
+            setNavigationLocation("My Hunts")
+            setNavigationTimer(2000)
+            setLoadingImage("Welcome Bear")
+            navigation.navigate("Splash Screen") 
             setSignInStatus()
           })
         }}

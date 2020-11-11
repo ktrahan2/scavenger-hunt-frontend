@@ -9,154 +9,15 @@ import TabContainer from "./TabContainer"
 import ViewHunt from "./ViewHunt"
 import CreateList from "./CreateListOptions"
 import UserHunt from "./UserHunt"
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import SplashScreen from "./SplashScreen"
 import { LogBox } from 'react-native'
+import Reducer from "./Reducer"
 
-const reducer = combineReducers({
-  setSignInStatus,
-  setHuntListItems,
-  setItemClicked,
-  setChecked,
-  setThemeSelected,
-  setItemAmount,
-  setThemeArray,
-  setHuntTitle,
-  setUserId,
-  setHuntListId,
-  setItemId,
-  setUser,
-  setUserListId
-})
-
-function setUserListId(state=0, action) {
-  switch(action.type) {
-    case "SETUSERLISTID":
-      return action.payload
-    default: 
-      return state
-  }
-}
-
-function setUser(state="", action) {
-  switch(action.type) {
-    case "SETUSER":
-      return action.payload
-    default:
-      return state
-  }
-}
-
-function setItemId(state=[], action) {
-  switch(action.type) {
-    case "SETITEMID":
-      return [...state, action.payload]
-    default:
-      return state
-  }
-}
-
-function setHuntListId(state=0, action) {
-  switch(action.type) {
-    case "SETID":
-      return action.payload
-    default: 
-      return state
-  }
-}
-
-function setUserId(state=0, action) {
-  switch(action.type) {
-    case "SETUSERID":
-      return action.payload
-    default:
-      return state 
-  }
-}
-
-function setHuntTitle( state="", action ) {
-  switch(action.type) {
-    case "SETTITLE":
-      return action.payload
-    default: 
-      return state
-  }
-}
-
-function setThemeArray( state=[], action ) {
-  switch(action.type) {
-    case "CREATEARRAY":
-      return [...action.payload]
-    default:
-      return state
-  }
-}
-
-function setItemAmount(state="", action) {
-  switch(action.type) {
-    case "UPDATEITEMAMOUNT":
-      return action.payload
-    default: 
-      return state
-  }
-}
-
-function setThemeSelected( state="", action ) {
-  switch(action.type) {
-    case "UPDATETHEME":
-      return action.payload
-    default:
-      return state
-  }
-}
-
-function setHuntListItems(state=[], action) {
-  switch(action.type) {
-    case "ALLHUNTITEMS":
-      return action.payload
-    default: 
-      return state
-  }
-}
-
-function setSignInStatus(state=false, action) {
-  switch(action.type) {
-    case "CHANGESIGNIN":
-      return action.payload
-    default: 
-      return state
-  }
-}
-
-function setItemClicked( state="", action ) {
-  switch(action.type) {
-    case "CLICKED":
-      return action.payload
-    case "UNCLICKED":
-      return action.payload
-    default:
-      return state
-  }
-}
-
-function setChecked( state=[], action)  {
-  switch(action.type) {
-    case "CHECK":
-      return [...state, action.payload]
-    case "CHECKGROUP":
-      return action.payload
-    case "UNCHECK":
-      const filteredIsChecked = state.filter(el => el != action.payload)
-      return filteredIsChecked
-    default: 
-      return state
-  }
-}
 
 const Stack = createStackNavigator()
-export const store = createStore(reducer)
-
+export const store = createStore(Reducer)
 export default class App extends Component {
-
+  
   render() {
     LogBox.ignoreAllLogs();
     return (
@@ -205,6 +66,19 @@ export default class App extends Component {
             <Stack.Screen
               name="User Hunt"
               component={ UserHunt }
+              options={{
+                headerStyle: { height: 140, backgroundColor: 'rgba(220, 243, 255, .8)' },
+                headerTitleStyle: { alignSelf: 'center', color: "rgba(255,120,63, 1)", fontSize: 28, fontFamily: 'Helvetica-Bold' },
+                headerTitle: <Text>On The Hunt</Text>,
+                headerLeft: () => <Image 
+                  style={{ width: 100, height: 90 }}
+                  source = { require('./logo.png') }
+                />
+              }}
+            />
+            <Stack.Screen
+              name="Splash Screen"
+              component={ SplashScreen }
               options={{
                 headerStyle: { height: 140, backgroundColor: 'rgba(220, 243, 255, .8)' },
                 headerTitleStyle: { alignSelf: 'center', color: "rgba(255,120,63, 1)", fontSize: 28, fontFamily: 'Helvetica-Bold' },

@@ -5,7 +5,13 @@ import { connect } from 'react-redux'
 import { Formik } from 'formik'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-function Login({ setSignInStatus, navigation }) {
+function Login({ 
+    setSignInStatus, 
+    setNavigationLocation,
+    setNavigationTimer,
+    navigation,
+    setLoadingImage 
+  }) {
 
   const renderLoginForm = () => {
     return (
@@ -26,12 +32,13 @@ function Login({ setSignInStatus, navigation }) {
             if (data === "Unathorized User Information") {
               window.alert('Unathorized User Information. Please try again.')
             } else {
-              console.log("data", data)
               AsyncStorage.setItem('data', JSON.stringify([{"token": data.token, "user": data.user}]))
+              setNavigationLocation("My Hunts")
+              setNavigationTimer(2000)
+              setLoadingImage("Welcome Bear")
+              navigation.navigate("Splash Screen") 
               setSignInStatus()
-              navigation.navigate("My Hunts")
             }
-          
           }) 
         }}
       >
@@ -144,6 +151,18 @@ function mapDispatchToProps(dispatch) {
     setSignInStatus: () => dispatch({
       type: "CHANGESIGNIN",
       payload: true
+    }),
+    setNavigationLocation: (location) => dispatch({
+      type: "SETLOCATION",
+      payload: location
+    }),
+    setNavigationTimer: (time) => dispatch({
+      type: "SETTIMER",
+      payload: time
+    }),
+    setLoadingImage: (image) => dispatch({
+      type: "SETLOADINGIMAGE",
+      payload: image
     })
   }
 }

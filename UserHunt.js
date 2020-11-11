@@ -16,7 +16,6 @@ function UserHunt({
         isHuntTitle,
         setHuntTitle,
         isHuntListId,
-        isUserId,
         isChecked,
         setChecked,
         setUnChecked,

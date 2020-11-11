@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { connect } from 'react-redux'
-import { store } from "./App"
 
 function MyHunts({
         setHuntListId,
@@ -15,12 +14,9 @@ function MyHunts({
     }) {
 
     const handlePress = (id) => {
-        console.log(id)
-        console.log(isUserId)
         fetch(`http://localhost:7000/user-lists/${isUserId}/${id}`)
             .then(response => response.json())
             .then(data => {
-                console.log("data", data)
                     setUserListId(data[0].ID)
                     setCheckedGroup([...data[0].CheckedItem])
             })
@@ -29,7 +25,7 @@ function MyHunts({
     }
 
     const renderHuntListTitles = () => {
-        console.log(isUser)
+        console.log("when generated", isUser)
         if (isUser.ID != 0 && isUser.HuntLists != null) {
         return (
             isUser.HuntLists.map((list, index) => { 

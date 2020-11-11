@@ -25,6 +25,8 @@ function TabContainer({
     updateSignInStatus, 
     setHuntListItems, 
     navigation,
+    isUserId,
+    setUser
   }) {
 
   useEffect( () => fetchAllInfo(), [])
@@ -109,6 +111,14 @@ function TabContainer({
                 />
               )
             }}
+            listeners= { () => ({
+              focus: () => {
+                console.log(isUserId)
+                fetch(`http://localhost:7000/user/${isUserId}`)
+                .then(response => response.json())
+                .then(user => setUser(user))
+              }
+            })}
         />
         <Tab.Screen
           name="Logout"
@@ -140,7 +150,8 @@ const mapStateToProps = (state) => {
   return {
     isSignin: state.setSignInStatus,
     isUserId: state.setUserId,
-    isUser: state.setUser
+    isUser: state.setUser,
+    isUserId: state.setUserId
   }
 }
 

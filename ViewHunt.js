@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { 
     faChevronCircleDown
   } from '@fortawesome/free-solid-svg-icons'
-import {store} from "./App"
 
 function CreatedHunt({
     isThemeArray,
@@ -18,7 +17,9 @@ function CreatedHunt({
     isUserId,
     setItemId,
     isItemIds,
-    setUser
+    setNavigationLocation,
+    setNavigationTimer,
+    setLoadingImage
     }) {
 
     const handleClick = ( item ) => {
@@ -81,10 +82,11 @@ function CreatedHunt({
                     HuntListID: isHuntListId,
                     HuntItemIDs: isItemIds
                 })
-            })).then(fetch(`http://localhost:7000/user/${isUserId}`)
-                .then(response => response.json())
-                .then(user => setUser(user)))
-        navigation.navigate('My Hunts')
+            }))
+            setNavigationLocation("My Hunts")
+            setNavigationTimer(3000)
+            setLoadingImage("Enjoy Bear")
+            navigation.navigate("Splash Screen")
     }
 
     return (
@@ -154,6 +156,18 @@ function mapDispatchToProps(dispatch) {
         setHuntTitle: () => dispatch({
             type: "SETTITLE",
             payload: ""
+        }),
+        setNavigationLocation: (location) => dispatch({
+            type: "SETLOCATION",
+            payload: location
+        }),
+        setNavigationTimer: (time) => dispatch({
+            type: "SETTIMER",
+            payload: time
+        }),
+        setLoadingImage: (image) => dispatch({
+            type: "SETLOADINGIMAGE",
+            payload: image
         })
     }
   
