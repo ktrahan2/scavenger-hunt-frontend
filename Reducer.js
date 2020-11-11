@@ -1,23 +1,26 @@
-export default function reducer() { 
-    combineReducers({
-    setSignInStatus,
-    setHuntListItems,
-    setItemClicked,
-    setChecked,
-    setThemeSelected,
-    setItemAmount,
-    setThemeArray,
-    setHuntTitle,
-    setUserId,
-    setHuntListId,
-    setItemId,
-    setUser,
-    setUserListId,
-    setNavigationLocation,
-    setNavigationTimer,
-    setLoading,
-    setLoadingImage
-  })
+import { combineReducers } from 'redux'
+import React from 'react'
+
+export default function Reducer() {
+    return combineReducers({
+            setSignInStatus,
+            setHuntListItems,
+            setItemClicked,
+            setChecked,
+            setThemeSelected,
+            setItemAmount,
+            setThemeArray,
+            setHuntTitle,
+            setUserId,
+            setHuntListId,
+            setItemId,
+            setUser,
+            setUserListId,
+            setNavigationLocation,
+            setNavigationTimer,
+            setLoading,
+            setLoadingImage
+        })
 }
   
   function setLoadingImage( state="" , action) {
