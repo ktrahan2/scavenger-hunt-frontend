@@ -32,7 +32,6 @@ export default function MyTextInput({
                 placeholderTextColor= "rgba( 61, 85, 35, 1)"
                 secureTextEntry={true}
             />
-        
     }
 
     return (
