@@ -20,7 +20,7 @@ While using their scavenger hunt list the user will be able to save their checke
 
 ## How It Works
 
-[Spacey Bois](https://www.youtube.com/watch?v=xcrq1DzK1YA)
+[On The Hunt](https://www.youtube.com/watch?v=RJUS6SivbOI&t=4s)
 
 ## Example Code 
 Here is a reusable TextInput creator for forms.
