@@ -3,14 +3,14 @@
 On The Hunt is an interactive app that allows the user to generate a random scavanger hunts based on selections of a theme and amount of items to find.  
 
 # Table Of Contents 
-- [Description](https://github.com/ktrahan2/spacey-bois-frontend/blob/main/README.md#description)
-- [How It Works](https://github.com/ktrahan2/spacey-bois-frontend/blob/main/README.md#how-it-works)
-- [Example Code](https://github.com/ktrahan2/spacey-bois-frontend/blob/main/README.md#example-code)
-- [Technology Used](https://github.com/ktrahan2/spacey-bois-frontend/blob/main/README.md#technology-used)
-- [Main Features](https://github.com/ktrahan2/spacey-bois-frontend/blob/main/README.md#main-features)
-- [Features in Progress](https://github.com/ktrahan2/spacey-bois-frontend/blob/main/README.md#features-in-progress)
-- [Contact Information](https://github.com/ktrahan2/spacey-bois-frontend/blob/main/README.md#contact-information)
-- [Link to Backend Repo](https://github.com/ktrahan2/spacey-bois-frontend/blob/main/README.md#link-to-backend-repo)
+- [Description](https://github.com/ktrahan2/scavenger-hunt-frontend#description)
+- [How It Works](https://github.com/ktrahan2/scavenger-hunt-frontend#how-it-works)
+- [Example Code](https://github.com/ktrahan2/scavenger-hunt-frontend#example-code)
+- [Technology Used](https://github.com/ktrahan2/scavenger-hunt-frontend#technology-used)
+- [Main Features](https://github.com/ktrahan2/scavenger-hunt-frontend#main-features)
+- [Features in Progress](https://github.com/ktrahan2/scavenger-hunt-frontend#features-in-progress)
+- [Contact Information](https://github.com/ktrahan2/scavenger-hunt-frontend#contact-information)
+- [Link to Backend Repo](https://github.com/ktrahan2/scavenger-hunt-frontend#link-to-backend-repo)
 
 ## Description
 
