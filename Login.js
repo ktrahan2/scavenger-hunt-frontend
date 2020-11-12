@@ -4,7 +4,8 @@ import { TextInput } from 'react-native-gesture-handler';
 import { connect } from 'react-redux'
 import { Formik } from 'formik'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import MyTouchableOpacity from './MyTouchableOpacity'
+import MyTouchableOpacity from './Components/MyTouchableOpacity'
+import { postFetch } from "./FetchList"
 
 function Login({ 
     setSignInStatus, 
@@ -19,16 +20,11 @@ function Login({
       <Formik
         initialValues={{ username: '', password: ''}}
         onSubmit={values => {
-          fetch('http://localhost:7000/login', {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              username: values.username,
-              password: values.password
-            })
-          }).then(response => response.json())
+          let body = { 
+            username: values.username,
+            password: values.password
+          }
+          postFetch( "login", body )
           .then(data => {
             if (data === "Unathorized User Information") {
               window.alert('Unathorized User Information. Please try again.')

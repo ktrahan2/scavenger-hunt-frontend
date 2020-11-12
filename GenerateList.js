@@ -2,7 +2,8 @@ import React, {useEffect} from 'react'
 import { StyleSheet, View, ImageBackground, TextInput, Text } from 'react-native';
 import { connect } from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import MyTouchableOpacity from './MyTouchableOpacity'
+import MyTouchableOpacity from './Components/MyTouchableOpacity'
+import { postFetch } from "./FetchList"
 
 function GenerateHunt({ 
     setHuntTitle,
@@ -27,17 +28,15 @@ function GenerateHunt({
     )
 
     const handleCreateList = () => {
-      fetch("http://localhost:7000/create-hunt-list", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          Title: isHuntListTitle,
-          OwnerID: isUserId
-        })
-      }).then(response => response.json())
-          .then(id => setHuntListId(id))
+
+      let body = { 
+        Title: isHuntListTitle, 
+        OwnerID: isUserId 
+      }
+      
+      postFetch( "create-hunt-list", body )
+        .then(id => setHuntListId(id))
+
       navigation.navigate("Create List")
     }
 

@@ -2,7 +2,7 @@ import React from 'react'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { connect } from 'react-redux'
 import { StyleSheet, View, ImageBackground, Text } from 'react-native';
-import MyTouchableOpacity from './MyTouchableOpacity'
+import MyTouchableOpacity from './Components/MyTouchableOpacity'
 
 function CreateList({
     setThemeSelected, 
@@ -12,7 +12,7 @@ function CreateList({
     isItemAmount, 
     allHuntItems,
     setThemeArray
-}) {
+  }) {
 
   const handleCreateList = () => {
       createThemeArray()
@@ -34,7 +34,9 @@ function CreateList({
       var currentIndex = array.length, temporaryValue, randomIndex
 
       while ( 0 !== currentIndex) {
+
           randomIndex = Math.floor(Math.random() * currentIndex)
+          
           currentIndex -= 1
 
           temporaryValue = array[currentIndex]
@@ -62,7 +64,7 @@ function CreateList({
                 defaultValue={isThemeSelected}
                 containerStyle={{height: 60, width: "90%"}}
                 placeholder="Select a theme"
-                labelStyle={{color: "rgba( 61, 85, 35, 1)", fontSize: 20,  }}
+                labelStyle={{color: "rgba( 61, 85, 35, 1)", fontSize: 20 }}
                 onChangeItem={item => setThemeSelected(item.value)}
                 zIndex={5000}
                 dropDownStyle={{backgroundColor: 'rgba(230, 243, 255, 1)'}}

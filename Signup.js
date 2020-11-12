@@ -1,36 +1,42 @@
 import React from 'react';
-import { StyleSheet, View, ImageBackground, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, ImageBackground } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { connect } from 'react-redux'
 import { Formik } from 'formik'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import MyTouchableOpacity from './MyTouchableOpacity'
+import MyTouchableOpacity from './Components/MyTouchableOpacity'
+import { postFetch } from "./FetchList"
 
-function Signup({ setSignInStatus }) {
+function Signup({ 
+  setSignInStatus, 
+  setNavigationLocation,
+  setNavigationTimer,
+  navigation,
+  setLoadingImage 
+}) {
 
   const renderSignupForm = () => {
     return (
       <Formik
         initialValues={{ username: '', password: '', email: ''}}
         onSubmit={values => {
-          fetch('http://localhost:7000/create-user', {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              username: values.username,
-              password: values.password,
-              email: values.email
-            })
-          }).then(response => response.json())
+          let body = {
+            username: values.username,
+            password: values.password,
+            email: values.email
+          }
+          postFetch( "create-user", body )
           .then(data => {
+            if (data === "Unathorized User Information") {
+              window.alert('Unathorized User Information. Please try again.')
+            } else {
             AsyncStorage.setItem('data', JSON.stringify([{"token": data.token, "user": data.user}]))
             setNavigationLocation("My Hunts")
             setNavigationTimer(2000)
             setLoadingImage("Welcome Bear")
             navigation.navigate("Splash Screen") 
             setSignInStatus()
+            }
           })
         }}
       >
@@ -139,8 +145,21 @@ function mapDispatchToProps(dispatch) {
     setSignInStatus: () => dispatch({
       type: "CHANGESIGNIN",
       payload: true
+    }),
+    setNavigationLocation: (location) => dispatch({
+      type: "SETLOCATION",
+      payload: location
+    }),
+    setNavigationTimer: (time) => dispatch({
+      type: "SETTIMER",
+      payload: time
+    }),
+    setLoadingImage: (image) => dispatch({
+      type: "SETLOADINGIMAGE",
+      payload: image
     })
   }
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);

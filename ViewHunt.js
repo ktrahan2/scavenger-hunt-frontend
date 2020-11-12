@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet, Text, View, ImageBackground, ScrollView } from 'react-native';
-import RenderList from './CreateList/RenderList'
-import MyTouchableOpacity from './MyTouchableOpacity'
+import RenderList from './Components/CreateList/RenderList'
+import MyTouchableOpacity from './Components/MyTouchableOpacity'
+import { postFetch } from "./FetchList"
 
 function CreatedHunt({
     isThemeArray,
@@ -29,31 +30,25 @@ function CreatedHunt({
         return <RenderList array={isThemeArray}/>
     }
 
-    const handleSaveList = () => {    
-        fetch("http://localhost:7000/create-user-list", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                HuntListID: isHuntListId,
-                UserID: isUserId
-            })
-        }).then(response => response.json())
-            .then(fetch("http://localhost:7000/create-selected-item", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    HuntListID: isHuntListId,
-                    HuntItemIDs: isItemIds
-                })
-            }))
-            setNavigationLocation("My Hunts")
-            setNavigationTimer(3000)
-            setLoadingImage("Enjoy Bear")
-            navigation.navigate("Splash Screen")
+    const handleSaveList = () => {
+        
+        let url1 = "create-user-list"
+        let body1 = {
+            HuntListID: isHuntListId,
+            UserID: isUserId
+        }
+        let url2 = "create-selected-item"
+        let body2 = {
+            HuntListID: isHuntListId,
+            HuntItemIDs: isItemIds
+        }
+        postFetch( url1, body1 )
+        .then(postFetch( url2, body2 ))
+    
+        setNavigationLocation("My Hunts")
+        setNavigationTimer(3000)
+        setLoadingImage("Enjoy Bear")
+        navigation.navigate("Splash Screen")
     }
 
     return (

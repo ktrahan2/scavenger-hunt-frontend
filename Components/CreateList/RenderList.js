@@ -3,7 +3,6 @@ import MyCheckBox from './CheckBox'
 import ListItem from './ListItem'
 import { StyleSheet, View } from 'react-native';
 
-
 export default function RenderList({ array }) {
     
     const renderList = (array) => {

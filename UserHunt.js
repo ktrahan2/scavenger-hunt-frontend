@@ -1,8 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Alert, StyleSheet, Text, View, Image, ImageBackground, ScrollView } from 'react-native';
-import RenderList from './CreateList/RenderList'
-import MyTouchableOpacity from './MyTouchableOpacity'
+import { Alert, StyleSheet, Text, View, ImageBackground, ScrollView } from 'react-native';
+import RenderList from './Components/CreateList/RenderList'
+import MyTouchableOpacity from './Components/MyTouchableOpacity'
+import { putFetch, deleteFetch } from "./FetchList"
 
 function UserHunt({
         navigation,
@@ -24,15 +25,10 @@ function UserHunt({
     }
 
     const handleUpdateList = () => {
-        fetch(`http://localhost:7000/update-user-list/${isUserListId}`, {
-            method: "PUT",
-            header: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                CheckedItem: isChecked
-            })
-        }).then(navigation.navigate("My Hunts"))
+        let url = "update-user-list/" + isUserListId
+        let body = { CheckedItem: isChecked }
+        putFetch( url, body )
+        .then(navigation.navigate("My Hunts"))
     }
 
     const triggerDelete = () => {
@@ -54,9 +50,8 @@ function UserHunt({
     }
 
     const handleDeleteList = () => {
-        fetch(`http://localhost:7000/delete-user-list/${isUserListId}`, {
-            method: "DELETE"
-        }).then(response => response.json())
+        let url = "delete-user-list/" + isUserListId
+        deleteFetch( url )
             .then(navigation.navigate("My Hunts"))
     }
     
@@ -159,23 +154,5 @@ const styles = StyleSheet.create({
         marginTop: -20,
         marginBottom: 15, 
         borderStyle: "solid",
-    },
-    button: {
-        borderWidth: 1,
-        borderColor: 'rgba(230, 243, 255, .75)',
-        borderStyle: "solid",
-        borderRadius: 10,
-        height: 40,
-        justifyContent: "center",
-        alignItems: "center",  
-        backgroundColor: 'rgba(200, 230, 240, 1)',
-        marginTop: 5,
-        marginLeft: 10,
-        marginRight: 10,
-        padding: 5
-      },
-    buttonText: {
-        color: "rgba( 61, 85, 35, 1)",
-        fontSize: 16,
     }
 })
