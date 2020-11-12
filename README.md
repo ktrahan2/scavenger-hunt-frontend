@@ -51,9 +51,20 @@ Here is a reusable TextInput creator for forms.
             />
     }
 ```
-   
+Reusable splash screen handler. 
 ```
-   
+   const sendTo = (  ) => {
+
+        { setTimeout( () => { 
+            navigation.navigate("On The Hunt") }, 
+            isNavigationTimer - 1
+        )}
+        { setTimeout( () => { 
+            navigation.navigate(isNavigationLocation) }, 
+            isNavigationTimer
+        )}
+        
+    } 
 ```
 
 ## Technology Used
