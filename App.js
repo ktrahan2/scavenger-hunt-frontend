@@ -1,16 +1,16 @@
 import 'react-native-gesture-handler'
 import React, { Component } from 'react'
-import { StyleSheet, Text, Image} from 'react-native'
+import { Text, Image} from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
+import { LogBox } from 'react-native'
 import TabContainer from "./TabContainer"
 import ViewHunt from "./ViewHunt"
 import CreateList from "./CreateListOptions"
 import UserHunt from "./UserHunt"
 import SplashScreen from "./SplashScreen"
-import { LogBox } from 'react-native'
 import Reducer from "./Reducer"
 
 const Stack = createStackNavigator()
@@ -94,15 +94,3 @@ export default class App extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    
-  },
-});
-
-

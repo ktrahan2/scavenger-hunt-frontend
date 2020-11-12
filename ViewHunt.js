@@ -1,16 +1,12 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { TouchableOpacity, StyleSheet, Text, View, Image, ImageBackground, ScrollView } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { 
-    faChevronCircleDown
-  } from '@fortawesome/free-solid-svg-icons'
+import { StyleSheet, Text, View, ImageBackground, ScrollView } from 'react-native';
+import RenderList from './Components/CreateList/RenderList'
+import MyTouchableOpacity from './Components/MyTouchableOpacity'
+import { postFetch } from "./FetchList"
 
 function CreatedHunt({
     isThemeArray,
-    isItemClicked,
-    clickItem,
-    unClickItem,
     navigation,
     isHuntTitle,
     isHuntListId,
@@ -22,71 +18,37 @@ function CreatedHunt({
     setLoadingImage
     }) {
 
-    const handleClick = ( item ) => {
-        if (isItemClicked !== item.name) {
-            clickItem(item.name)
-        } else {
-            unClickItem(item.name)
-        }
-    }
-
     useEffect( () => {
         isThemeArray.map(item => {
             setItemId(item.ID)
         })
-    },
-    []
+        },
+        []
     )
     
-    const generateHuntList = () => {
-        return isThemeArray.map(item => {
-            return (
-                <View style={styles.listItem} key={item.ID}>
-                    <Text 
-                        style={styles.text}
-                        onPress={() => handleClick(item)}
-                        >
-                        {item.name} <FontAwesomeIcon icon={ faChevronCircleDown } />
-                    </Text>
-                    <View>
-                        { isItemClicked === item.name ?
-                            <Image
-                            style={styles.itemImage}
-                            source={{uri: item.image}}
-                            />
-                            : null
-                        } 
-                    </View> 
-                </View>
-            )
-        })
+    const renderList = () => {
+        return <RenderList array={isThemeArray}/>
     }
 
-    const handleSaveList = () => {    
-        fetch("http://localhost:7000/create-user-list", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                HuntListID: isHuntListId,
-                UserID: isUserId
-            })
-        }).then(response => response.json())
-            .then(fetch("http://localhost:7000/create-selected-item", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    HuntListID: isHuntListId,
-                    HuntItemIDs: isItemIds
-                })
-            }))
-            setNavigationLocation("My Hunts")
-            setNavigationTimer(3000)
-            setLoadingImage("Enjoy Bear")
-            navigation.navigate("Splash Screen")
+    const handleSaveList = () => {
+        
+        let url1 = "create-user-list"
+        let body1 = {
+            HuntListID: isHuntListId,
+            UserID: isUserId
+        }
+        let url2 = "create-selected-item"
+        let body2 = {
+            HuntListID: isHuntListId,
+            HuntItemIDs: isItemIds
+        }
+        postFetch( url1, body1 )
+        .then(postFetch( url2, body2 ))
+    
+        setNavigationLocation("My Hunts")
+        setNavigationTimer(3000)
+        setLoadingImage("Enjoy Bear")
+        navigation.navigate("Splash Screen")
     }
 
     return (
@@ -94,31 +56,26 @@ function CreatedHunt({
             style={styles.image}
             source={require("./blue-sky.jpg")}
         >
-        <View style={styles.screenContainer}>
-            <ScrollView 
-                style={styles.list}
-                alignItems= 'center'
-                justifyContent= 'flex-start'
-            >
-                <Text style={styles.h2}>{isHuntTitle}</Text>
-                <View style={styles.borderLine}></View>
-                {generateHuntList()}
-                <View style={styles.buttonContainer}>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={handleSaveList}
-                    >
-                        <Text style={styles.buttonText}>Save List</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => navigation.navigate('On The Hunt')}
-                    >
-                        <Text style={styles.buttonText}>Get New List</Text>
-                    </TouchableOpacity>
-                </View>
-            </ScrollView>
-        </View>
+            <View style={styles.screenContainer}>
+                <ScrollView 
+                    style={styles.list}
+                    alignItems= 'center'
+                >
+                    <Text style={styles.h2}>{isHuntTitle}</Text>
+                    <View style={styles.borderLine}></View>
+                    {renderList()}
+                    <View style={styles.buttonContainer}>
+                        <MyTouchableOpacity 
+                            buttonText={"Save List"} 
+                            handlePress={handleSaveList}
+                        />
+                        <MyTouchableOpacity
+                            buttonText={"Get New List"}
+                            handlePress={() => navigation.navigate('On The Hunt')}
+                        />
+                    </View>
+                </ScrollView>
+            </View>
         </ImageBackground>
     )
 }
@@ -136,15 +93,7 @@ const mapStateToProps = (state) => {
 }
   
 function mapDispatchToProps(dispatch) {
-    return {
-        clickItem: (item) => dispatch({
-            type: "CLICKED",
-            payload: item  
-        }),
-        unClickItem: () => dispatch({
-            type: "UNCLICKED",
-            payload: ""
-        }),     
+    return {   
         setItemId: (id) => dispatch({
             type: "SETITEMID",
             payload: id
@@ -186,16 +135,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         width: "85%",
         margin: 15,
-    },
-    listItem: {
-        padding: 5,
-    },
-    itemImage: {
-        borderWidth: 3,
-        borderRadius: 10,
-        borderColor: 'orange',
-        width: 200,
-        height: 200,
+        paddingRight: 18
     },
     image: {
         flex: 1,
@@ -204,7 +144,8 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         flexDirection: "row",
-        padding: 20
+        padding: 20,
+        justifyContent: "center",
     },
     h2: {
         padding: 20,
@@ -219,29 +160,5 @@ const styles = StyleSheet.create({
         marginBottom: 15, 
         borderStyle: "solid"
     },
-    text: {
-        color: "rgba( 61, 85, 35, 1)",
-        fontSize: 20,
-        padding: 2
-    },
-    button: {
-        borderWidth: 1,
-        borderColor: 'rgba(230, 243, 255, .75)',
-        borderStyle: "solid",
-        borderRadius: 10,
-        height: 40,
-        justifyContent: "center",
-        alignItems: "center",  
-        backgroundColor: 'rgba(200, 230, 240, 1)',
-        marginTop: 5,
-        marginLeft: 10,
-        marginRight: 10,
-        padding: 5
-      },
-    buttonText: {
-    color: "rgba( 61, 85, 35, 1)",
-    fontSize: 16,
-    },
     
-
 })

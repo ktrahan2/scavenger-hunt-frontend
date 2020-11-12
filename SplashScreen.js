@@ -19,6 +19,7 @@ function SplashScreen({
             navigation.navigate(isNavigationLocation) }, 
             isNavigationTimer
         )}
+        
     } 
 
     return (
@@ -49,12 +50,7 @@ const mapStateToProps = (state) => {
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SplashScreen);
+export default connect( mapStateToProps )(SplashScreen);
 
 const styles = StyleSheet.create({
     backgroundImage: {

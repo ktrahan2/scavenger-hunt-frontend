@@ -1,9 +1,11 @@
 import React from 'react';
-import { ImageBackground, StyleSheet, View, Text } from 'react-native';
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import { ImageBackground, StyleSheet, View } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
 import { connect } from 'react-redux'
 import { Formik } from 'formik'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import MyTouchableOpacity from './Components/MyTouchableOpacity'
+import { postFetch } from "./FetchList"
 
 function Login({ 
     setSignInStatus, 
@@ -18,16 +20,11 @@ function Login({
       <Formik
         initialValues={{ username: '', password: ''}}
         onSubmit={values => {
-          fetch('http://localhost:7000/login', {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              username: values.username,
-              password: values.password
-            })
-          }).then(response => response.json())
+          let body = { 
+            username: values.username,
+            password: values.password
+          }
+          postFetch( "login", body )
           .then(data => {
             if (data === "Unathorized User Information") {
               window.alert('Unathorized User Information. Please try again.')
@@ -65,12 +62,10 @@ function Login({
                 value={values.password}
                 placeholderTextColor= "rgba( 61, 85, 35, 1)"
               />
-              <TouchableOpacity
-                style={styles.button}
-                onPress={handleSubmit}
-              >
-                <Text style={styles.text}>Login</Text>
-              </TouchableOpacity>
+              <MyTouchableOpacity 
+                buttonText={"Login"}
+                handlePress={handleSubmit}
+              />
             </View>
           )}
       </Formik>
@@ -115,18 +110,6 @@ const styles = StyleSheet.create({
     color: "rgba( 61, 85, 35, 1)",
     fontSize: 20,
     backgroundColor: 'rgba(230, 243, 255, .85)',
-  },
-  button: {
-    borderWidth: 1,
-    borderColor: 'rgba(230, 243, 255, .75)',
-    borderStyle: "solid",
-    borderRadius: 10,
-    width: 100,
-    height: 40,
-    justifyContent: "center",
-    alignItems: "center",  
-    backgroundColor: 'rgba(230, 243, 255, .85)',
-    marginTop: 15,
   },
   image: {
     flex: 1,

@@ -1,7 +1,9 @@
 import React from 'react'
 import { ImageBackground, StyleSheet, Text, View } from 'react-native';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import { connect } from 'react-redux'
+import MyTouchableOpacity from './Components/MyTouchableOpacity'
+import { getFetch } from "./FetchList"
 
 function MyHunts({
         setHuntListId,
@@ -14,29 +16,31 @@ function MyHunts({
     }) {
 
     const handlePress = (id) => {
-        fetch(`http://localhost:7000/user-lists/${isUserId}/${id}`)
-            .then(response => response.json())
-            .then(data => {
-                    setUserListId(data[0].ID)
-                    setCheckedGroup([...data[0].CheckedItem])
-            })
+        getUserLists(id)
         setHuntListId(id)
         navigation.navigate("User Hunt")
     }
 
+    const getUserLists = (id) => {
+        let huntListId = id
+        let url = "user-lists/" + isUserId + "/" + huntListId
+        getFetch( url )
+            .then(data => {
+                    setUserListId(data[0].ID)
+                    setCheckedGroup([...data[0].CheckedItem])
+            })
+    }
+
     const renderHuntListTitles = () => {
-        console.log("when generated", isUser)
         if (isUser.ID != 0 && isUser.HuntLists != null) {
         return (
             isUser.HuntLists.map((list, index) => { 
                 return (
-                    <TouchableOpacity 
-                        style={styles.button}
-                        key={index}
-                        onPress={ () => handlePress(list.ID)}
-                    >
-                        <Text style={styles.buttonText}>{list.title}</Text>
-                    </TouchableOpacity>
+                    <MyTouchableOpacity
+                        key={list.title+index} 
+                        buttonText={list.title}
+                        handlePress={() => handlePress(list.ID)}
+                    />
                 )
             })
         )
@@ -53,13 +57,12 @@ function MyHunts({
                     style={styles.form}
                     justifyContent= "flex-start"
                     alignItems= "center"
-
                 >
                     <Text style={styles.h2}>Your Hunts</Text>
+                    <View style={styles.borderLine}></View>
                     <Text style={styles.text}>
                         Select or create a list to get started!
                     </Text>
-                    <View style={styles.borderLine}></View>
                     {renderHuntListTitles()}
                 </ScrollView>
             </View>
@@ -113,35 +116,20 @@ const styles = StyleSheet.create({
     borderLine: { 
         borderBottomWidth: 2, 
         borderBottomColor: "rgba(0, 0, 0, .3)",
-        marginTop: -30,
-        marginBottom: 35, 
+        marginTop: -20,
+        marginBottom: 20, 
         borderStyle: "solid"
     },
-    button: {
-        borderWidth: 1,
-        borderColor: 'rgba(230, 243, 255, .75)',
-        borderStyle: "solid",
-        borderRadius: 10,
-        height: 40,
-        justifyContent: "center",
-        alignItems: "center",  
-        backgroundColor: 'rgba(230, 243, 255, .85)',
-        marginTop: 15,
-        padding: 10,
-      },
-      buttonText: {
-        color: "rgba( 61, 85, 35, 1)",
-        fontSize: 16,
-      },
-      form: {
+    form: {
         backgroundColor: 'rgba(230, 243, 255, .75)',
         borderRadius: 10,
         height: "100%",
         width: "75%",
         margin: 15 
-      },
-      text: {
+    },
+    text: {
         color: "rgba( 61, 85, 35, 1)",
         fontSize: 18,
-      }
+        marginBottom: 20
+    }
 })

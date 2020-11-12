@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { connect } from 'react-redux'
 import Login from "./Login"
@@ -8,6 +7,7 @@ import HomePage from "./HomePage"
 import Logout from "./Logout"
 import MyHunts from "./MyHunts"
 import GenerateHunt from "./GenerateList"
+import { getFetch } from "./FetchList"
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { 
     faSignOutAlt, 
@@ -32,8 +32,7 @@ function TabContainer({
   useEffect( () => fetchAllInfo(), [])
 
   const fetchAllInfo = () => {
-    fetch('http://localhost:7000/hunt-items')
-      .then(response => response.json())
+    getFetch( "hunt-items" )
       .then(results => setHuntListItems([...results]))
   }
 
@@ -113,10 +112,9 @@ function TabContainer({
             }}
             listeners= { () => ({
               focus: () => {
-                console.log(isUserId)
-                fetch(`http://localhost:7000/user/${isUserId}`)
-                .then(response => response.json())
-                .then(user => setUser(user))
+                let url = "user/" + isUserId
+                getFetch( url )
+                  .then(user => setUser(user))
               }
             })}
         />
@@ -128,7 +126,7 @@ function TabContainer({
               <FontAwesomeIcon 
                 icon={ faSignOutAlt } 
                 color= { !focused ? "rgba(255,120,63, 1)" : 'blue' }
-                />
+              />
             )
           }}
           listeners={ () => ({
@@ -174,12 +172,3 @@ function mapDispatchToProps(dispatch) {
 
 export default connect(mapStateToProps, mapDispatchToProps)(TabContainer);
   
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    
-  },
-});
