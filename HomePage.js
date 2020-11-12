@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   textDescription: {
-    color: "rgba( 61, 95, 35, 1)",
+    color: "rgba( 61, 95, 35, .7)",
     fontSize: 20,
     padding: 2
   },
