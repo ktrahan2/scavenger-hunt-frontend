@@ -31,7 +31,7 @@ function CreateList({
   }
     
   const shuffleArray = (array) => {
-      var currentIndex = array.length, temporaryValue, randomIndex
+      let currentIndex = array.length, temporaryValue, randomIndex
 
       while ( 0 !== currentIndex) {
 

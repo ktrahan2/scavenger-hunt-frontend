@@ -85,12 +85,12 @@ const styles = StyleSheet.create({
     padding: 20,
     fontSize: 28,
     color: "rgba( 61, 85, 35, 1)",
-    alignItems: "center"
+    alignItems: "center",
   },
   textDescription: {
     color: "rgba( 61, 95, 35, .7)",
     fontSize: 20,
-    padding: 2
+    padding: 2,
   },
   borderLine: {
     width: "100%", 

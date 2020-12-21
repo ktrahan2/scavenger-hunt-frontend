@@ -1,7 +1,6 @@
 import React from 'react'
 import { TouchableOpacity, StyleSheet, Text } from 'react-native';
 
-
 export default function myTouchableOpacity({
     buttonText,
     handlePress
