@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, ImageBackground, ScrollView } from 'react-nativ
 import RenderList from './Components/CreateList/RenderList'
 import MyTouchableOpacity from './Components/MyTouchableOpacity'
 import { postFetch } from "./FetchList"
+import blueSky from './assets/blue-sky.jpg'
 
 function CreatedHunt({
     isThemeArray,
@@ -54,7 +55,7 @@ function CreatedHunt({
     return (
         <ImageBackground
             style={styles.image}
-            source={require("./blue-sky.jpg")}
+            source={blueSky}
         >
             <View style={styles.screenContainer}>
                 <ScrollView 

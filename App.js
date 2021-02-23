@@ -12,6 +12,7 @@ import CreateList from "./CreateListOptions"
 import UserHunt from "./UserHunt"
 import SplashScreen from "./SplashScreen"
 import Reducer from "./Reducer"
+import logo from './assets/logo.png'
 
 const Stack = createStackNavigator()
 export const store = createStore(Reducer())
@@ -32,7 +33,7 @@ export default class App extends Component {
                 headerTitle: <Text>On The Hunt</Text>,
                 headerLeft: () => <Image 
                   style={{ width: 100, height: 90 }}
-                  source = { require('./logo.png') }
+                  source = { logo }
                 />
               }}
             />
@@ -45,7 +46,7 @@ export default class App extends Component {
                 headerTitle: <Text>On The Hunt</Text>,
                 headerLeft: () => <Image 
                   style={{ width: 100, height: 90 }}
-                  source = { require('./logo.png') }
+                  source = { logo }
                 />
               }}
             />
@@ -58,7 +59,7 @@ export default class App extends Component {
                 headerTitle: <Text>On The Hunt</Text>,
                 headerLeft: () => <Image 
                   style={{ width: 100, height: 90 }}
-                  source = { require('./logo.png') }
+                  source = { logo }
                 />
               }}
             />
@@ -71,7 +72,7 @@ export default class App extends Component {
                 headerTitle: <Text>On The Hunt</Text>,
                 headerLeft: () => <Image 
                   style={{ width: 100, height: 90 }}
-                  source = { require('./logo.png') }
+                  source = { logo }
                 />
               }}
             />
@@ -84,7 +85,7 @@ export default class App extends Component {
                 headerTitle: <Text>On The Hunt</Text>,
                 headerLeft: () => <Image 
                   style={{ width: 100, height: 90 }}
-                  source = { require('./logo.png') }
+                  source = { logo }
                 />
               }}
             />

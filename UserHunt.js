@@ -4,6 +4,7 @@ import { Alert, StyleSheet, Text, View, ImageBackground, ScrollView } from 'reac
 import RenderList from './Components/CreateList/RenderList'
 import MyTouchableOpacity from './Components/MyTouchableOpacity'
 import { putFetch, deleteFetch } from "./FetchList"
+import blueSky from './assets/blue-sky.jpg'
 
 function UserHunt({
         navigation,
@@ -58,7 +59,7 @@ function UserHunt({
     return (
         <ImageBackground
             style={styles.image}
-            source={require("./blue-sky.jpg")}
+            source={blueSky}
         >
             <View style={styles.screenContainer}>
                 <ScrollView 

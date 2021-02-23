@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import MyTouchableOpacity from './Components/MyTouchableOpacity'
 import { postFetch } from "./FetchList"
+import blueSky from './assets/blue-sky.jpg'
 
 function GenerateHunt({ 
     setHuntTitle,
@@ -43,7 +44,7 @@ function GenerateHunt({
     return (
       <ImageBackground
       style={styles.image}
-      source={require("./blue-sky.jpg")}
+      source={blueSky}
       >
         <View style={styles.screenContainer}>
             <View style={styles.form}>

@@ -14,7 +14,8 @@ function MyForm({
         navigation,
         setLoadingImage,
         inputsArray,
-        formButton 
+        formButton,
+        url 
     }) {
 
     const createTextInputs = ( array, handleChange, values ) => {
@@ -38,7 +39,7 @@ function MyForm({
                 username: values.username,
                 password: values.password
             }
-            postFetch( "login", body )
+            postFetch( url, body )
                 .then(data => {
                 if (data === "Unathorized User Information") {
                     window.alert('Unathorized User Information. Please try again.')

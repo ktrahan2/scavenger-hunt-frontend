@@ -4,6 +4,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { connect } from 'react-redux'
 import MyTouchableOpacity from './Components/MyTouchableOpacity'
 import { getFetch } from "./FetchList"
+import blueSky from './assets/blue-sky.jpg'
 
 function MyHunts({
         setHuntListId,
@@ -50,7 +51,7 @@ function MyHunts({
     return (
         <ImageBackground
             style={styles.image}
-            source={require("./blue-sky.jpg")}
+            source={blueSky}
         >
             <View style={styles.screenContainer}>
                 <ScrollView 

@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import { connect } from 'react-redux'
 import RenderList from './Components/CreateList/RenderList'
+import blueSky from './assets/blue-sky.jpg'
 
 function HomePage({ 
     allHuntItems
@@ -19,7 +20,7 @@ function HomePage({
   return (
     <ImageBackground
       style={styles.image}
-      source={require("./blue-sky.jpg")}
+      source={blueSky}
     >
       <View style={styles.container}>
         <View style={styles.description}>

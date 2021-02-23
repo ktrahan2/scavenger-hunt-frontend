@@ -1,7 +1,9 @@
 import React from 'react'
 import { Image, ImageBackground, StyleSheet } from 'react-native';
 import { connect } from 'react-redux'
-
+import blueSky from './assets/blue-sky.jpg'
+import bear from './assets/bear.png'
+import enjoyBear from './assets/enjoybear.png'
 function SplashScreen({
     isNavigationLocation,
     isNavigationTimer,
@@ -25,15 +27,15 @@ function SplashScreen({
     return (
             <ImageBackground
                 style={styles.backgroundImage}
-                source={require("./blue-sky.jpg")}
+                source={blueSky}
             >
                 <Image
                     style={styles.image}
                     source={
                         isLoadingImage == "Welcome Bear" ?
-                        require("./bear.png")
+                        bear
                     : 
-                        require("./enjoybear.png")
+                        enjoyBear
                     }
                 >
                 </Image>

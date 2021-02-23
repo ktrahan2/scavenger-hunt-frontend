@@ -3,6 +3,7 @@ import DropDownPicker from 'react-native-dropdown-picker'
 import { connect } from 'react-redux'
 import { StyleSheet, View, ImageBackground, Text } from 'react-native';
 import MyTouchableOpacity from './Components/MyTouchableOpacity'
+import blueSky from './assets/blue-sky.jpg'
 
 function CreateList({
     setThemeSelected, 
@@ -32,7 +33,7 @@ function CreateList({
     
   const shuffleArray = (array) => {
       let currentIndex = array.length, temporaryValue, randomIndex
-
+    
       while ( 0 !== currentIndex) {
 
           randomIndex = Math.floor(Math.random() * currentIndex)
@@ -49,7 +50,7 @@ function CreateList({
   return (
     <ImageBackground
       style={styles.image}
-      source={require("./blue-sky.jpg")}
+      source={blueSky}
     >
       <View style={styles.screenContainer}>
         <View style={styles.form}>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ImageBackground, StyleSheet, View } from 'react-native';
 import MyForm from './Components/CreateForm/Form'
+import blueSky from './assets/blue-sky.jpg'
 
 export default function Signup({ navigation }) {
 
@@ -10,10 +11,11 @@ export default function Signup({ navigation }) {
   return (
     <ImageBackground
       style={styles.image}
-      source={require("./blue-sky.jpg")}
+      source={blueSky}
     >
       <View style={styles.container}>
         <MyForm 
+          url="create-user"
           navigation={navigation}
           inputsArray={inputsArray}
           formButton={formButton}
