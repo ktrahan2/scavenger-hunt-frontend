@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Alert, StyleSheet, Text, View, ImageBackground, ScrollView } from 'react-native';
 import RenderList from './Components/CreateList/RenderList'
 import MyTouchableOpacity from './Components/MyTouchableOpacity'
-import { putFetch, deleteFetch } from "./FetchList"
+import { putFetch, deleteFetch } from "./utility/FetchList"
 import blueSky from './assets/blue-sky.jpg'
 
 function UserHunt({

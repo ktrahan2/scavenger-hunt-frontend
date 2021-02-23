@@ -2,9 +2,9 @@ import React, {useEffect} from 'react'
 import { StyleSheet, View, ImageBackground, TextInput, Text } from 'react-native';
 import { connect } from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import MyTouchableOpacity from './Components/MyTouchableOpacity'
-import { postFetch } from "./FetchList"
-import blueSky from './assets/blue-sky.jpg'
+import MyTouchableOpacity from '../MyTouchableOpacity'
+import { postFetch } from '../../utility/FetchList'
+import blueSky from '../../assets/blue-sky.jpg'
 
 function GenerateHunt({ 
     setHuntTitle,

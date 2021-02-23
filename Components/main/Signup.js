@@ -1,7 +1,7 @@
 import React from 'react';
 import { ImageBackground, StyleSheet, View } from 'react-native';
-import MyForm from './Components/CreateForm/Form'
-import blueSky from './assets/blue-sky.jpg'
+import MyForm from '../CreateForm/Form'
+import blueSky from '../../assets/blue-sky.jpg'
 
 export default function Signup({ navigation }) {
 

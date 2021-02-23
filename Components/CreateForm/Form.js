@@ -2,7 +2,7 @@ import React from 'react'
 import { Formik } from 'formik'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import MyTouchableOpacity from '../MyTouchableOpacity'
-import { postFetch } from "../../FetchList"
+import { postFetch } from '../../utility/FetchList'
 import { connect } from 'react-redux'
 import { StyleSheet, View } from "react-native"
 import MyTextInput from "./TextInput"

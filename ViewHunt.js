@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { StyleSheet, Text, View, ImageBackground, ScrollView } from 'react-native';
 import RenderList from './Components/CreateList/RenderList'
 import MyTouchableOpacity from './Components/MyTouchableOpacity'
-import { postFetch } from "./FetchList"
+import { postFetch } from "./utility/FetchList"
 import blueSky from './assets/blue-sky.jpg'
 
 function CreatedHunt({

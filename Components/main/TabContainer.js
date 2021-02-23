@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { connect } from 'react-redux'
-import Login from "./Login"
+import Login from './Login'
 import Signup from "./Signup"
 import HomePage from "./HomePage"
 import Logout from "./Logout"
 import MyHunts from "./MyHunts"
-import GenerateHunt from "./GenerateList"
-import { getFetch } from "./FetchList"
+import GenerateHunt from "./GenerateHunt"
+import { getFetch } from "../../utility/FetchList"
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { 
     faSignOutAlt, 

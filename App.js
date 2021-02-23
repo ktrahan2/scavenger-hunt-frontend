@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import { LogBox } from 'react-native'
-import TabContainer from "./TabContainer"
+import TabContainer from "./Components/main/TabContainer"
 import ViewHunt from "./ViewHunt"
 import CreateList from "./CreateListOptions"
 import UserHunt from "./UserHunt"

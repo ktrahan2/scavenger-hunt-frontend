@@ -2,9 +2,9 @@ import React from 'react'
 import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { connect } from 'react-redux'
-import MyTouchableOpacity from './Components/MyTouchableOpacity'
-import { getFetch } from "./FetchList"
-import blueSky from './assets/blue-sky.jpg'
+import MyTouchableOpacity from '../MyTouchableOpacity'
+import { getFetch } from "../../utility/FetchList"
+import blueSky from '../../assets/blue-sky.jpg'
 
 function MyHunts({
         setHuntListId,
